@@ -55,6 +55,7 @@
       padding: 0 20px;
     }
 
+
     /* Navigation */
     nav {
       position: fixed;
@@ -100,17 +101,56 @@
       color: var(--text-color);
       cursor: pointer;
     }
-    #theme-toggle {
-      background: none;
-      border: none;
-      font-size: 20px;
-      color: var(--text-color);
-      cursor: pointer;
-       transition: color 0.3s;
-    }
+    /* Settings Group */
+    /* Settings Group */
+      .settings-group {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      /* Theme Toggle (unchanged) */
+      #theme-toggle {
+        background: none;
+        border: none;
+        font-size: 22px; /* Keep original size */
+        color: var(--text-color);
+        cursor: pointer;
+        transition: color 0.3s;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+      }
+
+      /* Reduce Motion Button (increased size) */
+      #toggle-particles {
+        background: none;
+        border: none;
+        font-size: 22px; /* Increase font size to make the icon larger */
+        color: var(--text-color);
+        cursor: pointer;
+        transition: color 0.3s;
+        width: 30px; /* Increase width to accommodate larger icon */
+        height: 30px; /* Increase height to match width */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+      }
+
+      /* Hover effect for both */
+      #theme-toggle:hover, #toggle-particles:hover {
+        color: var(--accent-color);
+      }
 
 
     /* Hero Section */
+
+
+
     #hero {
       height: 100vh;
       display: flex;
@@ -161,22 +201,37 @@
       max-width: 600px;
       margin: 0 auto 20px;
     }
-    #hero .btn {
-        background: var(--accent-color);
-        color: var(--card-bg);
-        padding: 12px 24px;
-        border-radius: 8px;
-        font-weight: 700;
-        transition: background 0.3s, box-shadow 0.3s; /* Added box-shadow transition */
-        display: inline-block; /* Allows for margin/padding */
-        margin-top: 1rem;
-        box-shadow: 0 4px 8px rgba(14, 165, 233, 0.3);
-    }
-
-    #hero .btn:hover {
+    @keyframes fadeUp {
+      0% {
+          opacity: 0;
+          transform: translateY(200px);
+      }
+      100% {
+          opacity: 1;
+          transform: translateY(0);
+      }
+  }
+  
+  #hero .btn {
+      background: var(--accent-color);
+      color: var(--card-bg);
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+      display: inline-block;
+      margin-top: 1rem;
+      box-shadow: 0 4px 8px rgba(14, 165, 233, 0.3);
+      animation: fadeUp 1.5s ease forwards;
+      
+      opacity: 0;
+  }
+  
+  #hero .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(14, 165, 233, 0.5);
       background: #0C85C5;
-       box-shadow: 0 6px 12px rgba(14, 165, 233, 0.5);
-    }
+  }
     .social-links {
       margin-top: 20px;
     }
@@ -191,21 +246,7 @@
       transform: scale(1.2);
       color: var(--accent-color);
     }
-    #toggle-particles {
-      background: none;
-      border: none;
-      color: var(--accent-color);
-      cursor: pointer;
-      font-size: 14px;
-      margin-top: 10px;
-      transition: color 0.3s;
-    }
-    #toggle-particles:hover {
-      color: #6D28D9;
-    }
-    body.reduce-motion #particles-js {
-      display: none;
-    }
+
 
     /* Section Styles */
     section {
@@ -560,39 +601,40 @@
   <!-- Navigation -->
   <nav>
     <div class="container">
-      <h1>Ayaan Minhas</h1>
-      <button class="hamburger"><i class="fas fa-bars"></i></button>
-      <ul>
-        <li><a href="#hero">Home</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#education">Education</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#interests">Interests</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        <h1>Ayaan Minhas</h1>
+        <button class="hamburger"><i class="fas fa-bars"></i></button>
+        <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#interests">Interests</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="settings-group">
+            <button id="theme-toggle"><i class="fas fa-fw fa-moon"></i></button>
+            <button id="toggle-particles"><i class="fas fa-fw fa-universal-access"></i></button>
+        </div>
     </div>
-  </nav>
+</nav>
 
   <!-- Hero Section -->
   <section id="hero">
     <div id="particles-js"></div>
     <div class="container">
-      <img src="Me.png" alt="Ayaan Minhas Profile Picture" class="profile-img" data-aos="zoom-in" />
-      <h1 data-aos="fade-up">Ayaan Minhas</h1>
-      <p id="typewriter" data-aos="fade-up" data-aos-delay="100"></p>
-      <p data-aos="fade-up" data-aos-delay="200">A Computer Science student at APU specializing in AI, driven by a passion for innovative solutions.</p>
-      <!-- Corrected Download Link -->
-      <a href="Ayaan Minhas - Resume.pdf" class="btn" data-aos="fade-up" data-aos-delay="300" download="Ayaan-Minhas-Resume.pdf">Download Resume</a>
-      <div class="social-links" data-aos="fade-up" data-aos-delay="400">
-        <a href="https://linkedin.com/in/ayaan-minhas" target="_blank"><i class="fab fa-linkedin"></i></a>
-        <a href="https://github.com/mrmystery8" target="_blank"><i class="fab fa-github"></i></a>
-        <a href="mailto:ayaanminhas1@gmail.com"><i class="fas fa-envelope"></i></a>
-      </div>
-      <button id="toggle-particles">Reduce Motion</button>
+        <img src="Me.png" alt="Ayaan Minhas Profile Picture" class="profile-img" data-aos="zoom-in" />
+        <h1 data-aos="fade-up">Ayaan Minhas</h1>
+        <p id="typewriter" data-aos="fade-up" data-aos-delay="100"></p>
+        <p data-aos="fade-up" data-aos-delay="200">A Computer Science student at APU specializing in AI, driven by a passion for innovative solutions.</p>
+        <a href="Ayaan Minhas - Resume.pdf" class="btn" download="Ayaan-Minhas-Resume.pdf">Download Resume</a>
+        <div class="social-links" data-aos="fade-up" data-aos-delay="400">
+            <a href="https://linkedin.com/in/ayaan-minhas" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/mrmystery8" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="mailto:ayaanminhas1@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
     </div>
-  </section>
+</section>
 
   <!-- Experience Section -->
   <section id="experience">
@@ -925,15 +967,18 @@
       }
       // Particles Toggle for Accessibility
       const toggleParticles = document.getElementById('toggle-particles');
+      const toggleParticlesIcon = toggleParticles.querySelector('i');
       toggleParticles.addEventListener('click', () => {
-        document.body.classList.toggle('reduce-motion');
-        toggleParticles.textContent = document.body.classList.contains('reduce-motion') ? 'Enable Particles' : 'Reduce Motion';
+          document.body.classList.toggle('reduce-motion');
+          toggleParticlesIcon.classList.toggle('fa-universal-access');
+          toggleParticlesIcon.classList.toggle('fa-spinner');
       });
-  
+
       // Respect User's Reduced Motion Preference
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        document.body.classList.add('reduce-motion');
-        toggleParticles.textContent = 'Enable Particles';
+          document.body.classList.add('reduce-motion');
+          toggleParticlesIcon.classList.remove('fa-universal-access');
+          toggleParticlesIcon.classList.add('fa-spinner');
       }
   
       // Navigation Active State
@@ -963,24 +1008,16 @@
   
   
       // Smooth Scrolling
-      document.querySelectorAll('nav a, #hero .btn').forEach(anchor => { //Added smooth scrolling to resume button as well.
+      document.querySelectorAll('nav a, #hero .btn').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
-          e.preventDefault();
-          const targetId = this.getAttribute('href');
-  
-          // Check if the target is the resume button (using a dummy '#' href)
-          if (targetId === '#') {
-            // Handle the resume download. Replace with your actual download logic.
-            alert('Downloading resume...'); // Placeholder action
-            window.location.href = 'Ayaan Minhas - Resume.pdf';  // Uncomment and replace with actual path
-            return; // Exit the function after handling the download
+          if (!this.hasAttribute('download')) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+            if (navUl.classList.contains('show')) {
+              navUl.classList.remove('show');
+            }
           }
-  
-  
-          document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-           if (navUl.classList.contains('show')) {  //Closes menu after clicking.
-                  navUl.classList.remove('show');
-              }
         });
       });
   
