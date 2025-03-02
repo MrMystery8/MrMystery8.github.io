@@ -6,10 +6,13 @@
   <meta name="description" content="Ayaan Minhas - Aspiring AI Innovator. Computer Science student specializing in AI." />
   <title>Ayaan Minhas - AI Innovator Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet" />
+  <!-- Include jQuery *before* your custom script -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <style>
+  /* ... (Your existing CSS, NO CHANGES NEEDED HERE) ... */
     :root {
         /* Default Dark Mode */
       --primary-bg: #1a1a1a;
@@ -102,49 +105,32 @@
       cursor: pointer;
     }
     /* Settings Group */
-    /* Settings Group */
-      .settings-group {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-      }
+    .settings-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
 
-      /* Theme Toggle (unchanged) */
-      #theme-toggle {
-        background: none;
-        border: none;
-        font-size: 22px; /* Keep original size */
-        color: var(--text-color);
-        cursor: pointer;
-        transition: color 0.3s;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-      }
+    /* Common styles for both buttons */
+    #theme-toggle, #toggle-particles {
+      background: none;
+      border: none;
+      font-size: 22px; /* Increased from 20px to make icons larger and fill the button */
+      color: var(--text-color);
+      cursor: pointer;
+      transition: color 0.3s;
+      width: 30px; /* Keep fixed width */
+      height: 30px; /* Keep fixed height */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
 
-      /* Reduce Motion Button (increased size) */
-      #toggle-particles {
-        background: none;
-        border: none;
-        font-size: 22px; /* Increase font size to make the icon larger */
-        color: var(--text-color);
-        cursor: pointer;
-        transition: color 0.3s;
-        width: 30px; /* Increase width to accommodate larger icon */
-        height: 30px; /* Increase height to match width */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-      }
-
-      /* Hover effect for both */
-      #theme-toggle:hover, #toggle-particles:hover {
-        color: var(--accent-color);
-      }
+    /* Hover effect for both */
+    #theme-toggle:hover, #toggle-particles:hover {
+      color: var(--accent-color);
+    }
 
 
     /* Hero Section */
@@ -211,7 +197,7 @@
           transform: translateY(0);
       }
   }
-  
+
   #hero .btn {
       background: var(--accent-color);
       color: var(--card-bg);
@@ -223,10 +209,10 @@
       margin-top: 1rem;
       box-shadow: 0 4px 8px rgba(14, 165, 233, 0.3);
       animation: fadeUp 1.5s ease forwards;
-      
+
       opacity: 0;
   }
-  
+
   #hero .btn:hover {
       transform: scale(1.05);
       box-shadow: 0 6px 12px rgba(14, 165, 233, 0.5);
@@ -247,6 +233,9 @@
       color: var(--accent-color);
     }
 
+    body.reduce-motion #particles-js {
+      display: none;
+    }
 
     /* Section Styles */
     section {
@@ -259,6 +248,95 @@
       text-align: center;
       color: var(--accent-color);
     }
+
+     /* Accordion Styles */
+    .accordion {
+      margin-bottom: 20px;
+  }
+
+  .accordion-header {
+      background-color: var(--card-bg);
+      color: var(--text-color);
+      padding: 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid var(--border-color);
+      transition: background-color 0.3s ease;
+  }
+
+  .accordion-header:hover {
+      background-color: rgba(255,255,255, 0.1); /* Slight highlight */
+  }
+
+  .accordion-header h3 {
+      font-size: 20px;
+      margin: 0;
+      flex-grow: 1; /* Allow heading to take up available space */
+      margin-left: 20px; /* ADDED gap between job title and icon */
+  }
+
+  .accordion-header .company{
+      font-size: 16px;
+      color: var(--gray-text);
+      margin-right: auto; /* Push company name to the left, before the icon */
+      padding-right: 15px; /* Add padding */
+  }
+
+  .accordion-header i {
+      font-size: 20px;
+      color: var(--accent-color);
+        /* margin-right: 15px;  Removed margin-right from here */
+        transition: transform 0.3s ease; /* Smooth transition for the icon */
+
+  }
+    .accordion-header .icon-wrapper {
+      display: flex; /* Use flexbox for icon alignment */
+      align-items: center; /* Vertically center the icon */
+      min-width: 40px; /* Reserve space, adjust as needed */
+      justify-content: center;
+  }
+
+  .accordion-content {
+    padding: 15px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    border-top: none;
+    margin-top: -1px;
+    overflow: hidden; /* Important for slideToggle */
+    display: none; /* Initially hidden */
+}
+  .accordion-content ul {
+      list-style: disc;
+      margin-left: 20px;
+      color: var(--gray-text);
+  }
+    .accordion-content p{
+      color: var(--gray-text);
+      margin-bottom: 0.5rem;
+  }
+  /* Open state styles */
+  /* REMOVE THIS, slideToggle handles it: .accordion-item.open .accordion-content {
+    max-height: 1000px;
+    opacity: 1;
+}*/
+
+    .accordion-item.open .accordion-header {
+        border-bottom-left-radius: 0;  /* Remove corner radius */
+        border-bottom-right-radius: 0;
+  }
+
+  .accordion-item.open .accordion-content{
+      border-top-left-radius: 0; /* Remove corner radius */
+      border-top-right-radius: 0;
+  }
+  .accordion-item.open i.fa-chevron-down{
+      transform: rotate(180deg);
+  }
+
 
     /* Timeline for Experience & Education */
    .timeline {
@@ -283,9 +361,9 @@
         transition: transform 0.3s ease; /* Added transition */
 
     }
-    .timeline-item:hover{
+   /*  .timeline-item:hover{
         transform: translateX(5px);
-    }
+        } */ /* Removed the hover effect*/
 
     .timeline-item:before {
         content: '';
@@ -300,42 +378,6 @@
     }
     .timeline-item:nth-child(even):before { /* Different color for even items */
         background: #6D28D9;
-    }
-
-    .timeline-content {
-        margin-left: 40px;
-        padding: 20px;
-        background: var(--card-bg);
-        border-radius: 10px;
-        box-shadow: var(--shadow);
-        border: 1px solid var(--border-color);
-    }
-    .timeline-content i {
-      font-size: 24px;
-      color: var(--accent-color);
-      margin-right: 15px;
-      float: left;
-    }
-    .timeline-content h3 {
-      font-size: 20px;
-      margin-bottom: 5px;
-    }
-     .timeline-content h3::after { /* Add a subtle line after the heading */
-        content: '';
-        display: block;
-        width: 50px;
-        height: 2px;
-        background-color: var(--accent-color);
-        margin-top: 5px;
-    }
-    .timeline-content p {
-      color: var(--gray-text);
-    }
-    .timeline-content ul {
-        list-style: disc;
-        margin-left: 20px;
-        margin-top: 10px;
-        color: var(--gray-text);
     }
 
     /* Skills */
@@ -641,59 +683,94 @@
     <div class="container">
       <h2>Experience</h2>
       <div class="timeline">
+        <!-- Accordion Item 1 -->
         <div class="timeline-item" data-aos="fade-right">
-          <div class="timeline-content">
-            <i class="fas fa-briefcase"></i>
-            <h3>Research And Development Assistant</h3>
-            <p>Asia Pacific University (APU / APIIT)</p>
-            <p>November 2024 - Present (5 months)</p>
-             <p>Federal Territory of Kuala Lumpur, Malaysia</p>
-            <ul>
-              <li>Building and maintaining internal web applications using HTML, CSS, and JavaScript integrated with the Joget.</li>
-              <li>Focused on creating user-friendly and efficient solutions.</li>
-            </ul>
-          </div>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                     <i class="fas fa-briefcase"></i>
+                    <h3>Research And Development Assistant</h3>
+                    <span class="company">Asia Pacific University (APU / APIIT)</span>
+                    <div class="icon-wrapper">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="accordion-content">
+                    <p>November 2024 - Present (5 months)</p>
+                    <p>Federal Territory of Kuala Lumpur, Malaysia</p>
+                    <ul>
+                        <li>Building and maintaining internal web applications using HTML, CSS, and JavaScript integrated with the Joget.</li>
+                        <li>Focused on creating user-friendly and efficient solutions.</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="timeline-item" data-aos="fade-right" >
-          <div class="timeline-content">
-            <i class="fas fa-briefcase"></i>
-            <h3>Senior Teacher's Assistant - Physics</h3>
-            <p>Nixor College</p>
-            <p>September 2022 - March 2023 (7 months)</p>
-            <p>Karachi, Sindh, Pakistan</p>
-            <ul>
-              <li>Assisting students with quering and questions related to various subjects.</li>
-              <li>Managing the Physics TA department and Junior TAs.</li>
-            </ul>
-          </div>
-        </div>
+
+        <!-- Accordion Item 2 -->
         <div class="timeline-item" data-aos="fade-right">
-          <div class="timeline-content">
-            <i class="fas fa-briefcase"></i>
-            <h3>Teacher's Assistant - Physics</h3>
-            <p>Nixor College</p>
-            <p>October 2021 - September 2022 (1 year)</p>
-            <p>Karachi, Sindh, Pakistan</p>
-            <ul>
-              <li>Tecahing students regarding the subject during TA hours.</li>
-              <li>Assisting students by answering their queries.</li>
-            </ul>
-          </div>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                     <i class="fas fa-briefcase"></i>
+                    <h3>Senior Teacher's Assistant - Physics</h3>
+                    <span class="company">Nixor College</span>
+                    <div class="icon-wrapper">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="accordion-content">
+                    <p>September 2022 - March 2023 (7 months)</p>
+                    <p>Karachi, Sindh, Pakistan</p>
+                    <ul>
+                        <li>Assisting students with quering and questions related to various subjects.</li>
+                        <li>Managing the Physics TA department and Junior TAs.</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-         <div class="timeline-item" data-aos="fade-right" >
-          <div class="timeline-content">
-            <i class="fas fa-briefcase"></i>
-            <h3>Chief Information Officer</h3>
-            <p>Nixor Creative Studios</p>
-            <p>February 2022 - February 2023 (1 year 1 month)</p>
-            <p>Karachi, Sindh, Pakistan</p>
-            <ul>
-              <li>Managing the IT department.</li>
-              <li>Maintenance of the NCS website.</li>
-               <li>Managing and training 50+ volunteers.</li>
-                <li>Project head of major projects like Sharkpress, an online journalism website.</li>
-            </ul>
-          </div>
+
+        <!-- Accordion Item 3 -->
+          <div class="timeline-item" data-aos="fade-right">
+            <div class="accordion-item">
+                <div class="accordion-header">
+                     <i class="fas fa-briefcase"></i>
+                    <h3>Teacher's Assistant - Physics</h3>
+                    <span class="company">Nixor College</span>
+                    <div class="icon-wrapper">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="accordion-content">
+                        <p>October 2021 - September 2022 (1 year)</p>
+                        <p>Karachi, Sindh, Pakistan</p>
+                        <ul>
+                        <li>Tecahing students regarding the subject during TA hours.</li>
+                        <li>Assisting students by answering their queries.</li>
+                        </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accordion Item 4 -->
+         <div class="timeline-item" data-aos="fade-right">
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <i class="fas fa-briefcase"></i>
+                    <h3>Chief Information Officer</h3>
+                    <span class="company">Nixor Creative Studios</span>
+                    <div class="icon-wrapper">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="accordion-content">
+                    <p>February 2022 - February 2023 (1 year 1 month)</p>
+                    <p>Karachi, Sindh, Pakistan</p>
+                    <ul>
+                        <li>Managing the IT department.</li>
+                        <li>Maintenance of the NCS website.</li>
+                        <li>Managing and training 50+ volunteers.</li>
+                        <li>Project head of major projects like Sharkpress, an online journalism website.</li>
+                    </ul>
+                </div>
+            </div>
         </div>
       </div>
     </div>
@@ -757,7 +834,7 @@
           <h3><i class="fas fa-tools"></i> Certifications</h3>
           <div class="skill">
             <svg class="circle-chart" viewBox="0 0 33.83 33.83" width="80" height="80">
-              <circle class="circle-chart-background" stroke="#E5E7EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" />
+              <circle class="circle-chart-background" stroke="#E57EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" />
               <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="85,100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" />
             </svg>
             <p>AI Agents Fundamentals</p>
@@ -856,7 +933,7 @@
     <p>© 2024 Ayaan Minhas. All rights reserved.</p>
   </footer>
 
-  <!-- Scripts -->
+     <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -871,158 +948,173 @@
           value: ["#0EA5E9", "#1D4ED8", "#6D28D9"] // Gradient colors
         },
         shape: {
-          type: ["circle", "triangle"] // Mix of shapes        
-          },
-          opacity: {
-            value: 0.5,
-            anim: {
-              enable: true,
-              speed: 1,
-              opacity_min: 0.1,
-              sync: false // Subtle pulsing effect
-            }
-          },
-          size: {
-            value: 3
-          },
-          line_linked: {
+          type: ["circle", "triangle"] // Mix of shapes
+        },
+        opacity: {
+          value: 0.5,
+          anim: {
             enable: true,
-            distance: 150,
-            color: "#0EA5E9",
-            opacity: 0.4,
-            width: 1 // Thin, web-like lines
-          },
-          move: {
-            enable: true,
-            speed: 2
+            speed: 1,
+            opacity_min: 0.1,
+            sync: false // Subtle pulsing effect
           }
         },
-        interactivity: {
-          events: {
-            onhover: {
-              enable: true,
-              mode: "grab" // Connects particles on hover
-            },
-            onclick: {
-              enable: true,
-              mode: "push" // Adds particles on click
-            }
-          },
-          modes: {
-            grab: {
-              distance: 200,
-              line_linked: {
-                opacity: 0.5
-              }
-            }
-          }
+        size: {
+          value: 3
         },
-        retina_detect: true // Optimizes for high-DPI screens
-      };
-      particlesJS('particles-js', particleConfig);
-  
-      // Typewriter Effect
-      const typewriter = document.getElementById('typewriter');
-      const text = 'Aspiring AI Innovator';
-      let i = 0;
-      function type() {
-        if (i < text.length) {
-          typewriter.textContent += text.charAt(i);
-          i++;
-          setTimeout(type, 100);
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#0EA5E9",
+          opacity: 0.4,
+          width: 1 // Thin, web-like lines
+        },
+        move: {
+          enable: true,
+          speed: 2
         }
-      }
-      type();
-  
-      // Light/Dark Mode Toggle
-      const themeToggle = document.getElementById('theme-toggle');
-      const themeIcon = themeToggle.querySelector('i');
-  
-       // Function to set the theme
-      function setTheme(isDarkMode) {
-          if (isDarkMode) {
-              document.body.classList.remove('light-mode'); // Remove light mode
-              themeIcon.classList.remove('fa-sun');
-              themeIcon.classList.add('fa-moon');
-               localStorage.setItem('theme', 'dark');
-          } else {
-              document.body.classList.add('light-mode'); // Add light mode
-              themeIcon.classList.remove('fa-moon');
-              themeIcon.classList.add('fa-sun');
-              localStorage.setItem('theme', 'light');
+      },
+      interactivity: {
+        events: {
+          onhover: {
+            enable: true,
+            mode: "grab" // Connects particles on hover
+          },
+          onclick: {
+            enable: true,
+            mode: "push" // Adds particles on click
           }
-      }
-      themeToggle.addEventListener('click', () => {
-        const isDarkMode = !document.body.classList.contains('light-mode'); //Correct way to check
-        setTheme(!isDarkMode);
-  
-      });
-  
-       //Check for saved theme and set Dark Mode as default
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'light') {
-          setTheme(false); // Apply light mode
-      } else {
-          setTheme(true); // Defaults to Dark Mode if no saved theme, or if saved theme is 'dark'
-      }
-      // Particles Toggle for Accessibility
-      const toggleParticles = document.getElementById('toggle-particles');
-      const toggleParticlesIcon = toggleParticles.querySelector('i');
-      toggleParticles.addEventListener('click', () => {
-          document.body.classList.toggle('reduce-motion');
-          toggleParticlesIcon.classList.toggle('fa-universal-access');
-          toggleParticlesIcon.classList.toggle('fa-spinner');
-      });
+        },
+        modes: {
+          grab: {
+            distance: 200,
+            line_linked: {
+              opacity: 0.5
+            }
+          }
+        }
+      },
+      retina_detect: true // Optimizes for high-DPI screens
+    };
+    particlesJS('particles-js', particleConfig);
 
-      // Respect User's Reduced Motion Preference
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          document.body.classList.add('reduce-motion');
-          toggleParticlesIcon.classList.remove('fa-universal-access');
-          toggleParticlesIcon.classList.add('fa-spinner');
+    // Typewriter Effect
+    const typewriter = document.getElementById('typewriter');
+    const text = 'Aspiring AI Innovator';
+    let i = 0;
+    function type() {
+      if (i < text.length) {
+        typewriter.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, 100);
       }
-  
+    }
+    type();
+
+    // Light/Dark Mode Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = themeToggle.querySelector('i');
+
+    // Function to set the theme
+    function setTheme(isDarkMode) {
+        if (isDarkMode) {
+            document.body.classList.remove('light-mode'); // Remove light mode
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+             localStorage.setItem('theme', 'dark');
+        } else {
+            document.body.classList.add('light-mode'); // Add light mode
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+            localStorage.setItem('theme', 'light');
+        }
+    }
+    themeToggle.addEventListener('click', () => {
+      const isDarkMode = !document.body.classList.contains('light-mode'); //Correct way to check
+      setTheme(!isDarkMode);
+
+    });
+
+     //Check for saved theme and set Dark Mode as default
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        setTheme(false); // Apply light mode
+    } else {
+        setTheme(true); // Defaults to Dark Mode if no saved theme, or if saved theme is 'dark'
+    }
+    // Particles Toggle for Accessibility
+    const toggleParticles = document.getElementById('toggle-particles');
+    const toggleParticlesIcon = toggleParticles.querySelector('i');
+    toggleParticles.addEventListener('click', () => {
+        document.body.classList.toggle('reduce-motion');
+        toggleParticlesIcon.classList.toggle('fa-universal-access');
+        toggleParticlesIcon.classList.toggle('fa-spinner');
+    });
+
+    // Respect User's Reduced Motion Preference
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.body.classList.add('reduce-motion');
+        toggleParticlesIcon.classList.remove('fa-universal-access');
+        toggleParticlesIcon.classList.add('fa-spinner');
+    }
+
       // Navigation Active State
-      const sections = document.querySelectorAll('section');
-      const navLinks = document.querySelectorAll('nav ul li a');
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            navLinks.forEach(link => {
-              link.classList.remove('active');
-              if (link.getAttribute('href').substring(1) === entry.target.id) {
-                link.classList.add('active');
-              }
-            });
-          }
-        });
-      }, { threshold: 0.5 });
-      sections.forEach(section => observer.observe(section));
-  
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav ul li a');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').substring(1) === entry.target.id) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, { threshold: 0.5 });
+    sections.forEach(section => observer.observe(section));
+
       // Hamburger Menu Toggle
       const hamburger = document.querySelector('.hamburger');
       const navUl = document.querySelector('nav ul');
       hamburger.addEventListener('click', () => {
         navUl.classList.toggle('show');
       });
-  
-  
-  
-      // Smooth Scrolling
-      document.querySelectorAll('nav a, #hero .btn').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-          if (!this.hasAttribute('download')) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
-            if (navUl.classList.contains('show')) {
-              navUl.classList.remove('show');
-            }
+
+
+
+    // Smooth Scrolling
+    document.querySelectorAll('nav a, #hero .btn').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        if (!this.hasAttribute('download')) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+          if (navUl.classList.contains('show')) {
+            navUl.classList.remove('show');
           }
-        });
+        }
       });
-  
-      // AOS Initialization
-      AOS.init({ duration: 1000, once: true });
+    });
+
+    // AOS Initialization
+    AOS.init({ duration: 1000, once: true });
+
+// NEW, SIMPLIFIED ACCORDION LOGIC (using jQuery)
+$(document).ready(function() {
+    $('.accordion-header').click(function() {
+        const item = $(this).closest('.accordion-item');
+
+        // Close other open items
+        $('.accordion-item.open').not(item).removeClass('open').find('.accordion-content').slideUp();
+
+        // Toggle this item
+        item.toggleClass('open');
+        $(this).next('.accordion-content').slideToggle();
+    });
+});
+
     </script>
   </body>
   </html>
