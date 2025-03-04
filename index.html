@@ -6,22 +6,20 @@
   <meta name="description" content="Ayaan Minhas - Aspiring AI Innovator. Computer Science student specializing in AI." />
   <title>Ayaan Minhas - AI Innovator Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet" />
-  <!-- Include jQuery *before* your custom script -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <style>
-  /* ... (Your existing CSS, NO CHANGES NEEDED HERE) ... */
+    /* ... (Your CSS - No Changes Needed) ... */
     :root {
-        /* Default Dark Mode */
+      /* Default Dark Mode */
       --primary-bg: #1a1a1a;
       --text-color: #f1f1f1;
       --accent-color: #0EA5E9;
       --gray-text: #a1a1a1;
       --card-bg: #2a2a2a;
       --shadow: 0 6px 12px rgba(255, 255, 255, 0.1);
-      --border-color: #3a3a3a; /* Added border color */
+      --border-color: #3a3a3a;
     }
     body.light-mode {
       --primary-bg: #F9FAFB;
@@ -46,20 +44,16 @@
     a {
       color: var(--accent-color);
       text-decoration: none;
-      transition: color 0.3s; /* Smooth color transition */
+      transition: color 0.3s;
     }
     a:hover {
-        color: #0c76b5; /* Slightly darker shade of accent on hover */
+      color: #0c76b5;
     }
-
     .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 20px;
     }
-
-
-    /* Navigation */
     nav {
       position: fixed;
       top: 0;
@@ -67,7 +61,7 @@
       background: var(--card-bg);
       box-shadow: var(--shadow);
       z-index: 1000;
-       border-bottom: 1px solid var(--border-color); /* Subtle border */
+      border-bottom: 1px solid var(--border-color);
     }
     nav .container {
       display: flex;
@@ -75,10 +69,10 @@
       align-items: center;
       padding: 15px 20px;
     }
-    nav h1 { /* Style for the name */
-        font-family: 'Montserrat', sans-serif;
-        font-size: 1.5rem;
-        color: var(--accent-color);
+    nav h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.5rem;
+      color: var(--accent-color);
     }
     nav ul {
       list-style: none;
@@ -89,12 +83,12 @@
       font-weight: 700;
       color: var(--text-color);
       transition: color 0.3s;
-      padding-bottom: 5px; /* Space for underline */
+      padding-bottom: 5px;
       border-bottom: 2px solid transparent;
     }
     nav ul li a:hover, nav ul li a.active {
       color: var(--accent-color);
-      border-bottom-color: var(--accent-color); /* Underline on hover/active */
+      border-bottom-color: var(--accent-color);
     }
     .hamburger {
       display: none;
@@ -104,37 +98,139 @@
       color: var(--text-color);
       cursor: pointer;
     }
-    /* Settings Group */
     .settings-group {
       display: flex;
       gap: 10px;
       align-items: center;
     }
-
-    /* Common styles for both buttons */
-    #theme-toggle, #toggle-particles {
+    #theme-toggle, #toggle-particles, #particle-settings-btn {
       background: none;
       border: none;
-      font-size: 22px; /* Increased from 20px to make icons larger and fill the button */
+      font-size: 22px;
       color: var(--text-color);
       cursor: pointer;
       transition: color 0.3s;
-      width: 30px; /* Keep fixed width */
-      height: 30px; /* Keep fixed height */
+      width: 30px;
+      height: 30px;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 0;
     }
-
-    /* Hover effect for both */
-    #theme-toggle:hover, #toggle-particles:hover {
+    #theme-toggle:hover, #toggle-particles:hover, #particle-settings-btn:hover {
       color: var(--accent-color);
+    }
+    #particle-settings {
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: var(--shadow);
+      z-index: 1001;
+      display: none;
+      width: 300px; /* Fixed width for settings panel */
+    }
+    #particle-settings.show {
+      display: block;
+    }
+    #particle-settings label {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--gray-text);
+      font-size: 14px;
+      display: flex; /* Enable flexbox for label */
+      justify-content: space-between; /* Space between label text and dynamic value */
+      align-items: center; /* Vertically align items */
+    }
+    #particle-settings label span {
+      color: var(--gray-text); /* Ensure dynamic value is also gray-text if needed */
+      font-size: 12px; /* Smaller font size for dynamic value */
+      margin-left: 10px; /* Space between label text and dynamic value */
+    }
+    #particle-settings input[type="number"],
+    #particle-settings input[type="range"],
+    #particle-settings select,
+    #particle-settings input[type="checkbox"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      background-color: var(--primary-bg);
+      color: var(--text-color);
+      margin-bottom: 10px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    /* Style for sliders */
+    #particle-settings input[type="range"] {
+      -webkit-appearance: none;
+      height: 10px;
+      border-radius: 5px;
+      background: var(--border-color);
+      outline: none;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+    }
+
+    #particle-settings input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      cursor: pointer;
+    }
+
+    #particle-settings input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      cursor: pointer;
     }
 
 
-    /* Hero Section */
+    #particle-settings input[type="checkbox"] {
+      width: auto;
+      margin-right: 5px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    #particle-settings .checkbox-label {
+      display: inline-block;
+      vertical-align: middle;
+      color: var(--gray-text);
+      width: auto;
+    }
+    #particle-settings .setting-group {
+      margin-bottom: 1rem;
+    }
+    #particle-settings .setting-group:last-child {
+      margin-bottom: 0;
+    }
 
+    #particle-settings #apply-particle-settings {
+      background: var(--accent-color);
+      color: var(--card-bg);
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s, box-shadow 0.3s;
+      font-size: 14px;
+      width: 100%; /* Make button full width of settings panel */
+      box-sizing: border-box; /* Include padding in width */
+    }
+
+    #particle-settings #apply-particle-settings:hover {
+      background: #0C85C5;
+      box-shadow: 0 2px 4px rgba(14, 165, 233, 0.4);
+    }
 
 
     #hero {
@@ -147,10 +243,12 @@
       overflow: hidden;
     }
     #particles-js {
-      position: absolute;
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      z-index: 1;
+      z-index: -1;
     }
     #hero .container {
       position: relative;
@@ -164,11 +262,11 @@
       margin-bottom: 20px;
       box-shadow: var(--shadow);
       transition: transform 0.3s, box-shadow 0.3s;
-      border: 3px solid var(--accent-color); /* Glowing border */
+      border: 3px solid var(--accent-color);
     }
     #hero .profile-img:hover {
       transform: scale(1.05);
-       box-shadow: 0 8px 16px rgba(14, 165, 233, 0.4); /* Increased glow on hover */
+      box-shadow: 0 8px 16px rgba(14, 165, 233, 0.4);
     }
     #hero h1 {
       font-family: 'Montserrat', sans-serif;
@@ -188,17 +286,10 @@
       margin: 0 auto 20px;
     }
     @keyframes fadeUp {
-      0% {
-          opacity: 0;
-          transform: translateY(200px);
-      }
-      100% {
-          opacity: 1;
-          transform: translateY(0);
-      }
-  }
-
-  #hero .btn {
+      0% { opacity: 0; transform: translateY(200px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    #hero .btn {
       background: var(--accent-color);
       color: var(--card-bg);
       padding: 12px 24px;
@@ -209,15 +300,13 @@
       margin-top: 1rem;
       box-shadow: 0 4px 8px rgba(14, 165, 233, 0.3);
       animation: fadeUp 1.5s ease forwards;
-
       opacity: 0;
-  }
-
-  #hero .btn:hover {
+    }
+    #hero .btn:hover {
       transform: scale(1.05);
       box-shadow: 0 6px 12px rgba(14, 165, 233, 0.5);
       background: #0C85C5;
-  }
+    }
     .social-links {
       margin-top: 20px;
     }
@@ -226,18 +315,15 @@
       margin: 0 10px;
       color: var(--text-color);
       transition: transform 0.3s, color 0.3s;
-      display: inline-block; /* For consistent spacing */
+      display: inline-block;
     }
     .social-links a:hover {
       transform: scale(1.2);
       color: var(--accent-color);
     }
-
     body.reduce-motion #particles-js {
       display: none;
     }
-
-    /* Section Styles */
     section {
       padding: 80px 0;
     }
@@ -248,13 +334,10 @@
       text-align: center;
       color: var(--accent-color);
     }
-
-     /* Accordion Styles */
     .accordion {
       margin-bottom: 20px;
-  }
-
-  .accordion-header {
+    }
+    .accordion-header {
       background-color: var(--card-bg);
       color: var(--text-color);
       padding: 15px;
@@ -265,122 +348,96 @@
       align-items: center;
       border: 1px solid var(--border-color);
       transition: background-color 0.3s ease;
-  }
-
-  .accordion-header:hover {
-      background-color: rgba(255,255,255, 0.1); /* Slight highlight */
-  }
-
-  .accordion-header h3 {
+    }
+    .accordion-header:hover {
+      background-color: rgba(3, 53, 77, 0.9);
+    }
+    .accordion-header h3 {
       font-size: 20px;
       margin: 0;
-      flex-grow: 1; /* Allow heading to take up available space */
-      margin-left: 20px; /* ADDED gap between job title and icon */
-  }
-
-  .accordion-header .company{
+      flex-grow: 1;
+      margin-left: 20px;
+    }
+    .accordion-header .company {
       font-size: 16px;
       color: var(--gray-text);
-      margin-right: auto; /* Push company name to the left, before the icon */
-      padding-right: 15px; /* Add padding */
-  }
-
-  .accordion-header i {
+      margin-right: auto;
+      padding-right: 15px;
+    }
+    .accordion-header i {
       font-size: 20px;
       color: var(--accent-color);
-        /* margin-right: 15px;  Removed margin-right from here */
-        transition: transform 0.3s ease; /* Smooth transition for the icon */
-
-  }
+      transition: transform 0.3s ease;
+    }
     .accordion-header .icon-wrapper {
-      display: flex; /* Use flexbox for icon alignment */
-      align-items: center; /* Vertically center the icon */
-      min-width: 40px; /* Reserve space, adjust as needed */
+      display: flex;
+      align-items: center;
+      min-width: 40px;
       justify-content: center;
-  }
-
-  .accordion-content {
-    padding: 15px;
-    background-color: var(--card-bg);
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    border-top: none;
-    margin-top: -1px;
-    overflow: hidden; /* Important for slideToggle */
-    display: none; /* Initially hidden */
-}
-  .accordion-content ul {
+    }
+    .accordion-content {
+      padding: 15px;
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      border-top: none;
+      margin-top: -1px;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+      opacity: 0;
+      display: block;
+    }
+    .accordion-content ul {
       list-style: disc;
       margin-left: 20px;
       color: var(--gray-text);
-  }
-    .accordion-content p{
+    }
+    .accordion-content p {
       color: var(--gray-text);
       margin-bottom: 0.5rem;
-  }
-  /* Open state styles */
-  /* REMOVE THIS, slideToggle handles it: .accordion-item.open .accordion-content {
-    max-height: 1000px;
-    opacity: 1;
-}*/
-
+    }
+    .accordion-item.open .accordion-content {
+      max-height: 1000px;
+      opacity: 1;
+    }
     .accordion-item.open .accordion-header {
-        border-bottom-left-radius: 0;  /* Remove corner radius */
-        border-bottom-right-radius: 0;
-  }
-
-  .accordion-item.open .accordion-content{
-      border-top-left-radius: 0; /* Remove corner radius */
-      border-top-right-radius: 0;
-  }
-  .accordion-item.open i.fa-chevron-down{
-      transform: rotate(180deg);
-  }
-
-
-    /* Timeline for Experience & Education */
-   .timeline {
-        position: relative;
-        padding: 20px 0;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
     }
-
+    .timeline {
+      position: relative;
+      padding: 20px 0;
+    }
     .timeline:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 20px;
-        width: 2px;
-        background: var(--accent-color);
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 20px;
+      width: 2px;
+      background: var(--accent-color);
     }
-
     .timeline-item {
-        position: relative;
-        margin-bottom: 40px;
-        padding-left: 30px; /* Increased padding */
-        transition: transform 0.3s ease; /* Added transition */
-
+      position: relative;
+      margin-bottom: 40px;
+      padding-left: 30px;
+      transition: transform 0.3s ease;
     }
-   /*  .timeline-item:hover{
-        transform: translateX(5px);
-        } */ /* Removed the hover effect*/
-
     .timeline-item:before {
-        content: '';
-        position: absolute;
-        top: 5px;
-        left: 14px;
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
-        background: var(--accent-color);
-        z-index: 1;
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 14px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      z-index: 1;
     }
-    .timeline-item:nth-child(even):before { /* Different color for even items */
-        background: #6D28D9;
+    .timeline-item:nth-child(even):before {
+      background: #6D28D9;
     }
-
-    /* Skills */
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -389,16 +446,15 @@
     .skill-category {
       text-align: center;
       padding: 20px;
-        border-radius: 10px;
-        box-shadow: var(--shadow);
-        background: var(--card-bg);
-        border: 1px solid var(--border-color); /* Consistent border */
-        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
-
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-     .skill-category:hover {
-        transform: translateY(-5px); /* Lift up slightly */
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    .skill-category:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
     .skill-category h3 {
       font-size: 18px;
@@ -408,20 +464,16 @@
     .skill {
       margin-bottom: 20px;
     }
-     .skill p {
-        font-weight: bold; /* Make skill names bold */
-        color: var(--text-color);
+    .skill p {
+      font-weight: bold;
+      color: var(--text-color);
     }
-
     .circle-chart {
       transform: rotate(-90deg);
     }
     .circle-chart-circle {
       transition: stroke-dasharray 0.5s;
     }
-
-
-    /* Projects */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -457,8 +509,8 @@
       text-align: center;
       padding: 20px;
       display: flex;
-        flex-direction: column; /* Stack content vertically */
-        justify-content: space-between;
+      flex-direction: column;
+      justify-content: space-between;
     }
     .card-front img {
       width: 100%;
@@ -469,7 +521,7 @@
     }
     .card-front h3 {
       font-size: 18px;
-       flex-grow: 1;
+      flex-grow: 1;
     }
     .card-back {
       background: var(--accent-color);
@@ -480,17 +532,17 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-       text-align: center;
+      text-align: center;
     }
-    .card-back p{
-        margin-bottom: 1rem;
+    .card-back p {
+      margin-bottom: 1rem;
     }
     .tech-tags {
-        display: flex;
-        flex-wrap: wrap; /* Allow tags to wrap */
-        justify-content: center; /* Center tags */
-        gap: 5px; /* Space between tags */
-        margin-bottom: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 5px;
+      margin-bottom: 1rem;
     }
     .tech-tags span {
       background: rgba(255, 255, 255, 0.2);
@@ -503,41 +555,34 @@
       transform: scale(1.1);
     }
     .card-back a {
-        background-color: var(--card-bg);
-        color: var(--accent-color);
-        padding: 8px 16px;
-        border-radius: 5px;
-        font-weight: bold;
-        margin-top: auto; /* Push to bottom */
-
+      background-color: var(--card-bg);
+      color: var(--accent-color);
+      padding: 8px 16px;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-top: auto;
     }
-     .card-back a:hover{
-          background-color: rgba(255,255,255, 0.9);
-     }
-
-
-
-    /* Interests */
-   .interests-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        text-align: center;
+    .card-back a:hover {
+      background-color: rgba(255,255,255, 0.9);
     }
-
+    .interests-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      text-align: center;
+    }
     .interest-item {
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: var(--shadow);
-        background: var(--card-bg);
-        border: 1px solid var(--border-color);
-        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added transition */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .interest-item:hover{
-        transform: translateY(-5px); /* Lift slightly */
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    .interest-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
-
     .interest-item i {
       font-size: 28px;
       color: var(--accent-color);
@@ -547,8 +592,6 @@
     .interest-item:hover i {
       transform: scale(1.2);
     }
-
-    /* Contact */
     #contact form {
       max-width: 600px;
       margin: 0 auto;
@@ -558,17 +601,16 @@
     }
     #contact input, #contact textarea {
       padding: 12px;
-       border: 1px solid var(--border-color);
+      border: 1px solid var(--border-color);
       border-radius: 5px;
       transition: border-color 0.3s;
       background-color: var(--card-bg);
-        color: var(--text-color);
+      color: var(--text-color);
     }
-    #contact input:focus, #contact textarea:focus{
-        border-color: var(--accent-color);
-        outline: none; /* Remove default focus outline */
+    #contact input:focus, #contact textarea:focus {
+      border-color: var(--accent-color);
+      outline: none;
     }
-
     #contact input:invalid:focus, #contact textarea:invalid:focus {
       border-color: #EF4444;
     }
@@ -579,25 +621,21 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-       transition: background-color 0.3s, box-shadow 0.3s;
+      transition: background-color 0.3s, box-shadow 0.3s;
     }
     #contact button:hover {
       background: #0C85C5;
-       box-shadow: 0 4px 8px rgba(14, 165, 233, 0.4);
+      box-shadow: 0 4px 8px rgba(14, 165, 233, 0.4);
     }
     .social-links-footer a {
       margin: 0 15px;
     }
-
-    /* Footer */
     footer {
       background: var(--text-color);
       color: var(--card-bg);
       text-align: center;
       padding: 20px;
     }
-
-    /* Responsive */
     @media (max-width: 768px) {
       .hamburger {
         display: block;
@@ -612,7 +650,7 @@
         background: var(--card-bg);
         padding: 20px;
         box-shadow: var(--shadow);
-         border-bottom: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
       }
       nav ul.show {
         display: flex;
@@ -632,151 +670,215 @@
       .project-card:hover .card-inner {
         transform: none;
       }
-       #hero .btn {
-            margin-bottom: 1rem; /* Add margin below button on small screens */
-        }
-
+      #hero .btn {
+        margin-bottom: 1rem;
+      }
+      #particle-settings {
+        top: 60px;
+        right: 10px;
+        width: auto;
+        max-width: 90%;
+        padding: 10px;
+      }
+      #particle-settings label {
+        font-size: 12px;
+      }
+      #particle-settings input[type="number"], #particle-settings input[type="range"] {
+        font-size: 12px;
+        padding: 6px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
+  <div id="particles-js"></div>
   <nav>
     <div class="container">
-        <h1>Ayaan Minhas</h1>
-        <button class="hamburger"><i class="fas fa-bars"></i></button>
-        <ul>
-            <li><a href="#hero">Home</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#interests">Interests</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-        <div class="settings-group">
-            <button id="theme-toggle"><i class="fas fa-fw fa-moon"></i></button>
-            <button id="toggle-particles"><i class="fas fa-fw fa-universal-access"></i></button>
-        </div>
+      <h1>Ayaan Minhas</h1>
+      <button class="hamburger"><i class="fas fa-bars"></i></button>
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#interests">Interests</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="settings-group">
+        <button id="theme-toggle"><i class="fas fa-fw fa-moon"></i></button>
+        <button id="toggle-particles"><i class="fas fa-fw fa-universal-access"></i></button>
+        <button id="particle-settings-btn"><i class="fas fa-fw fa-cog"></i></button>
+      </div>
     </div>
-</nav>
+  </nav>
 
-  <!-- Hero Section -->
+  <div id="particle-settings">
+    <div class="setting-group">
+      <label for="particle-count">Particle Count: <span>(60)</span></label>
+      <input type="range" id="particle-count" min="10" max="300" value="60">
+    </div>
+    <div class="setting-group">
+      <label for="particle-speed">Particle Speed: <span>(1.5)</span></label>
+      <input type="range" id="particle-speed" min="0" max="20" step="0.5" value="1.5">
+    </div>
+    <div class="setting-group">
+      <label for="particle-size">Particle Size: <span>(5)</span></label>
+      <input type="range" id="particle-size" min="1" max="10" value="5">
+    </div>
+    <div class="setting-group">
+      <label for="line-thickness">Line Thickness: <span>(0.8)</span></label>
+      <input type="range" id="line-thickness" min="0.1" max="4" step="0.2" value="0.8">
+    </div>
+    <div class="setting-group">
+      <label for="line-distance">Line Distance: <span>(150)</span></label>
+      <input type="range" id="line-distance" min="50" max="300" step="10" value="150">
+    </div>
+    <div class="setting-group">
+      <label for="particles-per-click">Particles per Click: <span>(4)</span></label>
+      <input type="range" id="particles-per-click" min="1" max="20" value="4">
+    </div>
+    <div class="setting-group">
+      <label for="line-visibility" class="checkbox-label">Line Visibility:</label>
+      <input type="checkbox" id="line-visibility" checked>
+    </div>
+    <div class="setting-group">
+      <label for="particle-color">Particle Color:</label>
+      <select id="particle-color">
+        <option value="#0EA5E9,#1D4ED8,#6D28D9" selected>Default</option>
+        <option value="#ff0000,#00ff00,#0000ff">Red/Green/Blue</option>
+        <option value="#ffffff">White</option>
+        <option value="#000000">Black</option>
+      </select>
+    </div>
+    <div class="setting-group" style="display:none;"> <!-- Hiding Attraction Points setting as per analysis -->
+      <label for="attraction-points">Attraction Points:</label>
+      <select id="attraction-points">
+        <option value="3x3" selected>3x3</option>
+        <option value="4x4">4x4</option>
+        <option value="5x5">5x5</option>
+      </select>
+    </div>
+
+    <div class="setting-group">
+      <label for="line-color">Line Color:</label>
+      <select id="line-color">
+        <option value="theme-default" selected>Theme Default</option>
+        <option value="#ffffff">White</option>
+        <option value="#000000">Black</option>
+        <option value="#0EA5E9">Blue</option>
+      </select>
+    </div>
+    <div class="setting-group">
+      <button type="button" id="apply-particle-settings">Apply Changes</button>
+    </div>
+  </div>
+
   <section id="hero">
-    <div id="particles-js"></div>
     <div class="container">
-        <img src="Me.png" alt="Ayaan Minhas Profile Picture" class="profile-img" data-aos="zoom-in" />
-        <h1 data-aos="fade-up">Ayaan Minhas</h1>
-        <p id="typewriter" data-aos="fade-up" data-aos-delay="100"></p>
-        <p data-aos="fade-up" data-aos-delay="200">A Computer Science student at APU specializing in AI, driven by a passion for innovative solutions.</p>
-        <a href="Ayaan Minhas - Resume.pdf" class="btn" download="Ayaan-Minhas-Resume.pdf">Download Resume</a>
-        <div class="social-links" data-aos="fade-up" data-aos-delay="400">
-            <a href="https://linkedin.com/in/ayaan-minhas" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://github.com/mrmystery8" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="mailto:ayaanminhas1@gmail.com"><i class="fas fa-envelope"></i></a>
-        </div>
+      <img src="Me.png" alt="Ayaan Minhas Profile Picture" class="profile-img" data-aos="zoom-in" />
+      <h1 data-aos="fade-up">Ayaan Minhas</h1>
+      <p id="typewriter" data-aos="fade-up" data-aos-delay="100"></p>
+      <p data-aos="fade-up" data-aos-delay="200">A Computer Science student at APU specializing in AI, driven by a passion for innovative solutions.</p>
+      <a href="Ayaan Minhas - Resume.pdf" class="btn" download="Ayaan-Minhas-Resume.pdf">Download Resume</a>
+      <div class="social-links" data-aos="fade-up" data-aos-delay="400">
+        <a href="https://linkedin.com/in/ayaan-minhas" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/mrmystery8" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="mailto:ayaanminhas1@gmail.com"><i class="fas fa-envelope"></i></a>
+      </div>
     </div>
-</section>
+  </section>
 
-  <!-- Experience Section -->
   <section id="experience">
     <div class="container">
       <h2>Experience</h2>
       <div class="timeline">
-        <!-- Accordion Item 1 -->
         <div class="timeline-item" data-aos="fade-right">
-            <div class="accordion-item">
-                <div class="accordion-header">
-                     <i class="fas fa-briefcase"></i>
-                    <h3>Research And Development Assistant</h3>
-                    <span class="company">Asia Pacific University (APU / APIIT)</span>
-                    <div class="icon-wrapper">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                </div>
-                <div class="accordion-content">
-                    <p>November 2024 - Present (5 months)</p>
-                    <p>Federal Territory of Kuala Lumpur, Malaysia</p>
-                    <ul>
-                        <li>Building and maintaining internal web applications using HTML, CSS, and JavaScript integrated with the Joget.</li>
-                        <li>Focused on creating user-friendly and efficient solutions.</li>
-                    </ul>
-                </div>
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <i class="fas fa-briefcase"></i>
+              <h3>Research And Development Assistant</h3>
+              <span class="company">Asia Pacific University (APU / APIIT)</span>
+              <div class="icon-wrapper">
+                <i class="fas fa-chevron-down"></i>
+              </div>
             </div>
+            <div class="accordion-content">
+              <p>November 2024 - Present (5 months)</p>
+              <p>Federal Territory of Kuala Lumpur, Malaysia</p>
+              <ul>
+                <li>Building and maintaining internal web applications using HTML, CSS, and JavaScript integrated with the Joget.</li>
+                <li>Focused on creating user-friendly and efficient solutions.</li>
+              </ul>
+            </div>
+          </div>
         </div>
-
-        <!-- Accordion Item 2 -->
         <div class="timeline-item" data-aos="fade-right">
-            <div class="accordion-item">
-                <div class="accordion-header">
-                     <i class="fas fa-briefcase"></i>
-                    <h3>Senior Teacher's Assistant - Physics</h3>
-                    <span class="company">Nixor College</span>
-                    <div class="icon-wrapper">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                </div>
-                <div class="accordion-content">
-                    <p>September 2022 - March 2023 (7 months)</p>
-                    <p>Karachi, Sindh, Pakistan</p>
-                    <ul>
-                        <li>Assisting students with quering and questions related to various subjects.</li>
-                        <li>Managing the Physics TA department and Junior TAs.</li>
-                    </ul>
-                </div>
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <i class="fas fa-briefcase"></i>
+              <h3>Senior Teacher's Assistant - Physics</h3>
+              <span class="company">Nixor College</span>
+              <div class="icon-wrapper">
+                <i class="fas fa-chevron-down"></i>
+              </div>
             </div>
+            <div class="accordion-content">
+              <p>September 2022 - March 2023 (7 months)</p>
+              <p>Karachi, Sindh, Pakistan</p>
+              <ul>
+                <li>Assisting students with queries and questions related to various subjects.</li>
+                <li>Managing the Physics TA department and Junior TAs.</li>
+              </ul>
+            </div>
+          </div>
         </div>
-
-        <!-- Accordion Item 3 -->
-          <div class="timeline-item" data-aos="fade-right">
-            <div class="accordion-item">
-                <div class="accordion-header">
-                     <i class="fas fa-briefcase"></i>
-                    <h3>Teacher's Assistant - Physics</h3>
-                    <span class="company">Nixor College</span>
-                    <div class="icon-wrapper">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                </div>
-                <div class="accordion-content">
-                        <p>October 2021 - September 2022 (1 year)</p>
-                        <p>Karachi, Sindh, Pakistan</p>
-                        <ul>
-                        <li>Tecahing students regarding the subject during TA hours.</li>
-                        <li>Assisting students by answering their queries.</li>
-                        </ul>
-                </div>
+        <div class="timeline-item" data-aos="fade-right">
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <i class="fas fa-briefcase"></i>
+              <h3>Teacher's Assistant - Physics</h3>
+              <span class="company">Nixor College</span>
+              <div class="icon-wrapper">
+                <i class="fas fa-chevron-down"></i>
+              </div>
             </div>
+            <div class="accordion-content">
+              <p>October 2021 - September 2022 (1 year)</p>
+              <p>Karachi, Sindh, Pakistan</p>
+              <ul>
+                <li>Teaching students regarding the subject during TA hours.</li>
+                <li>Assisting students by answering their queries.</li>
+              </ul>
+            </div>
+          </div>
         </div>
-
-        <!-- Accordion Item 4 -->
-         <div class="timeline-item" data-aos="fade-right">
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <i class="fas fa-briefcase"></i>
-                    <h3>Chief Information Officer</h3>
-                    <span class="company">Nixor Creative Studios</span>
-                    <div class="icon-wrapper">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                </div>
-                <div class="accordion-content">
-                    <p>February 2022 - February 2023 (1 year 1 month)</p>
-                    <p>Karachi, Sindh, Pakistan</p>
-                    <ul>
-                        <li>Managing the IT department.</li>
-                        <li>Maintenance of the NCS website.</li>
-                        <li>Managing and training 50+ volunteers.</li>
-                        <li>Project head of major projects like Sharkpress, an online journalism website.</li>
-                    </ul>
-                </div>
+        <div class="timeline-item" data-aos="fade-right">
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <i class="fas fa-briefcase"></i>
+              <h3>Chief Information Officer</h3>
+              <span class="company">Nixor Creative Studios</span>
+              <div class="icon-wrapper">
+                <i class="fas fa-chevron-down"></i>
+              </div>
             </div>
+            <div class="accordion-content">
+              <p>February 2022 - February 2023 (1 year 1 month)</p>
+              <p>Karachi, Sindh, Pakistan</p>
+              <ul>
+                <li>Managing the IT department.</li>
+                <li>Maintenance of the NCS website.</li>
+                <li>Managing and training 50+ volunteers.</li>
+                <li>Project head of major projects like Sharkpress, an online journalism website.</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Education Section -->
   <section id="education">
     <div class="container">
       <h2>Education</h2>
@@ -801,7 +903,6 @@
     </div>
   </section>
 
-  <!-- Skills Section -->
   <section id="skills">
     <div class="container">
       <h2>Skills</h2>
@@ -818,11 +919,11 @@
           <div class="skill">
             <svg class="circle-chart" viewBox="0 0 33.83 33.83" width="80" height="80">
               <circle class="circle-chart-background" stroke="#E5E7EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" />
-              <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="70,100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" />
+              <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="95,100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" />
             </svg>
             <p>HTML</p>
           </div>
-            <div class="skill">
+          <div class="skill">
             <svg class="circle-chart" viewBox="0 0 33.83 33.83" width="80" height="80">
               <circle class="circle-chart-background" stroke="#E5E7EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" />
               <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="70,100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" />
@@ -830,22 +931,20 @@
             <p>Web Development</p>
           </div>
         </div>
-        <div class="skill-category" data-aos="fade-up" >
+        <div class="skill-category" data-aos="fade-up">
           <h3><i class="fas fa-tools"></i> Certifications</h3>
           <div class="skill">
             <svg class="circle-chart" viewBox="0 0 33.83 33.83" width="80" height="80">
-              <circle class="circle-chart-background" stroke="#E57EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" />
+              <circle class="circle-chart-background" stroke="#E5E7EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" />
               <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="85,100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" />
             </svg>
             <p>AI Agents Fundamentals</p>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- Projects Section -->
   <section id="projects">
     <div class="container">
       <h2>Projects</h2>
@@ -887,9 +986,6 @@
     </div>
   </section>
 
-
-
-  <!-- Interests Section -->
   <section id="interests">
     <div class="container">
       <h2>Interests</h2>
@@ -910,7 +1006,6 @@
     </div>
   </section>
 
-  <!-- Contact Section -->
   <section id="contact">
     <div class="container">
       <h2>Contact</h2>
@@ -928,193 +1023,262 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>
     <p>© 2024 Ayaan Minhas. All rights reserved.</p>
   </footer>
 
-     <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    // Enhanced Particle Configuration
-    const particleConfig = {
-      particles: {
-        number: {
-          value: window.innerWidth > 768 ? 80 : 30 // Responsive particle count
-        },
-        color: {
-          value: ["#0EA5E9", "#1D4ED8", "#6D28D9"] // Gradient colors
-        },
-        shape: {
-          type: ["circle", "triangle"] // Mix of shapes
-        },
-        opacity: {
-          value: 0.5,
-          anim: {
-            enable: true,
-            speed: 1,
-            opacity_min: 0.1,
-            sync: false // Subtle pulsing effect
-          }
-        },
-        size: {
-          value: 3
-        },
-        line_linked: {
-          enable: true,
-          distance: 150,
-          color: "#0EA5E9",
-          opacity: 0.4,
-          width: 1 // Thin, web-like lines
-        },
-        move: {
-          enable: true,
-          speed: 2
-        }
-      },
-      interactivity: {
-        events: {
-          onhover: {
-            enable: true,
-            mode: "grab" // Connects particles on hover
+    document.addEventListener('DOMContentLoaded', () => {
+      // Particle configuration (Default values as requested)
+      const particleConfig = {
+        particles: {
+          number: {
+            value: 60,
+            density: {
+              enable: true,
+              value_area: 800
+            }
           },
-          onclick: {
+          color: {
+            value: ["#0EA5E9", "#1D4ED8", "#6D28D9"]
+          },
+          shape: {
+            type: ["circle", "triangle"]
+          },
+          opacity: {
+            value: 0.5,
+            random: false,
+            anim: {
+              enable: true,
+              speed: 1,
+              opacity_min: 0.1,
+              sync: false
+            }
+          },
+          size: {
+            value: 5,
+            random: true,
+            anim: {
+              enable: false,
+              speed: 40,
+              size_min: 0.1,
+              sync: false
+            }
+          },
+          line_linked: {
             enable: true,
-            mode: "push" // Adds particles on click
+            distance: 150,
+            color: "#0EA5E9",
+            opacity: 0.4,
+            width: 0.8
+          },
+          move: {
+            enable: true,
+            speed: 1.5,
+            direction: "none",
+            random: false,
+            straight: false,
+            out_mode: "out",
+            bounce: false,
+            attract: {
+              enable: false,
+              rotateX: 600,
+              rotateY: 1200
+            }
           }
         },
-        modes: {
-          grab: {
-            distance: 200,
-            line_linked: {
-              opacity: 0.5
+        interactivity: {
+          detect_on: "window", // Detect mouse events on the entire window
+          events: {
+            onhover: {
+              enable: true,
+              mode: "grab"
+            },
+            onclick: {
+              enable: true,
+              mode: "push"
+            },
+            resize: true
+          },
+          modes: {
+            grab: {
+              distance: 200,
+              line_linked: {
+                opacity: 0.5
+              }
+            },
+            push: {
+              particles_nb: 4
             }
           }
-        }
-      },
-      retina_detect: true // Optimizes for high-DPI screens
-    };
-    particlesJS('particles-js', particleConfig);
+        },
+        retina_detect: true
+      };
 
-    // Typewriter Effect
-    const typewriter = document.getElementById('typewriter');
-    const text = 'Aspiring AI Innovator';
-    let i = 0;
-    function type() {
-      if (i < text.length) {
-        typewriter.textContent += text.charAt(i);
-        i++;
-        setTimeout(type, 100);
+      let pJSInstance; // Variable to hold the particlesJS instance
+
+      function updateParticles() {
+          // 1. Get Updated Values:
+          const newParticleCount = parseInt(particleCountInput.value, 10);
+          const newParticleSpeed = parseFloat(particleSpeedInput.value);
+          const newParticleSize = parseInt(particleSizeInput.value, 10);
+          const newLineThickness = parseFloat(lineThicknessInput.value);
+          const newLineDistance = parseInt(lineDistanceInput.value, 10);
+          const newParticlesPerClick = parseInt(particlesPerClickInput.value, 10);
+          const newLineVisibility = lineVisibilityInput.checked;
+          const newParticleColors = particleColorSelect.value.split(',');
+          const newLineColor = lineColorSelect.value === 'theme-default'
+              ? (document.body.classList.contains('light-mode') ? '#e5e7eb' : '#0EA5E9')
+              : lineColorSelect.value;
+
+
+          // 2. Destroy the existing instance (if it exists):
+          if (pJSInstance) {
+              if (pJSInstance && typeof pJSInstance.destroy === 'function') {
+                  pJSInstance.destroy();
+                }
+
+                //Manually remove canvas
+              const particlesContainer = document.getElementById('particles-js');
+              const oldCanvas = particlesContainer.querySelector('canvas');
+                if(oldCanvas){
+                    particlesContainer.removeChild(oldCanvas);
+                }
+          }
+
+          // 3. Update the configuration object:
+          particleConfig.particles.number.value = newParticleCount;
+          particleConfig.particles.move.speed = newParticleSpeed;
+          particleConfig.particles.size.value = newParticleSize;
+          particleConfig.particles.line_linked.width = newLineThickness;
+          particleConfig.particles.line_linked.distance = newLineDistance;
+          particleConfig.interactivity.modes.push.particles_nb = newParticlesPerClick;
+          particleConfig.particles.line_linked.enable = newLineVisibility;
+          particleConfig.particles.color.value = newParticleColors;
+          particleConfig.particles.line_linked.color = newLineColor;
+
+          // 4. Create a new instance with the updated configuration:
+          pJSInstance = particlesJS('particles-js', particleConfig);
+
+
+        // 5. Reapply Pointer Events Fix
+        const canvas = document.getElementById('particles-js').querySelector('canvas');
+        if (canvas) {
+          canvas.style.pointerEvents = 'none';
+        }
+
       }
-    }
-    type();
 
-    // Light/Dark Mode Toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = themeToggle.querySelector('i');
 
-    // Function to set the theme
-    function setTheme(isDarkMode) {
-        if (isDarkMode) {
-            document.body.classList.remove('light-mode'); // Remove light mode
-            themeIcon.classList.remove('fa-sun');
-            themeIcon.classList.add('fa-moon');
-             localStorage.setItem('theme', 'dark');
-        } else {
-            document.body.classList.add('light-mode'); // Add light mode
-            themeIcon.classList.remove('fa-moon');
-            themeIcon.classList.add('fa-sun');
-            localStorage.setItem('theme', 'light');
-        }
-    }
-    themeToggle.addEventListener('click', () => {
-      const isDarkMode = !document.body.classList.contains('light-mode'); //Correct way to check
-      setTheme(!isDarkMode);
+      // Initialize ParticlesJS and store the instance
+      pJSInstance = particlesJS('particles-js', particleConfig);
 
-    });
 
-     //Check for saved theme and set Dark Mode as default
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
-        setTheme(false); // Apply light mode
-    } else {
-        setTheme(true); // Defaults to Dark Mode if no saved theme, or if saved theme is 'dark'
-    }
-    // Particles Toggle for Accessibility
-    const toggleParticles = document.getElementById('toggle-particles');
-    const toggleParticlesIcon = toggleParticles.querySelector('i');
-    toggleParticles.addEventListener('click', () => {
-        document.body.classList.toggle('reduce-motion');
-        toggleParticlesIcon.classList.toggle('fa-universal-access');
-        toggleParticlesIcon.classList.toggle('fa-spinner');
-    });
+      // Ensure canvas doesn't block mouse events
+      const canvas = document.getElementById('particles-js').querySelector('canvas');
+      if (canvas) {
+        canvas.style.pointerEvents = 'none';
+      }
 
-    // Respect User's Reduced Motion Preference
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        document.body.classList.add('reduce-motion');
-        toggleParticlesIcon.classList.remove('fa-universal-access');
-        toggleParticlesIcon.classList.add('fa-spinner');
-    }
-
-      // Navigation Active State
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('nav ul li a');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href').substring(1) === entry.target.id) {
-              link.classList.add('active');
-            }
-          });
+      // Update mouse position globally on mousemove
+      document.addEventListener('mousemove', (event) => {
+        if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS && window.pJSDom[0].pJS.interactivity) {
+          const pJS = window.pJSDom[0].pJS;
+          pJS.interactivity.mouse.pos_x = event.clientX;
+          pJS.interactivity.mouse.pos_y = event.clientY;
         }
       });
-    }, { threshold: 0.5 });
-    sections.forEach(section => observer.observe(section));
 
-      // Hamburger Menu Toggle
+      // Trigger particle push on click
+      document.addEventListener('click', (event) => {
+        if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS && window.pJSDom[0].pJS.fn) {
+          const pJS = window.pJSDom[0].pJS;
+          pJS.fn.modes.pushParticles(pJS.interactivity.modes.push.particles_nb, pJS.interactivity.mouse);
+        }
+      });
+
+      // Theme toggle functionality
+      const themeToggle = document.getElementById('theme-toggle');
+      themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        themeToggle.innerHTML = document.body.classList.contains('light-mode')
+          ? '<i class="fas fa-fw fa-sun"></i>'
+          : '<i class="fas fa-fw fa-moon"></i>';
+         updateParticles(); // Update particles when theme changes, especially for 'theme-default' line color
+      });
+
+      // Hamburger menu toggle
       const hamburger = document.querySelector('.hamburger');
       const navUl = document.querySelector('nav ul');
       hamburger.addEventListener('click', () => {
         navUl.classList.toggle('show');
       });
 
-
-
-    // Smooth Scrolling
-    document.querySelectorAll('nav a, #hero .btn').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        if (!this.hasAttribute('download')) {
-          e.preventDefault();
-          const targetId = this.getAttribute('href');
-          document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
-          if (navUl.classList.contains('show')) {
-            navUl.classList.remove('show');
-          }
-        }
+      // Accordion functionality
+      const accordionHeaders = document.querySelectorAll('.accordion-header');
+      accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+          const accordionItem = header.parentElement;
+          accordionItem.classList.toggle('open');
+        });
       });
+
+      // Initialize AOS
+      AOS.init({
+        duration: 1000,
+        once: true
+      });
+
+      // Particle Settings Button Functionality
+      const particleSettingsBtn = document.getElementById('particle-settings-btn');
+      const particleSettings = document.getElementById('particle-settings');
+      particleSettingsBtn.addEventListener('click', () => {
+        particleSettings.classList.toggle('show');
+      });
+
+      // Particle Toggle Button Functionality
+      const toggleParticlesBtn = document.getElementById('toggle-particles');
+      toggleParticlesBtn.addEventListener('click', () => {
+        document.body.classList.toggle('reduce-motion');
+        toggleParticlesBtn.innerHTML = document.body.classList.contains('reduce-motion')
+          ? '<i class="fas fa-fw fa-universal-access"></i>' // Icon when particles are off (or reduced motion is on)
+          : '<i class="fas fa-fw fa-universal-access"></i>'; // Icon when particles are on (or reduced motion is off)
+      });
+
+
+      // Particle Settings Elements
+      const particleCountInput = document.getElementById('particle-count');
+      const particleSpeedInput = document.getElementById('particle-speed');
+      const particleSizeInput = document.getElementById('particle-size');
+      const lineThicknessInput = document.getElementById('line-thickness');
+      const lineDistanceInput = document.getElementById('line-distance'); // Line Distance Slider
+      const particlesPerClickInput = document.getElementById('particles-per-click'); // Particles per click Slider
+      const lineVisibilityInput = document.getElementById('line-visibility');
+      const particleColorSelect = document.getElementById('particle-color');
+      const attractionPointsSelect = document.getElementById('attraction-points');
+      const lineColorSelect = document.getElementById('line-color');
+      const applySettingsButton = document.getElementById('apply-particle-settings'); // Get Apply button reference
+
+      // Function to update label value dynamically
+      function updateLabelValue(inputElement, labelElement) {
+        labelElement.querySelector('span').textContent = `(${inputElement.value})`;
+      }
+
+      // Event listeners for sliders to update labels dynamically
+      particleCountInput.addEventListener('input', () => updateLabelValue(particleCountInput, particleCountInput.parentElement));
+      particleSpeedInput.addEventListener('input', () => updateLabelValue(particleSpeedInput, particleSpeedInput.parentElement));
+      particleSizeInput.addEventListener('input', () => updateLabelValue(particleSizeInput, particleSizeInput.parentElement));
+      lineThicknessInput.addEventListener('input', () => updateLabelValue(lineThicknessInput, lineThicknessInput.parentElement));
+      lineDistanceInput.addEventListener('input', () => updateLabelValue(lineDistanceInput, lineDistanceInput.parentElement)); // Line Distance
+      particlesPerClickInput.addEventListener('input', () => updateLabelValue(particlesPerClickInput, particlesPerClickInput.parentElement)); // Particles per click
+
+
+      // Event listener for Apply Settings button
+      applySettingsButton.addEventListener('click', updateParticles);
     });
-
-    // AOS Initialization
-    AOS.init({ duration: 1000, once: true });
-
-// NEW, SIMPLIFIED ACCORDION LOGIC (using jQuery)
-$(document).ready(function() {
-    $('.accordion-header').click(function() {
-        const item = $(this).closest('.accordion-item');
-
-        // Close other open items
-        $('.accordion-item.open').not(item).removeClass('open').find('.accordion-content').slideUp();
-
-        // Toggle this item
-        item.toggleClass('open');
-        $(this).next('.accordion-content').slideToggle();
-    });
-});
-
-    </script>
-  </body>
-  </html>
+  </script>
+</body>
+</html>
