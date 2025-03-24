@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Particle configuration (Default values as requested)
+    // Particle configuration (unchanged)
     const particleConfig = {
         particles: {
             number: {
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
             line_linked: {
                 enable: true,
                 distance: 150,
-                color: "#0EA5E9", // Default dark mode line color - will be overridden in light mode
+                color: "#0EA5E9",
                 opacity: 0.4,
                 width: 0.8
             },
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         },
         interactivity: {
-            detect_on: "window", // Detect mouse events on the entire window
+            detect_on: "window",
             events: {
                 onhover: {
                     enable: true,
@@ -85,10 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
         retina_detect: true
     };
 
-    let pJSInstance; // Variable to hold the particlesJS instance
+    let pJSInstance;
 
     function updateParticles() {
-        // 1. Get Updated Values:
         const newParticleCount = parseInt(particleCountInput.value, 10);
         const newParticleSpeed = parseFloat(particleSpeedInput.value);
         const newParticleSize = parseInt(particleSizeInput.value, 10);
@@ -97,20 +96,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const newParticlesPerClick = parseInt(particlesPerClickInput.value, 10);
         const newLineVisibility = lineVisibilityInput.checked;
         const newParticleColors = particleColorSelect.value.split(',');
-        let newLineColor = lineColorSelect.value; // Get selected line color
+        let newLineColor = lineColorSelect.value;
 
         if (newLineColor === 'theme-default') {
-            newLineColor = document.body.classList.contains('light-mode') ? '#0ea5e9' : '#0EA5E9'; // Black for light, default for dark
+            newLineColor = document.body.classList.contains('light-mode') ? '#0ea5e9' : '#0EA5E9';
         }
 
-
-        // 2. Destroy the existing instance (if it exists):
         if (pJSInstance) {
             if (pJSInstance && typeof pJSInstance.destroy === 'function') {
                 pJSInstance.destroy();
             }
-
-            //Manually remove canvas
             const particlesContainer = document.getElementById('particles-js');
             const oldCanvas = particlesContainer.querySelector('canvas');
             if (oldCanvas) {
@@ -118,7 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // 3. Update the configuration object:
         particleConfig.particles.number.value = newParticleCount;
         particleConfig.particles.move.speed = newParticleSpeed;
         particleConfig.particles.size.value = newParticleSize;
@@ -127,32 +121,23 @@ document.addEventListener('DOMContentLoaded', () => {
         particleConfig.interactivity.modes.push.particles_nb = newParticlesPerClick;
         particleConfig.particles.line_linked.enable = newLineVisibility;
         particleConfig.particles.color.value = newParticleColors;
-        particleConfig.particles.line_linked.color = newLineColor; // Set line color dynamically
+        particleConfig.particles.line_linked.color = newLineColor;
 
-        // 4. Create a new instance with the updated configuration:
         pJSInstance = particlesJS('particles-js', particleConfig);
 
-
-        // 5. Reapply Pointer Events Fix
         const canvas = document.getElementById('particles-js').querySelector('canvas');
         if (canvas) {
             canvas.style.pointerEvents = 'none';
         }
-
     }
 
-
-    // Initialize ParticlesJS and store the instance
     pJSInstance = particlesJS('particles-js', particleConfig);
 
-
-    // Ensure canvas doesn't block mouse events
     const canvas = document.getElementById('particles-js').querySelector('canvas');
     if (canvas) {
         canvas.style.pointerEvents = 'none';
     }
 
-    // Update mouse position globally on mousemove
     document.addEventListener('mousemove', (event) => {
         if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS && window.pJSDom[0].pJS.interactivity) {
             const pJS = window.pJSDom[0].pJS;
@@ -161,7 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Trigger particle push on click
     document.addEventListener('click', (event) => {
         if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS && window.pJSDom[0].pJS.fn) {
             const pJS = window.pJSDom[0].pJS;
@@ -169,98 +153,101 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Theme toggle functionality
     const themeToggle = document.getElementById('theme-toggle');
     themeToggle.addEventListener('click', () => {
         document.body.classList.toggle('light-mode');
         themeToggle.innerHTML = document.body.classList.contains('light-mode')
             ? '<i class="fas fa-fw fa-sun"></i>'
             : '<i class="fas fa-fw fa-moon"></i>';
-        updateParticles(); // Update particles when theme changes, especially for 'theme-default' line color
+        updateParticles();
     });
 
-    // Hamburger menu toggle
     const hamburger = document.querySelector('.hamburger');
     const navUl = document.querySelector('nav ul');
     hamburger.addEventListener('click', () => {
         navUl.classList.toggle('show');
     });
 
-    // Accordion functionality
     const accordionHeaders = document.querySelectorAll('.accordion-header');
     accordionHeaders.forEach(header => {
         header.addEventListener('click', () => {
             const accordionItem = header.parentElement;
             accordionItem.classList.toggle('open');
+            const accordionContent = header.nextElementSibling;
+            if (accordionItem.classList.contains('open')) {
+                accordionContent.style.maxHeight = accordionContent.scrollHeight + "px";
+                accordionContent.style.opacity = 1;
+            } else {
+                accordionContent.style.maxHeight = null;
+                accordionContent.style.opacity = 0;
+            }
         });
     });
 
-    // Initialize AOS -  Removed 'once: true' here!
+    // Initialize AOS with once: false to animate on every scroll in and out
     AOS.init({
-        duration: 1000
+        duration: 1000,
+        once: false
     });
 
-    // Particle Settings Button Functionality
-    const particleSettingsBtn = document.getElementById('particle-settings-btn');
-    const particleSettings = document.getElementById('particle-settings');
-    particleSettingsBtn.addEventListener('click', () => {
-        particleSettings.classList.toggle('show');
+    document.getElementById('particle-settings-btn').addEventListener('click', () => {
+        document.getElementById('particle-settings').classList.toggle('show');
     });
 
-    // Particle Toggle Button Functionality
+    document.getElementById('close-particle-settings').addEventListener('click', () => {
+        document.getElementById('particle-settings').classList.remove('show');
+    });
+
+    document.addEventListener('click', (event) => {
+        const particleSettings = document.getElementById('particle-settings');
+        if (!particleSettings.contains(event.target) && event.target !== document.getElementById('particle-settings-btn')) {
+            particleSettings.classList.remove('show');
+        }
+    });
+
     const toggleParticlesBtn = document.getElementById('toggle-particles');
     toggleParticlesBtn.addEventListener('click', () => {
         document.body.classList.toggle('reduce-motion');
         toggleParticlesBtn.innerHTML = document.body.classList.contains('reduce-motion')
-            ? '<i class="fas fa-fw fa-universal-access"></i>' // Icon when particles are off (or reduced motion is on)
-            : '<i class="fas fa-fw fa-universal-access"></i>'; // Icon when particles are on (or reduced motion is off)
+            ? '<i class="fas fa-fw fa-universal-access"></i>'
+            : '<i class="fas fa-fw fa-universal-access"></i>';
     });
 
-
-    // Particle Settings Elements
     const particleCountInput = document.getElementById('particle-count');
     const particleSpeedInput = document.getElementById('particle-speed');
     const particleSizeInput = document.getElementById('particle-size');
     const lineThicknessInput = document.getElementById('line-thickness');
-    const lineDistanceInput = document.getElementById('line-distance'); // Line Distance Slider
-    const particlesPerClickInput = document.getElementById('particles-per-click'); // Particles per click Slider
+    const lineDistanceInput = document.getElementById('line-distance');
+    const particlesPerClickInput = document.getElementById('particles-per-click');
     const lineVisibilityInput = document.getElementById('line-visibility');
     const particleColorSelect = document.getElementById('particle-color');
     const attractionPointsSelect = document.getElementById('attraction-points');
     const lineColorSelect = document.getElementById('line-color');
-    const applySettingsButton = document.getElementById('apply-particle-settings'); // Get Apply button reference
+    const applySettingsButton = document.getElementById('apply-particle-settings');
 
-    // Function to update label value dynamically
     function updateLabelValue(inputElement, labelElement) {
         labelElement.querySelector('span').textContent = `(${inputElement.value})`;
     }
 
-    // Event listeners for sliders to update labels dynamically
     particleCountInput.addEventListener('input', () => updateLabelValue(particleCountInput, particleCountInput.parentElement));
     particleSpeedInput.addEventListener('input', () => updateLabelValue(particleSpeedInput, particleSpeedInput.parentElement));
     particleSizeInput.addEventListener('input', () => updateLabelValue(particleSizeInput, particleSizeInput.parentElement));
     lineThicknessInput.addEventListener('input', () => updateLabelValue(lineThicknessInput, lineThicknessInput.parentElement));
-    lineDistanceInput.addEventListener('input', () => updateLabelValue(lineDistanceInput, lineDistanceInput.parentElement)); // Line Distance
-    particlesPerClickInput.addEventListener('input', () => updateLabelValue(particlesPerClickInput, particlesPerClickInput.parentElement)); // Particles per click
+    lineDistanceInput.addEventListener('input', () => updateLabelValue(lineDistanceInput, lineDistanceInput.parentElement));
+    particlesPerClickInput.addEventListener('input', () => updateLabelValue(particlesPerClickInput, particlesPerClickInput.parentElement));
 
-
-    // Event listener for Apply Settings button
     applySettingsButton.addEventListener('click', updateParticles);
 
-    // Smooth scrolling for navigation links
     document.querySelectorAll('nav ul li a').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1); // Get section ID without '#'
+            const targetId = this.getAttribute('href').substring(1);
             const targetSection = document.getElementById(targetId);
-
             if (targetSection) {
                 targetSection.scrollIntoView({
-                    behavior: 'smooth' // Enable smooth scrolling
+                    behavior: 'smooth'
                 });
             }
-
-            // Close hamburger menu after navigation on smaller screens
             if (navUl.classList.contains('show')) {
                 navUl.classList.remove('show');
             }
