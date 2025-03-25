@@ -468,7 +468,6 @@ body.light-mode .accordion-header:hover {
 .timeline-item:nth-child(even):before {
   background: #6D28D9;
 }
-
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -499,7 +498,6 @@ body.light-mode .accordion-header:hover {
   font-weight: bold;
   color: var(--text-color);
 }
-
 .circle-chart {
   transform: rotate(-90deg);
 }
@@ -734,4 +732,62 @@ footer {
     font-size: 12px;
     padding: 6px;
   }
+}
+
+/* Custom Animation Styles */
+[data-aos] {
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+[data-aos].animate-in {
+    opacity: 1;
+}
+
+[data-aos="fade-up"] {
+    transform: translateY(50px);
+}
+
+[data-aos="fade-up"].animate-in {
+    transform: translateY(0);
+}
+
+[data-aos="fade-down"] {
+    transform: translateY(-50px);
+}
+
+[data-aos="fade-down"].animate-in {
+    transform: translateY(0);
+}
+
+[data-aos="fade-left"] {
+    transform: translateX(50px);
+}
+
+[data-aos="fade-left"].animate-in {
+    transform: translateX(0);
+}
+
+[data-aos="fade-right"] {
+    transform: translateX(-50px);
+}
+
+[data-aos="fade-right"].animate-in {
+    transform: translateX(0);
+}
+
+[data-aos="zoom-in"] {
+    transform: scale(0.8);
+}
+
+[data-aos="zoom-in"].animate-in {
+    transform: scale(1);
+}
+
+[data-aos="flip-left"] {
+    transform: perspective(1000px) rotateY(90deg);
+}
+
+[data-aos="flip-left"].animate-in {
+    transform: perspective(1000px) rotateY(0deg);
 }

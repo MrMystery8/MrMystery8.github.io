@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Particle configuration (unchanged)
+    // Particle configuration
     const particleConfig = {
         particles: {
             number: {
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (pJSInstance) {
-            if (pJSInstance && typeof pJSInstance.destroy === 'function') {
+            if (typeof pJSInstance.destroy === 'function') {
                 pJSInstance.destroy();
             }
             const particlesContainer = document.getElementById('particles-js');
@@ -132,7 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     pJSInstance = particlesJS('particles-js', particleConfig);
-
     const canvas = document.getElementById('particles-js').querySelector('canvas');
     if (canvas) {
         canvas.style.pointerEvents = 'none';
@@ -184,23 +183,40 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Initialize AOS with once: false to animate on every scroll in and out
-    AOS.init({
-        duration: 1000,
-        once: false
+    // Custom Animation with Intersection Observer
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+            } else {
+                entry.target.classList.remove('animate-in');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('[data-aos]').forEach(element => {
+        observer.observe(element);
     });
 
-    document.getElementById('particle-settings-btn').addEventListener('click', () => {
-        document.getElementById('particle-settings').classList.toggle('show');
+    const particleSettingsBtn = document.getElementById('particle-settings-btn');
+    const particleSettings = document.getElementById('particle-settings');
+    particleSettingsBtn.addEventListener('click', () => {
+        particleSettings.classList.toggle('show');
     });
 
-    document.getElementById('close-particle-settings').addEventListener('click', () => {
-        document.getElementById('particle-settings').classList.remove('show');
+    const closeSettingsBtn = document.getElementById('close-particle-settings');
+    closeSettingsBtn.addEventListener('click', () => {
+        particleSettings.classList.remove('show');
     });
 
     document.addEventListener('click', (event) => {
-        const particleSettings = document.getElementById('particle-settings');
-        if (!particleSettings.contains(event.target) && event.target !== document.getElementById('particle-settings-btn')) {
+        if (!particleSettings.contains(event.target) && event.target !== particleSettingsBtn) {
             particleSettings.classList.remove('show');
         }
     });
@@ -244,9 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetId = this.getAttribute('href').substring(1);
             const targetSection = document.getElementById(targetId);
             if (targetSection) {
-                targetSection.scrollIntoView({
-                    behavior: 'smooth'
-                });
+                targetSection.scrollIntoView({ behavior: 'smooth' });
             }
             if (navUl.classList.contains('show')) {
                 navUl.classList.remove('show');
