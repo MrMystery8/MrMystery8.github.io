@@ -61,26 +61,27 @@ document.addEventListener('DOMContentLoaded', () => {
             let currentLineColor;
 
             if (isThemed) {
-                currentLineColor = isLightMode ? "#0EA5E9" : "#0EA5E9"; // Theme default colors
+                currentLineColor = isLightMode ? "#a1a1a1" : "#3a3a3a";
             } else if (lineColorSelect) {
-                currentLineColor = lineColorSelect.value; // Specific color selected
+                currentLineColor = lineColorSelect.value;
             } else {
-                 currentLineColor = isLightMode ? "#0EA5E9" : "#0EA5E9"; // Fallback
+                 currentLineColor = isLightMode ? "#a1a1a1" : "#3a3a3a";
             }
 
-            // Use a temporary config copy to avoid modifying the main 'particleConfig' object directly here
             const currentConfig = JSON.parse(JSON.stringify(particleConfig));
-            currentConfig.particles.line_linked.color = currentLineColor;
+             if (currentConfig.particles.line_linked) {
+                 currentConfig.particles.line_linked.color = currentLineColor;
+             }
+             if (particleColorSelect && particleColorSelect.value) {
+                 currentConfig.particles.color.value = particleColorSelect.value.split(',');
+             }
 
-            // Ensure previous instance is destroyed before creating a new one
              if (pJSInstance && typeof pJSInstance.destroy === 'function') {
                 pJSInstance.destroy();
-                pJSInstance = null; // Reset the instance variable
-                 // Manually remove the old canvas if it wasn't removed by destroy()
+                pJSInstance = null;
                 const oldCanvas = particlesElement.querySelector('canvas');
                 if (oldCanvas) oldCanvas.remove();
              }
-
 
             pJSInstance = particlesJS('particles-js', currentConfig);
         }
@@ -96,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateParticles() {
-        // 1. Update the main 'particleConfig' object from the input values
         if (particleCountInput) particleConfig.particles.number.value = parseInt(particleCountInput.value, 10);
         if (particleSpeedInput) particleConfig.particles.move.speed = parseFloat(particleSpeedInput.value);
         if (particleSizeInput) particleConfig.particles.size.value = parseInt(particleSizeInput.value, 10);
@@ -104,10 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (lineDistanceInput) particleConfig.particles.line_linked.distance = parseInt(lineDistanceInput.value, 10);
         if (particlesPerClickInput) particleConfig.interactivity.modes.push.particles_nb = parseInt(particlesPerClickInput.value, 10);
         if (lineVisibilityInput) particleConfig.particles.line_linked.enable = lineVisibilityInput.checked;
-        if (particleColorSelect) particleConfig.particles.color.value = particleColorSelect.value.split(',');
-        // Note: line_linked.color is now handled dynamically within initParticles based on theme/selection
 
-        // 2. Re-initialize particles using the updated config (implicitly used by initParticles)
         initParticles();
     }
 
@@ -115,57 +112,57 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Theme Toggling ---
     function setInitialTheme() {
         const prefersDarkInitial = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (prefersDarkInitial) {
+        const savedTheme = localStorage.getItem('theme');
+
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+            if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-fw fa-sun"></i>';
+        } else if (savedTheme === 'dark') {
+            document.body.classList.remove('light-mode');
+            if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-fw fa-moon"></i>';
+        } else if (prefersDarkInitial) {
             document.body.classList.remove('light-mode');
             if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-fw fa-moon"></i>';
         } else {
             document.body.classList.add('light-mode');
-             if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-fw fa-sun"></i>';
+            if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-fw fa-sun"></i>';
         }
     }
 
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
-            // 1. Toggle the class on the body
             document.body.classList.toggle('light-mode');
-
-            // 2. Check the new state AFTER toggling
             const isNowLight = document.body.classList.contains('light-mode');
-
-            // 3. Update the button icon based on the new state
-            themeToggle.innerHTML = isNowLight
-                ? '<i class="fas fa-fw fa-sun"></i>'
-                : '<i class="fas fa-fw fa-moon"></i>';
-
-            // 4. Update particles only if the line color is set to 'theme-default'
-            if (lineColorSelect && lineColorSelect.value === 'theme-default') {
-                // console.log('Theme changed, updating particles for theme color'); // For debugging
-                updateParticles(); // This will call initParticles which reads the new theme state
-            }
+            themeToggle.innerHTML = isNowLight ? '<i class="fas fa-fw fa-sun"></i>' : '<i class="fas fa-fw fa-moon"></i>';
+            localStorage.setItem('theme', isNowLight ? 'light' : 'dark');
+            updateParticles();
         });
     }
 
     // --- Initial Setup Calls ---
-    setInitialTheme(); // Set theme based on OS preference first
-    initParticles(); // Then initialize particles (which will read the initial theme)
+    setInitialTheme();
+    initParticles();
 
     // --- Mobile Navigation ---
     if (hamburger && navUl) {
         hamburger.addEventListener('click', (e) => {
             e.stopPropagation();
-            navUl.classList.toggle('show');
-            hamburger.setAttribute('aria-expanded', navUl.classList.contains('show'));
+            const isExpanded = navUl.classList.toggle('show');
+            hamburger.setAttribute('aria-expanded', isExpanded);
+            hamburger.innerHTML = isExpanded ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
         });
         navUl.addEventListener('click', (e) => {
             if (e.target.tagName === 'A' && navUl.classList.contains('show')) {
                 navUl.classList.remove('show');
                 hamburger.setAttribute('aria-expanded', 'false');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
             }
         });
         document.addEventListener('click', (e) => {
             if (navUl.classList.contains('show') && !navUl.contains(e.target) && e.target !== hamburger && !hamburger.contains(e.target)) {
                 navUl.classList.remove('show');
                 hamburger.setAttribute('aria-expanded', 'false');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
             }
         });
     }
@@ -175,30 +172,39 @@ document.addEventListener('DOMContentLoaded', () => {
         header.addEventListener('click', () => {
             const accordionItem = header.parentElement;
             const accordionContent = header.nextElementSibling;
-            if (!accordionItem || !accordionContent) return; // Safety check
+            if (!accordionItem || !accordionContent) return;
 
             const currentlyOpen = accordionItem.classList.contains('open');
 
             if (!currentlyOpen) {
                 accordionItem.classList.add('open');
-                accordionContent.style.maxHeight = accordionContent.scrollHeight + "px";
+                accordionContent.style.maxHeight = accordionContent.scrollHeight + 50 + "px";
                 accordionContent.style.opacity = 1;
             } else {
                 accordionItem.classList.remove('open');
-                accordionContent.style.maxHeight = null; // Collapse
+                accordionContent.style.maxHeight = null;
                 accordionContent.style.opacity = 0;
             }
         });
+
+        const content = header.nextElementSibling;
+        if (content) {
+            content.addEventListener('transitionend', (e) => {
+                 if (e.propertyName === 'max-height') {
+                    if (content.style.maxHeight !== '0px' && content.style.maxHeight !== null && content.parentElement.classList.contains('open')) {
+                         content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                }
+            });
+        }
     });
 
-    // --- Intersection Observer for Animations & Skill Bars (REVISED FOR REPLAY) ---
+    // --- Intersection Observer for Animations & Skill Bars (REINSTATED FROM INITIAL CODE) ---
     const observerOptions = {
         root: null,
         rootMargin: '0px',
         threshold: 0.1 // Trigger when 10% is visible/hidden
     };
-
-    // REMOVED: let skillsAnimated = false; // No longer needed
 
     const animationObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -208,28 +214,28 @@ document.addEventListener('DOMContentLoaded', () => {
             // CASE 1: Element is entering or intersecting the viewport
             if (entry.isIntersecting) {
                 // Add the class to trigger the general 'in' animation for the element
-                target.classList.add('aos-animate');
+                // Check if it has data-aos attribute before adding class
+                if (target.hasAttribute('data-aos')) {
+                    target.classList.add('aos-animate');
+                }
 
                 // --- Specific logic for Skill Bar Animation (Run every time) ---
-                if (target.id === 'skills') {
-                    const skillCircles = target.querySelectorAll('.circle-chart-circle');
+                 // Check if the target IS the #skills section OR CONTAINS skill circles
+                const skillSection = target.id === 'skills' ? target : target.closest('#skills');
+                if (skillSection) {
+                    const skillCircles = skillSection.querySelectorAll('.circle-chart-circle');
                     skillCircles.forEach(circle => {
                         const percentage = circle.getAttribute('data-percentage');
                         if (percentage) {
                             // ** Trick to ensure animation restarts: **
-                            // 1. Temporarily remove transition for reset
-                            circle.style.transition = 'none';
-                            // 2. Reset to initial state (0)
-                            circle.style.strokeDasharray = '0, 100';
-                            // 3. Force browser reflow to apply the reset immediately
-                            void circle.offsetWidth; // Reading offsetWidth forces reflow
-                            // 4. Re-enable transition defined in CSS
-                            circle.style.transition = ''; // Reverts to CSS rule
-                            // 5. Set the target value - transition will now animate
-                             // Use a minimal setTimeout to ensure the transition is re-enabled before setting target
+                            circle.style.transition = 'none'; // 1. Temp remove transition
+                            circle.style.strokeDasharray = '0, 100'; // 2. Reset to 0
+                            void circle.offsetWidth; // 3. Force reflow
+                            circle.style.transition = ''; // 4. Re-enable CSS transition
+                            // 5. Set target value slightly delayed
                             setTimeout(() => {
                                 circle.style.strokeDasharray = `${percentage}, 100`;
-                            }, 10); // Small delay (10ms) should be sufficient
+                            }, 10); // Small delay
                         }
                     });
                 }
@@ -237,14 +243,15 @@ document.addEventListener('DOMContentLoaded', () => {
             // CASE 2: Element is leaving the viewport
             else {
                  // Remove the class to trigger the general 'out' animation
-                 // Check if it has the class before removing
-                 if (target.classList.contains('aos-animate')) {
+                 // Check if it has the class before removing AND has data-aos
+                 if (target.hasAttribute('data-aos') && target.classList.contains('aos-animate')) {
                     target.classList.remove('aos-animate');
                  }
 
                 // --- Reset Skill Bars when section scrolls out ---
-                if (target.id === 'skills') {
-                    const skillCircles = target.querySelectorAll('.circle-chart-circle');
+                 const skillSection = target.id === 'skills' ? target : target.closest('#skills');
+                 if (skillSection) {
+                    const skillCircles = skillSection.querySelectorAll('.circle-chart-circle');
                     skillCircles.forEach(circle => {
                          // Reset stroke immediately without animation
                          circle.style.transition = 'none';
@@ -263,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
             animationObserver.observe(element);
         }
     });
-    // --- END REVISED Intersection Observer ---
+    // --- END REINSTATED Intersection Observer ---
 
 
     // --- Particle Settings Panel Logic ---
@@ -275,8 +282,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     [particleCountInput, particleSpeedInput, particleSizeInput, lineThicknessInput, lineDistanceInput, particlesPerClickInput].forEach(input => {
         if (input) {
+            updateLabelValue(input);
             input.addEventListener('input', () => updateLabelValue(input));
-            updateLabelValue(input); // Initialize
         }
     });
     if (particleSettingsBtn) {
@@ -293,13 +300,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (applySettingsButton) {
         applySettingsButton.addEventListener('click', () => {
             updateParticles();
-            // Optional: Close panel after applying
-            // if (particleSettingsPanel) particleSettingsPanel.classList.remove('show');
         });
     }
     document.addEventListener('click', (event) => {
         if (particleSettingsPanel && particleSettingsPanel.classList.contains('show')) {
-            if (!particleSettingsPanel.contains(event.target) && event.target !== particleSettingsBtn && !particleSettingsBtn?.contains(event.target)) {
+            if (!particleSettingsPanel.contains(event.target) && !particleSettingsBtn?.contains(event.target)) {
                 particleSettingsPanel.classList.remove('show');
             }
         }
@@ -307,29 +312,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Accessibility: Toggle Particles ---
     if (toggleParticlesBtn && particlesContainer) {
+        const updateToggleButton = () => {
+            if (particlesEnabled) {
+                toggleParticlesBtn.innerHTML = '<i class="fas fa-fw fa-universal-access"></i>';
+                toggleParticlesBtn.setAttribute('aria-pressed', 'false');
+                toggleParticlesBtn.setAttribute('title', 'Disable Particles (Accessibility)');
+            } else {
+                toggleParticlesBtn.innerHTML = '<i class="fas fa-fw fa-eye-slash"></i>';
+                toggleParticlesBtn.setAttribute('aria-pressed', 'true');
+                toggleParticlesBtn.setAttribute('title', 'Enable Particles');
+            }
+        };
+
         toggleParticlesBtn.addEventListener('click', () => {
             particlesEnabled = !particlesEnabled;
             if (particlesEnabled) {
                 particlesContainer.style.display = '';
                 document.body.classList.remove('reduce-motion');
-                initParticles(); // Re-initialize if enabled
-                toggleParticlesBtn.innerHTML = '<i class="fas fa-fw fa-universal-access"></i>';
-                toggleParticlesBtn.setAttribute('aria-pressed', 'false');
-                toggleParticlesBtn.setAttribute('title', 'Disable Particles (Accessibility)');
+                initParticles();
             } else {
-                destroyParticles(); // Destroy if disabled
+                destroyParticles();
                 particlesContainer.style.display = 'none';
                 document.body.classList.add('reduce-motion');
-                toggleParticlesBtn.innerHTML = '<i class="fas fa-fw fa-eye-slash"></i>';
-                toggleParticlesBtn.setAttribute('aria-pressed', 'true');
-                toggleParticlesBtn.setAttribute('title', 'Enable Particles');
             }
+            updateToggleButton();
         });
-        // Set initial state based on particlesEnabled
-        toggleParticlesBtn.innerHTML = particlesEnabled ? '<i class="fas fa-fw fa-universal-access"></i>' : '<i class="fas fa-fw fa-eye-slash"></i>';
-        toggleParticlesBtn.setAttribute('aria-pressed', !particlesEnabled);
-        toggleParticlesBtn.setAttribute('title', particlesEnabled ? 'Disable Particles (Accessibility)' : 'Enable Particles');
-        if(!particlesEnabled) particlesContainer.style.display = 'none'; // Ensure hidden if default is off
+        updateToggleButton();
+        if (!particlesEnabled) {
+             particlesContainer.style.display = 'none';
+             document.body.classList.add('reduce-motion');
+        }
     }
 
     // --- Smooth Scrolling for Nav Links ---
@@ -337,84 +349,107 @@ document.addEventListener('DOMContentLoaded', () => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                const navHeight = document.querySelector('nav')?.offsetHeight || 60;
-                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight - 10;
-                window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-            }
-            if (navUl && navUl.classList.contains('show')) {
-                navUl.classList.remove('show');
-                 if(hamburger) hamburger.setAttribute('aria-expanded', 'false');
+            try {
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const navHeight = document.querySelector('nav')?.offsetHeight || 70;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight - 15;
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+
+                    if (navUl && navUl.classList.contains('show')) {
+                        navUl.classList.remove('show');
+                        if(hamburger) {
+                            hamburger.setAttribute('aria-expanded', 'false');
+                            hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error("Error finding element for smooth scroll:", targetId, error);
             }
         });
     });
 
+
     // --- Active Nav Link Highlighting on Scroll ---
     function highlightNavLink() {
-        let currentSectionId = 'hero'; // Default to hero
-        const navHeight = document.querySelector('nav')?.offsetHeight || 60;
-        // Adjust offset to trigger slightly earlier when scrolling down
-        const scrollPosition = window.pageYOffset + navHeight + 100; // Fine-tune offset as needed
+        let currentSectionId = '';
+        const navHeight = document.querySelector('nav')?.offsetHeight || 70;
+        const scrollThreshold = window.pageYOffset + navHeight + window.innerHeight * 0.4;
 
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            // Check if the scroll position is at or below the section's top
-            if (scrollPosition >= sectionTop) {
-                 currentSectionId = section.getAttribute('id'); // Tentatively set ID
-            }
+            const sectionHeight = section.offsetHeight;
+             if (sectionTop <= scrollThreshold && (sectionTop + sectionHeight) > (window.pageYOffset + navHeight + 50)) {
+                  currentSectionId = section.getAttribute('id');
+             }
         });
 
-         // Ensure last section is active if scrolled fully to the bottom
-         if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 5) { // Small tolerance
+         if (window.pageYOffset < window.innerHeight * 0.5) {
+             currentSectionId = 'hero';
+         }
+
+         if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 20) {
              if (sections.length > 0) {
                  currentSectionId = sections[sections.length - 1].id;
              }
          }
 
         navLinks.forEach(link => {
+            link.classList.remove('active');
             const linkHref = link.getAttribute('href');
             if (linkHref === `#${currentSectionId}`) {
                 link.classList.add('active');
-            } else {
-                link.classList.remove('active');
             }
         });
     }
-    window.addEventListener('scroll', highlightNavLink);
-    highlightNavLink(); // Initial call
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(highlightNavLink, 50);
+    });
+    highlightNavLink();
 
 
     // --- Typewriter Effect ---
-    const phrases = ["AI Enthusiast", "Web Developer", "Computer Science Student", "Innovator"];
+    const phrases = ["AI Specialist", "Web Developer", "Computer Science Student", "Tech Innovator", "Graphic Designer"];
     let phraseIndex = 0, letterIndex = 0, currentPhrase = '', isDeleting = false;
+
     function typeWriter() {
         if (!typewriterElement) return;
+
         const phrase = phrases[phraseIndex];
+        let typeSpeed = isDeleting ? 60 : 130;
+
         if (isDeleting) {
-            // Deleting
             currentPhrase = phrase.substring(0, letterIndex--);
         } else {
-            // Typing
             currentPhrase = phrase.substring(0, letterIndex++);
         }
+
         typewriterElement.textContent = currentPhrase;
 
-        let typeSpeed = isDeleting ? 50 : 120; // Adjust speeds as needed
-
-        if (!isDeleting && letterIndex > phrase.length) { // Finished typing
-            typeSpeed = 2000; // Pause at end
+        if (!isDeleting && letterIndex > phrase.length) {
+            typeSpeed = 2200;
             isDeleting = true;
-            letterIndex = phrase.length; // Correct index before starting deletion
-        } else if (isDeleting && letterIndex < 0) { // Finished deleting
+            letterIndex = phrase.length;
+        } else if (isDeleting && letterIndex < 0) {
             isDeleting = false;
-            phraseIndex = (phraseIndex + 1) % phrases.length; // Move to next phrase
-            typeSpeed = 500; // Pause before typing next
-            letterIndex = 0; // Reset index
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            typeSpeed = 500;
+            letterIndex = 0;
         }
+
         setTimeout(typeWriter, typeSpeed);
     }
-    if (typewriterElement) setTimeout(typeWriter, 1000);
+
+    if (typewriterElement) {
+        setTimeout(typeWriter, 1200);
+    }
 
 
      // --- Resize Debouncer ---
@@ -422,14 +457,17 @@ document.addEventListener('DOMContentLoaded', () => {
      window.addEventListener('resize', () => {
          clearTimeout(resizeTimeout);
          resizeTimeout = setTimeout(() => {
-             highlightNavLink(); // Re-check nav link positions after resize
-             // Recalculate open accordion heights if needed
+             highlightNavLink();
              document.querySelectorAll('.accordion-item.open .accordion-content').forEach(content => {
-                 if (content.offsetParent !== null) { // Check if visible
+                 if (content.offsetParent !== null) {
                     content.style.maxHeight = content.scrollHeight + "px";
                  }
              });
          }, 250);
      });
+
+     // --- AOS Initialization (if uncommented in HTML) ---
+     // Make sure the AOS library script is included in the HTML first
+     // Example: AOS.init({ once: false }); // 'once: false' is CRUCIAL for the add/remove behavior
 
 }); // End DOMContentLoaded

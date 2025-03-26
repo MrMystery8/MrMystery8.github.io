@@ -29,6 +29,11 @@ body.light-mode {
   box-sizing: border-box;
 }
 
+html {
+    scroll-padding-top: 80px; /* Adjust based on nav height, ensures content isn't hidden under fixed nav on jump */
+}
+
+
 body {
   font-family: 'Roboto', sans-serif; /* Standardized body font */
   background: var(--primary-bg);
@@ -478,29 +483,32 @@ section h2::after {
 }
 
 
-/* --- Experience Section (Accordion) --- */
+/* --- Accordion Base Styles (Used by Experience & Education) --- */
 .accordion-item {
     margin-bottom: 20px; /* Spacing between items */
+    /* Needed for timeline dot positioning relative to this item */
+    position: relative;
 }
 
 .accordion-header {
   background-color: var(--card-bg);
   color: var(--text-color);
-  padding: 18px 20px; /* Adjusted padding */
+  padding: 18px 20px;
   border-radius: 8px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border: 1px solid var(--border-color);
-  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow transition */
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   box-shadow: var(--shadow);
+  position: relative; /* Ensure header is above content */
+  z-index: 2; /* Above timeline line potentially */
 }
 
 .accordion-header:hover {
   background-color: color-mix(in srgb, var(--card-bg) 85%, var(--accent-color) 15%); /* Subtle accent mix on hover */
   border-color: var(--accent-color);
-   /* Subtle glow effect */
   box-shadow: var(--shadow), 0 0 8px color-mix(in srgb, var(--accent-color) 30%, transparent);
 }
 body.light-mode .accordion-header:hover {
@@ -513,27 +521,34 @@ body.light-mode .accordion-header:hover {
   font-size: 1.2rem;
   margin: 0;
   flex-grow: 1;
-  margin-left: 15px;
+  margin-left: 15px; /* Space after icon */
+  color: var(--text-color);
+  transition: color 0.3s;
 }
 
 .accordion-header .company {
   font-size: 1rem;
   color: var(--gray-text);
-  margin-left: 15px; /* Add space between title and company */
+  margin-left: 15px; /* Space between title and company */
   margin-right: auto;
   padding-right: 15px;
   flex-shrink: 0; /* Prevent company name from shrinking too much */
   transition: color 0.3s;
+  text-align: right; /* Align company name right if space allows */
 }
 
-.accordion-header i.fa-briefcase { /* Target specific icon */
+/* Icon directly inside header */
+.accordion-header > i {
   font-size: 22px;
   color: var(--accent-color);
   transition: color 0.3s ease;
   flex-shrink: 0;
+  width: 30px; /* Give icon fixed width */
+  text-align: center; /* Center icon */
 }
 
-.accordion-header .icon-wrapper { /* Chevron wrapper */
+/* Chevron wrapper */
+.accordion-header .icon-wrapper {
   display: flex;
   align-items: center;
   min-width: 30px; /* Ensure space */
@@ -554,7 +569,7 @@ body.light-mode .accordion-header:hover {
 
 
 .accordion-content {
-  padding: 20px; /* More padding */
+  padding: 20px;
   background-color: var(--card-bg);
   border-radius: 0 0 8px 8px;
   border: 1px solid var(--border-color);
@@ -583,6 +598,11 @@ body.light-mode .accordion-header:hover {
   font-size: 1rem;
   line-height: 1.7; /* Better readability */
 }
+.accordion-content p strong {
+    color: var(--text-color); /* Make bold text stand out more */
+    font-weight: 700;
+}
+
 
 .accordion-item.open .accordion-content {
   max-height: 1000px; /* Large enough value */
@@ -595,7 +615,7 @@ body.light-mode .accordion-header:hover {
   border-bottom-right-radius: 0;
 }
 
-/* --- Timeline Base --- */
+/* --- Timeline Base (Used by Experience & Education) --- */
 .timeline {
   position: relative;
   padding: 20px 0;
@@ -608,82 +628,45 @@ body.light-mode .accordion-header:hover {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 20px;
+  left: 20px; /* Position line to the left */
   width: 3px; /* Thicker line */
   background: var(--border-color); /* Use border color for line */
   border-radius: 2px;
+  z-index: 0; /* Behind items */
 }
 
 .timeline-item {
   position: relative;
-  margin-bottom: 40px;
-  padding-left: 50px; /* More space from line */
+  margin-bottom: 40px; /* Space between items */
+  padding-left: 50px; /* Space for line and dot */
 }
 
+/* Default timeline dot for all timeline items */
 .timeline-item:before {
   content: '';
   position: absolute;
-  top: 5px;
-  left: 12px; /* Adjust position based on line width */
-  width: 18px; /* Larger dot */
+  /* Position relative to the timeline-item */
+  top: 22px; /* Align vertically with the center of the accordion header/icon area */
+  left: 12px; /* Position dot over the timeline line (left: 20px - dot_width/2 + border_width/2) => 20 - 9 + 1.5 = 12.5px approx */
+  width: 18px;
   height: 18px;
   border-radius: 50%;
   background: var(--card-bg); /* Match card background */
   border: 3px solid var(--accent-color); /* Accent color border */
-  z-index: 1;
+  z-index: 1; /* Above the line */
   transition: background-color 0.3s, border-color 0.3s;
 }
 
 
-/* --- Education Panel --- */
-.education-panel { /* Now using this class */
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 25px; /* Increased padding */
-  box-shadow: var(--shadow);
-  position: relative; /* Ensure it's above timeline dot if needed */
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease; /* Added transitions */
-}
+/* --- Education Specific Styles (Now uses Accordion) --- */
+/* No need for .education-panel styles anymore unless reused elsewhere */
+/* Icons are handled within .accordion-header > i */
 
-.education-panel:hover {
-  transform: translateY(-5px); /* Standard hover lift */
-  border-color: var(--accent-color); /* Highlight border on hover */
-  box-shadow: var(--hover-shadow-glow); /* Standardized hover shadow+glow */
-}
-
-.education-panel h3 {
-  font-size: 1.3rem; /* Slightly larger title */
-  margin-top: 0;
-  margin-bottom: 8px;
-  color: var(--text-color);
-  transition: color 0.3s;
-}
-
-.education-panel p {
-  font-size: 1rem;
-  color: var(--gray-text);
-  margin-bottom: 4px;
-  transition: color 0.3s;
-}
-.education-panel p:last-child {
-    margin-bottom: 0;
-}
-
-.education-panel i.fa-graduation-cap { /* Target icon */
-  font-size: 28px; /* Larger icon */
-  color: var(--accent-color);
-  margin-right: 15px;
-  vertical-align: middle; /* Align icon nicely */
-  float: left; /* Float icon left */
-  margin-top: 2px; /* Adjust vertical alignment */
-  transition: color 0.3s;
-}
 
 /* --- Skills Section --- */
 .skills-grid {
   display: grid;
-   grid-template-columns: repeat(2, 1fr); /* Fixed 2 columns for skills/certs */
+   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Adjust minmax */
   gap: 30px;
 }
 
@@ -715,22 +698,34 @@ body.light-mode .accordion-header:hover {
 .skill-category h3 i {
     margin-right: 12px; /* Space after icon */
     font-size: 1.3rem; /* Match text size */
+    width: 25px; /* Ensure icon width consistency */
+    text-align: center;
+}
+
+/* Container for circle charts */
+.skills-list {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping if needed */
+    gap: 20px; /* Space between circle charts */
+    margin-bottom: 25px; /* Space below charts */
+    justify-content: space-around; /* Distribute charts nicely */
 }
 
 .skill {
   display: flex; /* Align chart and text */
+  flex-direction: column; /* Stack chart above text */
   align-items: center;
-  margin-bottom: 20px;
+  text-align: center;
+  gap: 10px; /* Space between chart and text */
+  min-width: 80px; /* Ensure minimum width for items */
 }
-.skill:last-child {
-    margin-bottom: 0;
-}
+
 
 .skill p {
   font-weight: bold;
   color: var(--text-color);
-  font-size: 1.1rem; /* Slightly larger skill name */
-  margin-left: 15px; /* Space between chart and text */
+  font-size: 0.9rem; /* Slightly smaller skill name */
+  /* margin-left removed, centered below chart */
   transition: color 0.3s;
 }
 
@@ -748,129 +743,148 @@ body.light-mode .accordion-header:hover {
   stroke: var(--accent-color); /* Ensure stroke color respects theme */
 }
 
-/* --- Projects Section --- */
-.projects-grid {
+/* Style for the text list of skills */
+.skill-list-text {
+    list-style: none; /* Remove default bullets */
+    padding-left: 0;
+    margin-top: 15px; /* Space above text list */
+    column-count: 2; /* Display in two columns */
+    column-gap: 20px;
+}
+.skill-list-text li {
+    margin-bottom: 8px;
+    font-size: 1rem;
+    color: var(--gray-text);
+    position: relative;
+    padding-left: 18px; /* Space for custom bullet */
+    transition: color 0.3s;
+}
+.skill-list-text li::before {
+    content: "\f105"; /* Font Awesome chevron-right */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    top: 1px;
+    color: var(--accent-color);
+    font-size: 0.8rem;
+    transition: color 0.3s;
+}
+
+/* --- Achievements Section (Redesigned) --- */
+.achievements-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* Create 2 columns on medium screens and up, 1 on small */
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 30px;
 }
 
-.project-card {
-  perspective: 1000px;
-  width: 100%;
-  min-height: 350px; /* Ensure minimum height */
-}
-
-.card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1); /* Smoother flip */
-}
-
-.project-card:hover .card-inner {
-  transform: rotateY(180deg);
-}
-
-.card-front, .card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden; /* Safari */
-  border-radius: 10px;
-  box-shadow: var(--shadow);
-  overflow: hidden;
+.achievement-card {
+  background-color: var(--card-bg);
   border: 1px solid var(--border-color);
-  background-color: var(--card-bg); /* Ensure background */
-  display: flex;
-  flex-direction: column; /* Structure content vertically */
-  transition: background-color 0.3s, border-color 0.3s;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
 }
 
-
-
-.card-front img {
-  width: 100%;
-  height: 200px; /* Fixed height for image */
-  object-fit: cover;
-  border-bottom: 1px solid var(--border-color); /* Separator line */
-  transition: border-color 0.3s;
+.achievement-card:hover {
+  transform: translateY(-5px); /* Standard hover lift */
+  border-color: var(--accent-color);
+  box-shadow: var(--hover-shadow-glow); /* Standardized hover shadow+glow */
 }
 
-.card-front h3 {
-  font-size: 1.3rem;
-  padding: 20px; /* Padding for the title */
-  margin: 0;
-  flex-grow: 1; /* Allow title to take remaining space */
-  display: flex;
-  align-items: center; /* Center title vertically */
-  justify-content: center; /* Center title horizontally */
+.achievement-icon {
+  font-size: 2rem; /* Large icon */
+  color: var(--accent-color);
+  margin-bottom: 15px;
+  display: block; /* Center icon */
   text-align: center;
-  color: var(--text-color);
   transition: color 0.3s;
 }
 
-.card-back {
-  background: var(--accent-color); /* Use accent color for back */
-  color: white; /* White text on accent */
-  transform: rotateY(180deg);
-  padding: 25px; /* More padding */
-  justify-content: center;
-  align-items: center;
+.achievement-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.3rem;
+  color: var(--text-color);
   text-align: center;
+  margin-bottom: 20px;
+  transition: color 0.3s;
 }
 
-.card-back p {
-  margin-bottom: 1.5rem; /* More space */
-  font-size: 1rem;
-  line-height: 1.6;
+.achievement-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  color: var(--gray-text);
 }
 
-.tech-tags {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px; /* More gap */
-  margin-bottom: 1.5rem;
+.achievement-list li {
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 20px; /* Space for icon */
+  font-size: 0.95rem;
+  line-height: 1.5;
+  transition: color 0.3s;
 }
 
-.tech-tags span {
-  background: rgba(255, 255, 255, 0.2); /* Slightly more visible */
-  padding: 6px 12px; /* More padding */
-  border-radius: 15px; /* Pill shape */
-  font-size: 0.8rem; /* Smaller font */
-  font-weight: bold;
-  transition: transform 0.3s ease, background-color 0.3s ease;
+.achievement-list li::before {
+  content: "\f00c"; /* Font Awesome check */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  left: 0;
+  top: 3px;
+  color: var(--accent-color);
+  font-size: 0.8rem;
+  transition: color 0.3s;
 }
 
-.tech-tags span:hover {
-  transform: scale(1.1);
-  background: rgba(255, 255, 255, 0.3); /* Lighter on hover */
+/* Specific styling for project card */
+.achievement-project {
+    margin-bottom: 15px;
+}
+.achievement-project:last-child {
+    margin-bottom: 0;
+}
+.achievement-project h4 {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+.achievement-project p {
+    font-size: 0.95rem;
+    color: var(--gray-text);
+    margin-bottom: 8px;
+}
+.achievement-link {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    display: inline-block;
+}
+.achievement-link:hover {
+    text-decoration: underline;
+}
+.achievement-link i {
+    margin-left: 5px;
+    font-size: 0.8em;
 }
 
-.card-back a {
-  background-color: white; /* White button */
-  color: var(--accent-color); /* Accent text */
-  padding: 10px 20px; /* More padding */
-  border-radius: 8px;
-  font-weight: bold;
-  margin-top: auto; /* Push to bottom */
-  font-size: 1rem;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
-}
 
-.card-back a:hover {
-  background-color: #f0f0f0; /* Slightly off-white */
-  color: #0c76b5; /* Darker accent */
-  transform: scale(1.05); /* Subtle scale */
+/* --- Remove Project Card Flip Styles --- */
+/* These are no longer needed if not used elsewhere */
+/*
+.project-card, .card-inner, .card-front, .card-back {
+    REMOVE styles related to perspective, transform-style, backface-visibility, rotateY
 }
+*/
 
 /* --- Interests Section --- */
 .interests-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive */
   gap: 25px;
   text-align: center;
 }
@@ -886,6 +900,7 @@ body.light-mode .accordion-header:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center; /* Center content vertically */
 }
 
 .interest-item:hover {
@@ -900,6 +915,7 @@ body.light-mode .accordion-header:hover {
   /* Removed background circle for cleaner look */
   margin-bottom: 15px;
   transition: transform 0.3s ease, color 0.3s ease;
+  height: 35px; /* Ensure consistent height for icon area */
 }
 
 .interest-item:hover i {
@@ -989,7 +1005,7 @@ footer {
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
-/* --- Animation Styles --- */
+/* --- Animation Styles (AOS - if used) --- */
 /* Base state for elements using data-aos */
 [data-aos] {
     opacity: 0;
@@ -1005,9 +1021,6 @@ footer {
 [data-aos="fade-left"] { transform: translateX(50px); }
 [data-aos="fade-right"] { transform: translateX(-50px); }
 [data-aos="zoom-in"] { transform: scale(0.9); } /* Adjusted zoom slightly */
-/* Add other transforms if you use them, e.g., flip-left */
-/* [data-aos="flip-left"] { transform: perspective(1000px) rotateY(90deg); } */
-
 
 /* State when element should be visible (animated in) */
 [data-aos].aos-animate {
@@ -1020,10 +1033,14 @@ footer {
 /* --- Media Queries --- */
 @media (max-width: 992px) {
     .skills-grid {
-         grid-template-columns: 1fr; /* Stack skills/certs */
+         /* Keep 2 columns for a bit longer, adjust minmax if needed */
+         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     }
      section h2 {
         font-size: 2.2rem; /* Slightly smaller titles */
+    }
+    .skill-list-text {
+        column-count: 1; /* Single column for skill list on medium screens */
     }
 }
 
@@ -1076,51 +1093,38 @@ footer {
         display: none; /* Remove underline effect in mobile menu */
     }
 
+   .skills-grid {
+        grid-template-columns: 1fr; /* Stack skill categories */
+   }
+   .skill-list-text {
+        column-count: 1; /* Ensure single column */
+   }
+   .skills-list {
+        justify-content: space-evenly; /* Even space on mobile */
+        gap: 15px; /* Reduce gap slightly */
+   }
+   .achievements-grid {
+       grid-template-columns: 1fr; /* Stack achievement cards */
+   }
+
 
   .interests-grid {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjust for smaller items */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Adjust for smaller items */
+    gap: 15px; /* Reduce gap */
   }
-
-  /* Disable project card flip on mobile, show both sides */
-  .project-card {
-    perspective: none;
-    min-height: auto; /* Reset min-height */
-    margin-bottom: 30px; /* Add space between stacked cards */
+  .interest-item {
+    padding: 20px 10px; /* Reduce padding */
   }
-  .card-inner {
-    transform: none !important; /* Disable hover transform */
-    transition: none;
-    position: static; /* Reset positioning */
-    height: auto; /* Auto height */
+  .interest-item i {
+    font-size: 28px; /* Slightly smaller icon */
   }
-  .project-card:hover .card-inner {
-    transform: none !important; /* Ensure no transform on hover */
+   .interest-item p {
+    font-size: 1rem; /* Slightly smaller text */
   }
-  .card-front, .card-back {
-    position: relative; /* Changed from static to allow normal flow margin */
-    transform: none !important; /* Disable rotation */
-    width: 100%;
-    height: auto; /* Auto height */
-    margin-bottom: 1px; /* Small gap between front/back */
-    border-radius: 10px; /* Keep border radius */
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border-color);
-    backface-visibility: visible; /* Ensure visible */
-    -webkit-backface-visibility: visible;
-  }
-   .card-back {
-       margin-top: 0; /* Reset margin */
-       border-top-left-radius: 0; /* Adjust radius for stacked look */
-       border-top-right-radius: 0;
-   }
-    .card-front {
-       border-bottom-left-radius: 0;
-       border-bottom-right-radius: 0;
-       border-bottom: none; /* Remove bottom border if stacked */
-   }
 
   #hero {
     padding-top: 100px; /* More padding for nav */
+    min-height: 90vh; /* Slightly less than full viewport */
   }
   #hero h1 {
     font-size: 2.2rem; /* Smaller hero title */
@@ -1134,6 +1138,14 @@ footer {
    #hero .profile-img {
        width: 130px;
        height: 130px;
+   }
+   #hero .btn {
+       padding: 10px 24px;
+       font-size: 1rem;
+   }
+   .social-links a {
+       font-size: 22px;
+       margin: 0 10px;
    }
 
   #particle-settings {
@@ -1171,6 +1183,7 @@ footer {
        height: 3px;
    }
 
+    /* Adjust timeline dot position on mobile */
    .timeline:before {
        left: 15px; /* Adjust line position */
    }
@@ -1178,8 +1191,35 @@ footer {
         padding-left: 40px; /* Adjust item padding */
     }
     .timeline-item:before {
-        left: 7px; /* Adjust dot position */
+        top: 22px; /* Readjust based on mobile header height */
+        left: 7px; /* Position dot over the adjusted line */
         width: 16px;
         height: 16px;
     }
+    /* Adjust accordion header styles for smaller screens */
+     .accordion-header h3 {
+         font-size: 1.1rem;
+     }
+     .accordion-header .company {
+         font-size: 0.9rem;
+         margin-left: 8px; /* Less space */
+         padding-right: 8px;
+     }
+     .accordion-header > i {
+         font-size: 20px;
+         width: 25px;
+     }
+     .accordion-header .icon-wrapper i {
+         font-size: 14px;
+     }
+     .achievement-card {
+         padding: 20px;
+     }
+     .achievement-title {
+         font-size: 1.2rem;
+     }
+     .achievement-list li, .achievement-project p {
+         font-size: 0.9rem;
+     }
+
 }
