@@ -30,9 +30,8 @@ body.light-mode {
 }
 
 html {
-    scroll-padding-top: 80px; /* Adjust based on nav height, ensures content isn't hidden under fixed nav on jump */
+  scroll-padding-top: 80px; /* Adjust based on nav height, ensures content isn't hidden under fixed nav on jump */
 }
-
 
 body {
   font-family: 'Roboto', sans-serif; /* Standardized body font */
@@ -128,7 +127,7 @@ nav ul li a:hover, nav ul li a.active {
   transition: color 0.3s;
 }
 .hamburger i {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .settings-group {
@@ -156,7 +155,6 @@ nav ul li a:hover, nav ul li a.active {
 #theme-toggle i, #toggle-particles i, #particle-settings-btn i, #close-particle-settings i {
   pointer-events: none; /* Prevent icon from blocking button click */
 }
-
 
 #theme-toggle:hover, #toggle-particles:hover, #particle-settings-btn:hover {
   color: var(--accent-color);
@@ -190,21 +188,20 @@ nav ul li a:hover, nav ul li a.active {
 }
 
 #close-particle-settings {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    color: var(--text-color);
-    cursor: pointer;
-    pointer-events: auto; /* Ensure close button is clickable */
-    transition: color 0.3s;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--text-color);
+  cursor: pointer;
+  pointer-events: auto; /* Ensure close button is clickable */
+  transition: color 0.3s;
 }
 #close-particle-settings:hover {
-    color: var(--accent-color);
+  color: var(--accent-color);
 }
-
 
 #particle-settings label {
   display: block;
@@ -439,7 +436,7 @@ body.reduce-motion #particles-js {
   display: none;
 }
 body.reduce-motion #hero .profile-img {
-    animation: none; /* Disable bounce if reduce motion is on */
+  animation: none; /* Disable bounce if reduce motion is on */
 }
 
 /* --- General Section Styling --- */
@@ -462,7 +459,6 @@ section h2 {
   /* Gradient Text */
   background: var(--heading-gradient);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
   -webkit-text-fill-color: transparent; /* For WebKit-based browsers */
   /* Fallback color */
@@ -482,12 +478,11 @@ section h2::after {
   transition: background-color 0.3s;
 }
 
-
 /* --- Accordion Base Styles (Used by Experience & Education) --- */
 .accordion-item {
-    margin-bottom: 20px; /* Spacing between items */
-    /* Needed for timeline dot positioning relative to this item */
-    position: relative;
+  margin-bottom: 20px; /* Spacing between items */
+  /* Needed for timeline dot positioning relative to this item */
+  position: relative;
 }
 
 .accordion-header {
@@ -512,10 +507,9 @@ section h2::after {
   box-shadow: var(--shadow), 0 0 8px color-mix(in srgb, var(--accent-color) 30%, transparent);
 }
 body.light-mode .accordion-header:hover {
-    background-color: color-mix(in srgb, var(--card-bg) 95%, var(--accent-color) 5%); /* Lighter mix for light mode */
-    box-shadow: var(--shadow), 0 0 8px color-mix(in srgb, var(--accent-color) 20%, transparent);
+  background-color: color-mix(in srgb, var(--card-bg) 95%, var(--accent-color) 5%); /* Lighter mix for light mode */
+  box-shadow: var(--shadow), 0 0 8px color-mix(in srgb, var(--accent-color) 20%, transparent);
 }
-
 
 .accordion-header h3 {
   font-size: 1.2rem;
@@ -556,17 +550,16 @@ body.light-mode .accordion-header:hover {
   flex-shrink: 0;
 }
 .accordion-header .icon-wrapper i { /* Chevron icon */
-    font-size: 16px;
-    color: var(--gray-text);
-    transition: transform 0.3s ease, color 0.3s ease;
-    pointer-events: none; /* Prevent icon click issues */
+  font-size: 16px;
+  color: var(--gray-text);
+  transition: transform 0.3s ease, color 0.3s ease;
+  pointer-events: none; /* Prevent icon click issues */
 }
 
 .accordion-item.open .accordion-header .icon-wrapper i {
   transform: rotate(180deg);
   color: var(--accent-color); /* Change chevron color when open */
 }
-
 
 .accordion-content {
   padding: 20px;
@@ -590,7 +583,7 @@ body.light-mode .accordion-header:hover {
   padding-left: 5px;
 }
 .accordion-content li {
-    margin-bottom: 8px; /* Space between list items */
+  margin-bottom: 8px; /* Space between list items */
 }
 
 .accordion-content p {
@@ -599,10 +592,9 @@ body.light-mode .accordion-header:hover {
   line-height: 1.7; /* Better readability */
 }
 .accordion-content p strong {
-    color: var(--text-color); /* Make bold text stand out more */
-    font-weight: 700;
+  color: var(--text-color); /* Make bold text stand out more */
+  font-weight: 700;
 }
-
 
 .accordion-item.open .accordion-content {
   max-height: 1000px; /* Large enough value */
@@ -657,11 +649,10 @@ body.light-mode .accordion-header:hover {
   transition: background-color 0.3s, border-color 0.3s;
 }
 
-
 /* --- Skills Section --- */
 .skills-grid {
   display: grid;
-   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Adjust minmax */
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Adjust minmax */
   gap: 30px;
 }
 
@@ -691,19 +682,19 @@ body.light-mode .accordion-header:hover {
   transition: color 0.3s;
 }
 .skill-category h3 i {
-    margin-right: 12px; /* Space after icon */
-    font-size: 1.3rem; /* Match text size */
-    width: 25px; /* Ensure icon width consistency */
-    text-align: center;
+  margin-right: 12px; /* Space after icon */
+  font-size: 1.3rem; /* Match text size */
+  width: 25px; /* Ensure icon width consistency */
+  text-align: center;
 }
 
 /* Container for circle charts */
 .skills-list {
-    display: flex;
-    flex-wrap: wrap; /* Allow wrapping if needed */
-    gap: 20px; /* Space between circle charts */
-    margin-bottom: 25px; /* Space below charts */
-    justify-content: space-around; /* Distribute charts nicely */
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping if needed */
+  gap: 20px; /* Space between circle charts */
+  margin-bottom: 25px; /* Space below charts */
+  justify-content: space-around; /* Distribute charts nicely */
 }
 
 .skill {
@@ -714,7 +705,6 @@ body.light-mode .accordion-header:hover {
   gap: 10px; /* Space between chart and text */
   min-width: 80px; /* Ensure minimum width for items */
 }
-
 
 .skill p {
   font-weight: bold;
@@ -729,8 +719,8 @@ body.light-mode .accordion-header:hover {
   flex-shrink: 0; /* Prevent SVG from shrinking */
 }
 .circle-chart-background {
-    stroke: var(--border-color); /* Use border color for background */
-    transition: stroke 0.3s;
+  stroke: var(--border-color); /* Use border color for background */
+  transition: stroke 0.3s;
 }
 .circle-chart-circle {
   /* transition added for animation */
@@ -740,40 +730,42 @@ body.light-mode .accordion-header:hover {
 
 /* Style for the text list of skills */
 .skill-list-text {
-    list-style: none; /* Remove default bullets */
-    padding-left: 0;
-    margin-top: 15px; /* Space above text list */
-    column-count: 2; /* Display in two columns */
-    column-gap: 20px;
+  list-style: none; /* Remove default bullets */
+  padding-left: 0;
+  margin-top: 15px; /* Space above text list */
+  column-count: 2; /* Display in two columns */
+  column-gap: 20px;
 }
 .skill-list-text li {
-    margin-bottom: 8px;
-    font-size: 1rem;
-    color: var(--gray-text);
-    position: relative;
-    padding-left: 18px; /* Space for custom bullet */
-    transition: color 0.3s;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: var(--gray-text);
+  position: relative;
+  padding-left: 18px; /* Space for custom bullet */
+  transition: color 0.3s;
 }
 .skill-list-text li::before {
-    content: "\f105"; /* Font Awesome chevron-right */
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;
-    position: absolute;
-    left: 0;
-    top: 1px;
-    color: var(--accent-color);
-    font-size: 0.8rem;
-    transition: color 0.3s;
+  content: "\f105"; /* Font Awesome chevron-right */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  left: 0;
+  top: 1px;
+  color: var(--accent-color);
+  font-size: 0.8rem;
+  transition: color 0.3s;
 }
 
-/* --- Achievements Section (Redesigned) --- */
-.achievements-grid {
+/* --- Projects & Recognition Sections --- */
+/* Shared grid layout for Projects and Recognition */
+.content-grid {
   display: grid;
   /* Create 2 columns on medium screens and up, 1 on small */
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjusted minmax */
   gap: 30px;
 }
 
+/* Reusing .achievement-card styling for both projects and recognition items */
 .achievement-card {
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
@@ -784,6 +776,7 @@ body.light-mode .accordion-header:hover {
   flex-direction: column; /* Stack content vertically */
   /* Base transitions */
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+  min-height: 250px; /* Ensure cards have a minimum height for consistency */
 }
 
 .achievement-card:hover {
@@ -811,7 +804,7 @@ body.light-mode .accordion-header:hover {
   transition: color 0.3s;
 }
 
-.achievement-list {
+.achievement-list { /* Used in Recognition cards */
   list-style: none;
   padding-left: 0;
   margin: 0 0 15px 0; /* Add bottom margin */
@@ -828,6 +821,11 @@ body.light-mode .accordion-header:hover {
   /* List item transition */
   transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
+/* Style list item text */
+.achievement-list li strong {
+    color: var(--text-color); /* Make bold text stand out */
+    font-weight: 700;
+}
 
 .achievement-list li::before {
   content: "\f00c"; /* Font Awesome check */
@@ -835,76 +833,81 @@ body.light-mode .accordion-header:hover {
   font-weight: 900;
   position: absolute;
   left: 0;
-  top: 3px;
+  top: 4px; /* Adjust vertical alignment */
   color: var(--accent-color);
   font-size: 0.8rem;
   transition: color 0.3s;
 }
 
-/* Specific styling for project card within achievements */
-.achievement-project {
-    margin-bottom: 15px;
-    padding-top: 10px; /* Add some space above project */
-    border-top: 1px solid var(--border-color); /* Separator line */
-}
-.achievement-project:first-of-type {
-    padding-top: 0; /* No top padding for first project */
-    border-top: none; /* No top border for first project */
-}
-.achievement-project:last-child {
-    margin-bottom: 0;
+/* Specific styling for project details within a card */
+.achievement-project { /* Used in Project cards */
+  margin-bottom: 15px; /* Add some space below project block */
+  flex-grow: 1; /* Allow project details to fill space */
+  display: flex; /* Use flex for column layout if needed */
+  flex-direction: column;
 }
 .achievement-project h4 {
-    font-size: 1.1rem;
-    color: var(--text-color);
-    margin-bottom: 5px;
-    font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-color);
+  margin-bottom: 8px; /* More space below title */
+  font-weight: 700;
 }
 .achievement-project p {
-    font-size: 0.95rem;
-    color: var(--gray-text);
-    margin-bottom: 8px;
+  font-size: 0.95rem;
+  color: var(--gray-text);
+  margin-bottom: 12px; /* More space below paragraph */
+  flex-grow: 1; /* Allow paragraph to take space */
 }
-.achievement-link {
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: var(--accent-color);
-    display: inline-block;
-    /* Link transition */
-    transition: color 0.2s ease-in-out, text-decoration 0.2s ease-in-out;
-}
-.achievement-link i {
-    margin-left: 5px;
-    font-size: 0.8em;
-    /* Icon transition within link */
-    transition: transform 0.2s ease-in-out;
+.achievement-project p strong {
+    color: var(--text-color); /* Consistent bold style */
+    font-weight: 700;
 }
 
-/* --- Subtle Hover Animations for Achievements --- */
+.achievement-link { /* Used in Project cards */
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--accent-color);
+  display: inline-flex; /* Use inline-flex for icon alignment */
+  align-items: center; /* Vertically align icon and text */
+  gap: 6px; /* Space between icon and text */
+  margin-top: auto; /* Push link to bottom if card space allows */
+  /* Link transition */
+  transition: color 0.2s ease-in-out, text-decoration 0.2s ease-in-out;
+}
+/* Adjust icon size within link if needed */
+.achievement-link i.fab, /* Brand icons */
+.achievement-link i.fas { /* Solid icons */
+  font-size: 1em; /* Match link text size */
+}
+.achievement-link i.fa-external-link-alt {
+  font-size: 0.8em; /* Make external link icon slightly smaller */
+}
+
+
+/* --- Subtle Hover Animations for Cards --- */
 
 /* Icon hover effect */
 .achievement-card:hover .achievement-icon {
   transform: scale(1.1); /* Slightly enlarge icon */
 }
 
-/* List item hover effect */
+/* List item hover effect (Recognition cards) */
 .achievement-list li:hover {
   color: var(--text-color); /* Make text slightly brighter */
   transform: translateX(3px); /* Subtle nudge to the right */
 }
 /* Ensure the ::before pseudo-element doesn't also move */
 .achievement-list li:hover::before {
-    transform: translateX(0); /* Keep bullet stationary */
+  transform: translateX(0); /* Keep bullet stationary */
 }
 
-
-/* Project link hover effect */
+/* Project link hover effect (Project cards) */
 .achievement-link:hover {
   color: #0c76b5; /* Darker accent color */
   text-decoration: underline; /* Add underline */
 }
-.achievement-link:hover i {
-    transform: translateX(2px); /* Nudge the external link icon slightly */
+.achievement-link:hover i.fa-external-link-alt {
+  transform: translateX(2px); /* Nudge the external link icon slightly */
 }
 
 
@@ -950,10 +953,10 @@ body.light-mode .accordion-header:hover {
 }
 
 .interest-item p {
-    font-size: 1.1rem; /* Larger text */
-    font-weight: bold;
-    color: var(--text-color);
-    transition: color 0.3s;
+  font-size: 1.1rem; /* Larger text */
+  font-weight: bold;
+  color: var(--text-color);
+  transition: color 0.3s;
 }
 
 /* --- Contact Section --- */
@@ -984,13 +987,12 @@ body.light-mode .accordion-header:hover {
 
 #contact input:invalid:not(:placeholder-shown),
 #contact textarea:invalid:not(:placeholder-shown) {
-    border-color: #EF4444; /* Red border for invalid input after typing */
+  border-color: #EF4444; /* Red border for invalid input after typing */
 }
 #contact input:invalid:not(:placeholder-shown):focus,
 #contact textarea:invalid:not(:placeholder-shown):focus {
-    box-shadow: 0 0 0 3px color-mix(in srgb, #EF4444 25%, transparent); /* Red focus ring */
+  box-shadow: 0 0 0 3px color-mix(in srgb, #EF4444 25%, transparent); /* Red focus ring */
 }
-
 
 #contact button[type="submit"] { /* Be specific */
   background: var(--accent-color);
@@ -1010,13 +1012,12 @@ body.light-mode .accordion-header:hover {
   transform: translateY(-2px); /* Subtle lift */
 }
 #contact button[type="submit"]:active {
-    transform: translateY(0); /* Reset on click */
+  transform: translateY(0); /* Reset on click */
 }
 
-
 .social-links-footer {
-    /* Uses .social-links styles */
-    margin-top: 30px !important; /* Ensure spacing */
+  /* Uses .social-links styles */
+  margin-top: 30px !important; /* Ensure spacing */
 }
 /* Hover effect inherited from .social-links a:hover */
 
@@ -1035,11 +1036,11 @@ footer {
 /* --- Animation Styles (AOS - if used) --- */
 /* Base state for elements using data-aos */
 [data-aos] {
-    opacity: 0;
-    transition-property: opacity, transform;
-    transition-duration: 0.8s; /* Consistent duration */
-    transition-timing-function: ease-out; /* Consistent timing */
-    pointer-events: none; /* Prevent interaction while hidden */
+  opacity: 0;
+  transition-property: opacity, transform;
+  transition-duration: 0.8s; /* Consistent duration */
+  transition-timing-function: ease-out; /* Consistent timing */
+  pointer-events: none; /* Prevent interaction while hidden */
 }
 
 /* Define starting transforms (based on data-aos value) */
@@ -1051,26 +1052,29 @@ footer {
 
 /* State when element should be visible (animated in) */
 [data-aos].aos-animate {
-    opacity: 1;
-    transform: none; /* Resets transform to default (translate(0), scale(1), etc.) */
-    pointer-events: auto; /* Allow interaction when visible */
+  opacity: 1;
+  transform: none; /* Resets transform to default (translate(0), scale(1), etc.) */
+  pointer-events: auto; /* Allow interaction when visible */
 }
-
 
 /* --- Media Queries --- */
 @media (max-width: 992px) {
-    .skills-grid {
-         /* Keep 2 columns for a bit longer, adjust minmax if needed */
-         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    }
-     section h2 {
-        font-size: 2.2rem; /* Slightly smaller titles */
-    }
-    .skill-list-text {
-        column-count: 1; /* Single column for skill list on medium screens */
-    }
+  .skills-grid {
+    /* Keep 2 columns for a bit longer, adjust minmax if needed */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+  section h2 {
+    font-size: 2.2rem; /* Slightly smaller titles */
+  }
+  .skill-list-text {
+    column-count: 1; /* Single column for skill list on medium screens */
+  }
+  /* Adjust grid columns for content-grid if needed */
+  .content-grid {
+      /* Keeps 2 columns down to minmax size */
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
 }
-
 
 @media (max-width: 768px) {
   .hamburger {
@@ -1096,44 +1100,43 @@ footer {
     overflow-y: auto; /* Allow scrolling if needed */
     gap: 15px; /* Adjust gap */
   }
-   body.light-mode nav ul {
-       background: rgba(255, 255, 255, 0.98); /* Slightly transparent light background */
-   }
-
+  body.light-mode nav ul {
+    background: rgba(255, 255, 255, 0.98); /* Slightly transparent light background */
+  }
 
   nav ul.show {
     display: flex;
     opacity: 1;
     transform: translateX(0); /* Slide in */
   }
-   nav ul li a {
-       font-size: 1.2rem; /* Larger links in mobile menu */
-       padding: 10px 0; /* More clickable area */
-       border-bottom: 1px solid var(--border-color);
-       width: 100%; /* Make link take full width */
-       text-align: center; /* Center text */
-   }
-   nav ul li:last-child a {
-       border-bottom: none;
-   }
-    nav ul li a::after {
-        display: none; /* Remove underline effect in mobile menu */
-    }
+  nav ul li a {
+    font-size: 1.2rem; /* Larger links in mobile menu */
+    padding: 10px 0; /* More clickable area */
+    border-bottom: 1px solid var(--border-color);
+    width: 100%; /* Make link take full width */
+    text-align: center; /* Center text */
+  }
+  nav ul li:last-child a {
+    border-bottom: none;
+  }
+  nav ul li a::after {
+    display: none; /* Remove underline effect in mobile menu */
+  }
 
-   .skills-grid {
-        grid-template-columns: 1fr; /* Stack skill categories */
-   }
-   .skill-list-text {
-        column-count: 1; /* Ensure single column */
-   }
-   .skills-list {
-        justify-content: space-evenly; /* Even space on mobile */
-        gap: 15px; /* Reduce gap slightly */
-   }
-   .achievements-grid {
-       grid-template-columns: 1fr; /* Stack achievement cards */
-   }
-
+  .skills-grid {
+    grid-template-columns: 1fr; /* Stack skill categories */
+  }
+  .skill-list-text {
+    column-count: 1; /* Ensure single column */
+  }
+  .skills-list {
+    justify-content: space-evenly; /* Even space on mobile */
+    gap: 15px; /* Reduce gap slightly */
+  }
+  /* Stack Project/Recognition cards on mobile */
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
 
   .interests-grid {
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Adjust for smaller items */
@@ -1145,7 +1148,7 @@ footer {
   .interest-item i {
     font-size: 28px; /* Slightly smaller icon */
   }
-   .interest-item p {
+  .interest-item p {
     font-size: 1rem; /* Slightly smaller text */
   }
 
@@ -1159,21 +1162,21 @@ footer {
   #hero #typewriter {
     font-size: 1.1rem; /* Smaller typewriter */
   }
-   #hero p:not(#typewriter) {
-       font-size: 1rem; /* Smaller description */
-   }
-   #hero .profile-img {
-       width: 130px;
-       height: 130px;
-   }
-   #hero .btn {
-       padding: 10px 24px;
-       font-size: 1rem;
-   }
-   .social-links a {
-       font-size: 22px;
-       margin: 0 10px;
-   }
+  #hero p:not(#typewriter) {
+    font-size: 1rem; /* Smaller description */
+  }
+  #hero .profile-img {
+    width: 130px;
+    height: 130px;
+  }
+  #hero .btn {
+    padding: 10px 24px;
+    font-size: 1rem;
+  }
+  .social-links a {
+    font-size: 22px;
+    margin: 0 10px;
+  }
 
   #particle-settings {
     top: 70px; /* Position below nav */
@@ -1181,7 +1184,7 @@ footer {
     width: calc(100% - 20px); /* Almost full width */
     max-width: 320px; /* Max width */
     padding: 15px;
-     padding-top: 45px; /* Space for close button */
+    padding-top: 45px; /* Space for close button */
   }
   #particle-settings label {
     font-size: 13px;
@@ -1190,63 +1193,67 @@ footer {
     font-size: 13px;
     padding: 7px;
   }
-   #particle-settings input[type="range"]::-webkit-slider-thumb {
-       width: 14px;
-       height: 14px;
-   }
-    #particle-settings input[type="range"]::-moz-range-thumb {
-       width: 14px;
-       height: 14px;
-   }
-
+  #particle-settings input[type="range"]::-webkit-slider-thumb {
+    width: 14px;
+    height: 14px;
+  }
+  #particle-settings input[type="range"]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+  }
 
   section h2 {
     font-size: 2rem;
     margin-bottom: 40px;
-     padding-bottom: 10px;
+    padding-bottom: 10px;
   }
-   section h2::after {
-       width: 50px;
-       height: 3px;
-   }
+  section h2::after {
+    width: 50px;
+    height: 3px;
+  }
 
-    /* Adjust timeline dot position on mobile */
-   .timeline:before {
-       left: 15px; /* Adjust line position */
-   }
-    .timeline-item {
-        padding-left: 40px; /* Adjust item padding */
-    }
-    .timeline-item:before {
-        top: 22px; /* Readjust based on mobile header height */
-        left: 7px; /* Position dot over the adjusted line */
-        width: 16px;
-        height: 16px;
-    }
-    /* Adjust accordion header styles for smaller screens */
-     .accordion-header h3 {
-         font-size: 1.1rem;
-     }
-     .accordion-header .company {
-         font-size: 0.9rem;
-         margin-left: 8px; /* Less space */
-         padding-right: 8px;
-     }
-     .accordion-header > i {
-         font-size: 20px;
-         width: 25px;
-     }
-     .accordion-header .icon-wrapper i {
-         font-size: 14px;
-     }
-     .achievement-card {
-         padding: 20px;
-     }
-     .achievement-title {
-         font-size: 1.2rem;
-     }
-     .achievement-list li, .achievement-project p {
-         font-size: 0.9rem;
-     }
+  /* Adjust timeline dot position on mobile */
+  .timeline:before {
+    left: 15px; /* Adjust line position */
+  }
+  .timeline-item {
+    padding-left: 40px; /* Adjust item padding */
+  }
+  .timeline-item:before {
+    top: 22px; /* Readjust based on mobile header height */
+    left: 7px; /* Position dot over the adjusted line */
+    width: 16px;
+    height: 16px;
+  }
+  /* Adjust accordion header styles for smaller screens */
+  .accordion-header h3 {
+    font-size: 1.1rem;
+  }
+  .accordion-header .company {
+    font-size: 0.9rem;
+    margin-left: 8px; /* Less space */
+    padding-right: 8px;
+  }
+  .accordion-header > i {
+    font-size: 20px;
+    width: 25px;
+  }
+  .accordion-header .icon-wrapper i {
+    font-size: 14px;
+  }
+  /* Project/Recognition card adjustments on mobile */
+  .achievement-card {
+     padding: 20px;
+     min-height: auto; /* Allow height to adjust naturally on mobile */
+  }
+  .achievement-title {
+    font-size: 1.2rem;
+  }
+  .achievement-list li, .achievement-project p {
+    font-size: 0.9rem;
+  }
+  .achievement-link {
+      font-size: 0.85rem; /* Slightly smaller link text */
+  }
 
 }
