@@ -658,11 +658,6 @@ body.light-mode .accordion-header:hover {
 }
 
 
-/* --- Education Specific Styles (Now uses Accordion) --- */
-/* No need for .education-panel styles anymore unless reused elsewhere */
-/* Icons are handled within .accordion-header > i */
-
-
 /* --- Skills Section --- */
 .skills-grid {
   display: grid;
@@ -785,6 +780,9 @@ body.light-mode .accordion-header:hover {
   border-radius: 10px;
   padding: 25px;
   box-shadow: var(--shadow);
+  display: flex; /* Use flexbox for internal alignment */
+  flex-direction: column; /* Stack content vertically */
+  /* Base transitions */
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
 }
 
@@ -800,7 +798,8 @@ body.light-mode .accordion-header:hover {
   margin-bottom: 15px;
   display: block; /* Center icon */
   text-align: center;
-  transition: color 0.3s;
+  /* Icon transition */
+  transition: color 0.3s, transform 0.3s ease;
 }
 
 .achievement-title {
@@ -815,8 +814,9 @@ body.light-mode .accordion-header:hover {
 .achievement-list {
   list-style: none;
   padding-left: 0;
-  margin: 0;
+  margin: 0 0 15px 0; /* Add bottom margin */
   color: var(--gray-text);
+  flex-grow: 1; /* Allow list to take available space */
 }
 
 .achievement-list li {
@@ -825,7 +825,8 @@ body.light-mode .accordion-header:hover {
   padding-left: 20px; /* Space for icon */
   font-size: 0.95rem;
   line-height: 1.5;
-  transition: color 0.3s;
+  /* List item transition */
+  transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .achievement-list li::before {
@@ -840,9 +841,15 @@ body.light-mode .accordion-header:hover {
   transition: color 0.3s;
 }
 
-/* Specific styling for project card */
+/* Specific styling for project card within achievements */
 .achievement-project {
     margin-bottom: 15px;
+    padding-top: 10px; /* Add some space above project */
+    border-top: 1px solid var(--border-color); /* Separator line */
+}
+.achievement-project:first-of-type {
+    padding-top: 0; /* No top padding for first project */
+    border-top: none; /* No top border for first project */
 }
 .achievement-project:last-child {
     margin-bottom: 0;
@@ -863,23 +870,43 @@ body.light-mode .accordion-header:hover {
     font-weight: bold;
     color: var(--accent-color);
     display: inline-block;
-}
-.achievement-link:hover {
-    text-decoration: underline;
+    /* Link transition */
+    transition: color 0.2s ease-in-out, text-decoration 0.2s ease-in-out;
 }
 .achievement-link i {
     margin-left: 5px;
     font-size: 0.8em;
+    /* Icon transition within link */
+    transition: transform 0.2s ease-in-out;
+}
+
+/* --- Subtle Hover Animations for Achievements --- */
+
+/* Icon hover effect */
+.achievement-card:hover .achievement-icon {
+  transform: scale(1.1); /* Slightly enlarge icon */
+}
+
+/* List item hover effect */
+.achievement-list li:hover {
+  color: var(--text-color); /* Make text slightly brighter */
+  transform: translateX(3px); /* Subtle nudge to the right */
+}
+/* Ensure the ::before pseudo-element doesn't also move */
+.achievement-list li:hover::before {
+    transform: translateX(0); /* Keep bullet stationary */
 }
 
 
-/* --- Remove Project Card Flip Styles --- */
-/* These are no longer needed if not used elsewhere */
-/*
-.project-card, .card-inner, .card-front, .card-back {
-    REMOVE styles related to perspective, transform-style, backface-visibility, rotateY
+/* Project link hover effect */
+.achievement-link:hover {
+  color: #0c76b5; /* Darker accent color */
+  text-decoration: underline; /* Add underline */
 }
-*/
+.achievement-link:hover i {
+    transform: translateX(2px); /* Nudge the external link icon slightly */
+}
+
 
 /* --- Interests Section --- */
 .interests-grid {
