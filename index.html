@@ -8,6 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <!-- Link AOS CSS directly if not already included or managed elsewhere -->
+  <!-- <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -56,8 +58,8 @@
       <input type="range" id="line-distance" min="50" max="300" step="10" value="150">
     </div>
     <div class="setting-group">
-      <label for="particles-per-click">Particles per Click: <span>(4)</span></label>
-      <input type="range" id="particles-per-click" min="1" max="20" value="4">
+      <label for="particles-per-click">Particles per Click: <span>(3)</span></label>
+      <input type="range" id="particles-per-click" min="1" max="20" value="3">
     </div>
     <div class="setting-group">
       <label for="line-visibility" class="checkbox-label">Line Visibility:</label>
@@ -204,7 +206,7 @@
       <h2>Education</h2>
       <div class="timeline">
         <div class="timeline-item" data-aos="fade-right">
-          <div class="timeline-content">
+          <div class="timeline-content education-panel">
             <i class="fas fa-graduation-cap"></i>
             <h3>Bachelor's in Computer Science (AI)</h3>
             <p>Asia Pacific University (APU)</p>
@@ -212,7 +214,7 @@
           </div>
         </div>
         <div class="timeline-item" data-aos="fade-left">
-          <div class="timeline-content">
+          <div class="timeline-content education-panel">
             <i class="fas fa-graduation-cap"></i>
             <h3>A Levels, Computer Information Sciences and Support Services</h3>
             <p>Nixor College</p>
@@ -232,21 +234,21 @@
           <div class="skill">
             <svg class="circle-chart" viewBox="0 0 33.83 33.83" width="80" height="80">
               <circle class="circle-chart-background" stroke="#E5E7EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" />
-              <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="80,100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" />
+              <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="0, 100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" data-percentage="80" />
             </svg>
             <p>JavaScript</p>
           </div>
           <div class="skill">
             <svg class="circle-chart" viewBox="0 0 33.83 33.83" width="80" height="80">
               <circle class="circle-chart-background" stroke="#E5E7EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" />
-              <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="95,100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" />
+              <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="0, 100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" data-percentage="95" />
             </svg>
             <p>HTML</p>
           </div>
           <div class="skill">
             <svg class="circle-chart" viewBox="0 0 33.83 33.83" width="80" height="80">
               <circle class="circle-chart-background" stroke="#E5E7EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" />
-              <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="70,100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" />
+              <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="0, 100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" data-percentage="70" />
             </svg>
             <p>Web Development</p>
           </div>
@@ -256,7 +258,7 @@
           <div class="skill">
             <svg class="circle-chart" viewBox="0 0 33.83 33.83" width="80" height="80">
               <circle class="circle-chart-background" stroke="#E5E7EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" />
-              <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="85,100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" />
+              <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="0, 100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" data-percentage="85" />
             </svg>
             <p>AI Agents Fundamentals</p>
           </div>
@@ -269,7 +271,7 @@
     <div class="container">
       <h2>Projects</h2>
       <div class="projects-grid">
-        <div class="project-card" data-aos="flip-left" data-aos-delay="0">
+        <div class="project-card" data-aos="fade-up" data-aos-delay="0">
           <div class="card-inner">
             <div class="card-front">
               <img src="project1.jpg" alt="AI Chatbot Screenshot" />
@@ -285,7 +287,7 @@
             </div>
           </div>
         </div>
-        <div class="project-card" data-aos="flip-left" data-aos-delay="100">
+        <div class="project-card" data-aos="fade-up" data-aos-delay="100">
           <div class="card-inner">
             <div class="card-front">
               <img src="project2.jpg" alt="Portfolio Website Screenshot" />
@@ -349,6 +351,9 @@
 
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <!-- Include AOS JS if using data-aos animations -->
+  <!-- <script src="https://unpkg.com/aos@next/dist/aos.js"></script> -->
+  <!-- <script> AOS.init(); </script> -->
   <script src="script.js"></script>
 </body>
 </html>
