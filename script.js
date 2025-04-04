@@ -1,48 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Particle Configuration ---
-    const particleConfig = {
-        particles: {
-            number: { value: 60, density: { enable: true, value_area: 800 } },
-            color: { value: ["#0EA5E9", "#1D4ED8", "#6D28D9"] },
-            shape: { type: ["circle", "triangle"] },
-            opacity: { value: 0.5, random: false, anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false } },
-            size: { value: 5, random: true, anim: { enable: false } },
-            line_linked: { enable: true, distance: 150, color: "themed", opacity: 0.4, width: 0.8 },
-            move: { enable: true, speed: 1.5, direction: "none", random: false, straight: false, out_mode: "out", bounce: false, attract: { enable: false } }
-        },
-        interactivity: {
-            detect_on: "window",
-            events: {
-                onhover: { enable: true, mode: "grab" },
-                onclick: { enable: true, mode: "push" },
-                resize: true
-            },
-            modes: {
-                grab: { distance: 140, line_linked: { opacity: 0.7 } },
-                push: { particles_nb: 3 }
-            }
-        },
-        retina_detect: true
+    const particleConfig = { /* ... (Keep particleConfig the same) ... */
+        particles: { number: { value: 60, density: { enable: true, value_area: 800 } }, color: { value: ["#0EA5E9", "#1D4ED8", "#6D28D9"] }, shape: { type: ["circle", "triangle"] }, opacity: { value: 0.5, random: false, anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false } }, size: { value: 5, random: true, anim: { enable: false } }, line_linked: { enable: true, distance: 150, color: "themed", opacity: 0.4, width: 0.8 }, move: { enable: true, speed: 1.5, direction: "none", random: false, straight: false, out_mode: "out", bounce: false, attract: { enable: false } } }, interactivity: { detect_on: "window", events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" }, resize: true }, modes: { grab: { distance: 140, line_linked: { opacity: 0.7 } }, push: { particles_nb: 3 } } }, retina_detect: true
     };
-
     let pJSInstance = null;
     const particlesElement = document.getElementById('particles-js');
     let particlesEnabled = true;
 
     // --- Get DOM Element References ---
     const themeToggle = document.getElementById('theme-toggle');
-    const hamburger = document.querySelector('.hamburger');
-    const navUl = document.querySelector('nav ul');
     const accordionHeaders = document.querySelectorAll('.accordion-header');
     const typewriterElement = document.getElementById('typewriter');
     const toggleParticlesBtn = document.getElementById('toggle-particles');
     const particlesContainer = document.getElementById('particles-js');
     const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('nav ul li a');
     const particleSettingsBtn = document.getElementById('particle-settings-btn');
     const particleSettingsPanel = document.getElementById('particle-settings');
     const closeSettingsBtn = document.getElementById('close-particle-settings');
     const applySettingsButton = document.getElementById('apply-particle-settings');
+    const body = document.body;
+    const desktopNavLinks = document.querySelectorAll('nav ul.desktop-nav li a');
+    const mobileFabMenu = document.getElementById('mobile-fab-menu');
+    const fabToggle = document.getElementById('fab-toggle');
+    const fabMenuItems = document.getElementById('fab-menu-items');
+    const fabLinks = document.querySelectorAll('#fab-menu-items a');
+    const allNavLinks = document.querySelectorAll('nav ul.desktop-nav li a, #fab-menu-items a');
     const particleCountInput = document.getElementById('particle-count');
     const particleSpeedInput = document.getElementById('particle-speed');
     const particleSizeInput = document.getElementById('particle-size');
@@ -54,420 +36,138 @@ document.addEventListener('DOMContentLoaded', () => {
     const lineColorSelect = document.getElementById('line-color');
 
     // --- Particle Functions ---
-    function initParticles() {
-        if (particlesElement && particlesEnabled) {
-            const isThemed = lineColorSelect && lineColorSelect.value === 'theme-default';
-            const isLightMode = document.body.classList.contains('light-mode');
-            let currentLineColor;
-
-            if (isThemed) {
-                currentLineColor = isLightMode ? "#a1a1a1" : "#3a3a3a";
-            } else if (lineColorSelect) {
-                currentLineColor = lineColorSelect.value;
-            } else {
-                 currentLineColor = isLightMode ? "#a1a1a1" : "#3a3a3a";
-            }
-
-            const currentConfig = JSON.parse(JSON.stringify(particleConfig));
-             if (currentConfig.particles.line_linked) {
-                 currentConfig.particles.line_linked.color = currentLineColor;
-             }
-             if (particleColorSelect && particleColorSelect.value) {
-                 currentConfig.particles.color.value = particleColorSelect.value.split(',');
-             }
-
-             if (pJSInstance && typeof pJSInstance.destroy === 'function') {
-                pJSInstance.destroy();
-                pJSInstance = null;
-                const oldCanvas = particlesElement.querySelector('canvas');
-                if (oldCanvas) oldCanvas.remove();
-             }
-
-            pJSInstance = particlesJS('particles-js', currentConfig);
-        }
-    }
-
-    function destroyParticles() {
-        if (pJSInstance && typeof pJSInstance.destroy === 'function') {
-            pJSInstance.destroy();
-            pJSInstance = null;
-            const canvas = particlesElement.querySelector('canvas');
-            if (canvas) canvas.remove();
-        }
-    }
-
-    function updateParticles() {
-        if (particleCountInput) particleConfig.particles.number.value = parseInt(particleCountInput.value, 10);
-        if (particleSpeedInput) particleConfig.particles.move.speed = parseFloat(particleSpeedInput.value);
-        if (particleSizeInput) particleConfig.particles.size.value = parseInt(particleSizeInput.value, 10);
-        if (lineThicknessInput) particleConfig.particles.line_linked.width = parseFloat(lineThicknessInput.value);
-        if (lineDistanceInput) particleConfig.particles.line_linked.distance = parseInt(lineDistanceInput.value, 10);
-        if (particlesPerClickInput) particleConfig.interactivity.modes.push.particles_nb = parseInt(particlesPerClickInput.value, 10);
-        if (lineVisibilityInput) particleConfig.particles.line_linked.enable = lineVisibilityInput.checked;
-
-        initParticles();
-    }
-
+    // (Keep initParticles, destroyParticles, updateParticles functions same as previous version)
+    function initParticles() { if (particlesElement && particlesEnabled && typeof particlesJS !== 'undefined') { const isThemedLine = lineColorSelect?.value === 'theme-default'; const isLightMode = body.classList.contains('light-mode'); let currentLineColor; if (isThemedLine) { currentLineColor = isLightMode ? "#a1a1a1" : "#3a3a3a"; } else if (lineColorSelect?.value) { currentLineColor = lineColorSelect.value; } else { currentLineColor = isLightMode ? "#a1a1a1" : "#3a3a3a"; } const currentConfig = JSON.parse(JSON.stringify(particleConfig)); if (particleCountInput) currentConfig.particles.number.value = parseInt(particleCountInput.value, 10); if (particleSpeedInput) currentConfig.particles.move.speed = parseFloat(particleSpeedInput.value); if (particleSizeInput) currentConfig.particles.size.value = parseInt(particleSizeInput.value, 10); if (lineThicknessInput && currentConfig.particles.line_linked) currentConfig.particles.line_linked.width = parseFloat(lineThicknessInput.value); if (lineDistanceInput && currentConfig.particles.line_linked) currentConfig.particles.line_linked.distance = parseInt(lineDistanceInput.value, 10); if (particlesPerClickInput) currentConfig.interactivity.modes.push.particles_nb = parseInt(particlesPerClickInput.value, 10); if (lineVisibilityInput && currentConfig.particles.line_linked) currentConfig.particles.line_linked.enable = lineVisibilityInput.checked; if (particleColorSelect?.value) currentConfig.particles.color.value = particleColorSelect.value.split(','); if (currentConfig.particles.line_linked) currentConfig.particles.line_linked.color = currentLineColor; if (pJSInstance && typeof pJSInstance.destroy === 'function') { pJSInstance.destroy(); pJSInstance = null; const oldCanvas = particlesElement.querySelector('canvas'); if (oldCanvas) oldCanvas.remove(); } if (window.pJSDom) { window.pJSDom = []; } setTimeout(() => { if (particlesEnabled && particlesElement) { particlesJS('particles-js', currentConfig); if (window.pJSDom && window.pJSDom.length > 0) { pJSInstance = window.pJSDom[0].pJS; } } }, 50); } else if (!particlesEnabled && pJSInstance) { destroyParticles(); } }
+    function destroyParticles() { if (pJSInstance && typeof pJSInstance.destroy === 'function') { pJSInstance.destroy(); pJSInstance = null; const canvas = particlesElement?.querySelector('canvas'); if (canvas) canvas.remove(); } if (window.pJSDom) { window.pJSDom = []; } }
+    function updateParticles() { initParticles(); }
 
     // --- Theme Toggling ---
-    function setInitialTheme() {
-        const prefersDarkInitial = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const savedTheme = localStorage.getItem('theme');
-
-        if (savedTheme === 'light') {
-            document.body.classList.add('light-mode');
-            if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-fw fa-sun"></i>';
-        } else if (savedTheme === 'dark') {
-            document.body.classList.remove('light-mode');
-            if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-fw fa-moon"></i>';
-        } else if (prefersDarkInitial) {
-            document.body.classList.remove('light-mode');
-            if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-fw fa-moon"></i>';
-        } else {
-            document.body.classList.add('light-mode');
-            if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-fw fa-sun"></i>';
-        }
-    }
-
-    if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-            const isNowLight = document.body.classList.contains('light-mode');
-            themeToggle.innerHTML = isNowLight ? '<i class="fas fa-fw fa-sun"></i>' : '<i class="fas fa-fw fa-moon"></i>';
-            localStorage.setItem('theme', isNowLight ? 'light' : 'dark');
-            updateParticles();
-        });
-    }
+    // (Keep setInitialTheme and themeToggle listener same as previous version)
+    function setInitialTheme() { const savedTheme = localStorage.getItem('theme'); const prefersDarkInitial = window.matchMedia('(prefers-color-scheme: dark)').matches; if (savedTheme === 'light') { body.classList.add('light-mode'); if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-fw fa-sun"></i>'; } else if (savedTheme === 'dark') { body.classList.remove('light-mode'); if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-fw fa-moon"></i>'; } else { if (prefersDarkInitial) { body.classList.remove('light-mode'); if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-fw fa-moon"></i>'; } else { body.classList.add('light-mode'); if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-fw fa-sun"></i>'; } } updateParticles(); }
+    if (themeToggle) { themeToggle.addEventListener('click', () => { body.classList.toggle('light-mode'); const isNowLight = body.classList.contains('light-mode'); themeToggle.innerHTML = isNowLight ? '<i class="fas fa-fw fa-sun"></i>' : '<i class="fas fa-fw fa-moon"></i>'; localStorage.setItem('theme', isNowLight ? 'light' : 'dark'); updateParticles(); }); }
 
     // --- Initial Setup Calls ---
     setInitialTheme();
-    initParticles();
 
-    // --- Mobile Navigation ---
-    if (hamburger && navUl) {
-        hamburger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const isExpanded = navUl.classList.toggle('show');
-            hamburger.setAttribute('aria-expanded', isExpanded);
-            hamburger.innerHTML = isExpanded ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-        });
-        navUl.addEventListener('click', (e) => {
-            if (e.target.tagName === 'A' && navUl.classList.contains('show')) {
-                navUl.classList.remove('show');
-                hamburger.setAttribute('aria-expanded', 'false');
-                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
-            }
-        });
-        document.addEventListener('click', (e) => {
-            if (navUl.classList.contains('show') && !navUl.contains(e.target) && e.target !== hamburger && !hamburger.contains(e.target)) {
-                navUl.classList.remove('show');
-                hamburger.setAttribute('aria-expanded', 'false');
-                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
-            }
-        });
-    }
+    // --- Mobile FAB Menu Logic ---
+    // (Keep FAB menu logic same as previous version)
+    function closeFabMenu() { if (mobileFabMenu?.classList.contains('active')) { mobileFabMenu.classList.remove('active'); fabToggle?.setAttribute('aria-expanded', 'false'); } }
+    if (fabToggle && mobileFabMenu && fabMenuItems) { fabToggle.addEventListener('click', (e) => { e.stopPropagation(); const isActive = mobileFabMenu.classList.toggle('active'); fabToggle.setAttribute('aria-expanded', isActive); }); document.addEventListener('click', (e) => { if (mobileFabMenu.classList.contains('active') && !mobileFabMenu.contains(e.target)) { closeFabMenu(); } }); document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && mobileFabMenu.classList.contains('active')) { closeFabMenu(); } }); }
 
     // --- Accordion ---
-    accordionHeaders.forEach(header => {
-        header.addEventListener('click', () => {
-            const accordionItem = header.parentElement;
-            const accordionContent = header.nextElementSibling;
-            if (!accordionItem || !accordionContent) return;
+    // (Keep accordion logic same as previous version)
+    accordionHeaders.forEach(header => { header.addEventListener('click', () => { const accordionItem = header.closest('.accordion-item'); const accordionContent = header.nextElementSibling; if (!accordionItem || !accordionContent || !accordionContent.classList.contains('accordion-content')) { console.warn('Accordion structure issue near:', header); return; } const currentlyOpen = accordionItem.classList.contains('open'); if (!currentlyOpen) { accordionItem.classList.add('open'); accordionContent.style.maxHeight = accordionContent.scrollHeight + 40 + "px"; accordionContent.style.paddingTop = '20px'; accordionContent.style.paddingBottom = '20px'; accordionContent.style.opacity = 1; } else { accordionItem.classList.remove('open'); accordionContent.style.maxHeight = null; accordionContent.style.paddingTop = '0'; accordionContent.style.paddingBottom = '0'; accordionContent.style.opacity = 0; } }); });
 
-            const currentlyOpen = accordionItem.classList.contains('open');
-
-            if (!currentlyOpen) {
-                accordionItem.classList.add('open');
-                accordionContent.style.maxHeight = accordionContent.scrollHeight + 50 + "px";
-                accordionContent.style.opacity = 1;
-            } else {
-                accordionItem.classList.remove('open');
-                accordionContent.style.maxHeight = null;
-                accordionContent.style.opacity = 0;
-            }
-        });
-
-        const content = header.nextElementSibling;
-        if (content) {
-            content.addEventListener('transitionend', (e) => {
-                 if (e.propertyName === 'max-height') {
-                    if (content.style.maxHeight !== '0px' && content.style.maxHeight !== null && content.parentElement.classList.contains('open')) {
-                         content.style.maxHeight = content.scrollHeight + "px";
-                    }
-                }
-            });
-        }
-    });
-
-    // --- Intersection Observer for Animations & Skill Bars (REINSTATED FROM INITIAL CODE) ---
+    // =======================================================================
+    // --- Intersection Observer for Animations & Skill Bars (Original Logic) ---
+    // This observer handles both general fade/slide animations based on 'data-aos'
+    // attribute AND the specific skill bar circle animations.
+    // It manually adds/removes the 'aos-animate' class.
+    // =======================================================================
     const observerOptions = {
-        root: null,
+        root: null, // viewport
         rootMargin: '0px',
         threshold: 0.1 // Trigger when 10% is visible/hidden
     };
 
     const animationObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
-            // Target element for clarity
             const target = entry.target;
+            const hasAosAttribute = target.hasAttribute('data-aos');
 
-            // CASE 1: Element is entering or intersecting the viewport
             if (entry.isIntersecting) {
-                // Add the class to trigger the general 'in' animation for the element
-                // Check if it has data-aos attribute before adding class
-                if (target.hasAttribute('data-aos')) {
-                    target.classList.add('aos-animate');
+                // --- Handle General Animations (Add Class) ---
+                if (hasAosAttribute) {
+                    target.classList.add('aos-animate'); // Add class to trigger animation
                 }
 
-                // --- Specific logic for Skill Bar Animation (Run every time) ---
-                 // Check if the target IS the #skills section OR CONTAINS skill circles
+                // --- Handle Skill Bar Animation (Animate In) ---
                 const skillSection = target.id === 'skills' ? target : target.closest('#skills');
                 if (skillSection) {
-                    const skillCircles = skillSection.querySelectorAll('.circle-chart-circle');
-                    skillCircles.forEach(circle => {
-                        const percentage = circle.getAttribute('data-percentage');
-                        if (percentage) {
-                            // ** Trick to ensure animation restarts: **
-                            circle.style.transition = 'none'; // 1. Temp remove transition
-                            circle.style.strokeDasharray = '0, 100'; // 2. Reset to 0
-                            void circle.offsetWidth; // 3. Force reflow
-                            circle.style.transition = ''; // 4. Re-enable CSS transition
-                            // 5. Set target value slightly delayed
-                            setTimeout(() => {
+                     requestAnimationFrame(() => {
+                        skillSection.querySelectorAll('.circle-chart-circle').forEach(circle => {
+                            const percentage = circle.getAttribute('data-percentage');
+                            if (percentage) {
+                                // Force restart animation trick
+                                circle.style.transition = 'none';
+                                circle.style.strokeDasharray = '0, 100';
+                                void circle.offsetWidth; // Force reflow
+                                circle.style.transition = ''; // Re-enable CSS transition
                                 circle.style.strokeDasharray = `${percentage}, 100`;
-                            }, 10); // Small delay
-                        }
-                    });
+                            }
+                        });
+                     });
                 }
-            }
-            // CASE 2: Element is leaving the viewport
-            else {
-                 // Remove the class to trigger the general 'out' animation
-                 // Check if it has the class before removing AND has data-aos
-                 if (target.hasAttribute('data-aos') && target.classList.contains('aos-animate')) {
-                    target.classList.remove('aos-animate');
+            } else { // Element is leaving the viewport
+                // --- Handle General Animations (Remove Class - Original Logic) ---
+                 if (hasAosAttribute && target.classList.contains('aos-animate')) {
+                    target.classList.remove('aos-animate'); // Remove class to reset/animate out
                  }
 
-                // --- Reset Skill Bars when section scrolls out ---
+                // --- Reset Skill Bars (Animate Out/Reset) ---
                  const skillSection = target.id === 'skills' ? target : target.closest('#skills');
                  if (skillSection) {
-                    const skillCircles = skillSection.querySelectorAll('.circle-chart-circle');
-                    skillCircles.forEach(circle => {
-                         // Reset stroke immediately without animation
-                         circle.style.transition = 'none';
-                         circle.style.strokeDasharray = '0, 100';
-                          // Re-enable transition shortly after resetting
-                         setTimeout(() => { circle.style.transition = ''; }, 50);
-                    });
-                }
+                      requestAnimationFrame(() => {
+                        skillSection.querySelectorAll('.circle-chart-circle').forEach(circle => {
+                             circle.style.transition = 'none'; // Disable transition for reset
+                             circle.style.strokeDasharray = '0, 100';
+                             setTimeout(() => { circle.style.transition = ''; }, 50); // Re-enable later
+                        });
+                      });
+                 }
             }
         });
     }, observerOptions);
 
-    // Observe elements with data-aos attribute AND the #skills section
-    document.querySelectorAll('[data-aos], #skills').forEach(element => {
-        if (element) { // Ensure element exists
+    // Observe elements with 'data-aos' attribute AND the #skills section itself
+    document.querySelectorAll('[data-aos], section#skills').forEach(element => {
+        if (element) {
             animationObserver.observe(element);
         }
     });
-    // --- END REINSTATED Intersection Observer ---
-
+    // --- END Intersection Observer ---
 
     // --- Particle Settings Panel Logic ---
-    function updateLabelValue(inputElement) {
-        if (!inputElement || !inputElement.previousElementSibling) return;
-        const label = inputElement.previousElementSibling;
-        const span = label.querySelector('span');
-        if (span) span.textContent = `(${inputElement.value})`;
-    }
-    [particleCountInput, particleSpeedInput, particleSizeInput, lineThicknessInput, lineDistanceInput, particlesPerClickInput].forEach(input => {
-        if (input) {
-            updateLabelValue(input);
-            input.addEventListener('input', () => updateLabelValue(input));
-        }
-    });
-    if (particleSettingsBtn) {
-        particleSettingsBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (particleSettingsPanel) particleSettingsPanel.classList.toggle('show');
-        });
-    }
-    if (closeSettingsBtn && particleSettingsPanel) {
-        closeSettingsBtn.addEventListener('click', () => {
-            particleSettingsPanel.classList.remove('show');
-        });
-    }
-    if (applySettingsButton) {
-        applySettingsButton.addEventListener('click', () => {
-            updateParticles();
-        });
-    }
-    document.addEventListener('click', (event) => {
-        if (particleSettingsPanel && particleSettingsPanel.classList.contains('show')) {
-            if (!particleSettingsPanel.contains(event.target) && !particleSettingsBtn?.contains(event.target)) {
-                particleSettingsPanel.classList.remove('show');
-            }
-        }
-    });
+    // (Keep particle settings panel logic same as previous version)
+    function updateLabelValue(inputElement) { const label = inputElement?.previousElementSibling; const span = label?.querySelector('span'); if (span && inputElement) { span.textContent = `(${inputElement.value})`; } }
+    [particleCountInput, particleSpeedInput, particleSizeInput, lineThicknessInput, lineDistanceInput, particlesPerClickInput].forEach(input => { if (input) { updateLabelValue(input); input.addEventListener('input', () => updateLabelValue(input)); } });
+    if (particleSettingsBtn && particleSettingsPanel) { particleSettingsBtn.addEventListener('click', (e) => { e.stopPropagation(); particleSettingsPanel.classList.toggle('show'); }); }
+    if (closeSettingsBtn && particleSettingsPanel) { closeSettingsBtn.addEventListener('click', () => { particleSettingsPanel.classList.remove('show'); }); }
+    if (applySettingsButton) { applySettingsButton.addEventListener('click', () => { updateParticles(); }); }
+    document.addEventListener('click', (event) => { if (particleSettingsPanel?.classList.contains('show')) { if (!particleSettingsPanel.contains(event.target) && !particleSettingsBtn?.contains(event.target)) { particleSettingsPanel.classList.remove('show'); } } });
+
 
     // --- Accessibility: Toggle Particles ---
-    if (toggleParticlesBtn && particlesContainer) {
-        const updateToggleButton = () => {
-            if (particlesEnabled) {
-                toggleParticlesBtn.innerHTML = '<i class="fas fa-fw fa-universal-access"></i>';
-                toggleParticlesBtn.setAttribute('aria-pressed', 'false');
-                toggleParticlesBtn.setAttribute('title', 'Disable Particles (Accessibility)');
-            } else {
-                toggleParticlesBtn.innerHTML = '<i class="fas fa-fw fa-eye-slash"></i>';
-                toggleParticlesBtn.setAttribute('aria-pressed', 'true');
-                toggleParticlesBtn.setAttribute('title', 'Enable Particles');
-            }
-        };
+    // (Keep particle toggle logic same as previous version)
+    if (toggleParticlesBtn && particlesContainer) { const updateToggleButton = () => { if (particlesEnabled) { toggleParticlesBtn.innerHTML = '<i class="fas fa-fw fa-universal-access"></i>'; toggleParticlesBtn.setAttribute('aria-pressed', 'false'); toggleParticlesBtn.setAttribute('title', 'Disable Particles (Accessibility)'); } else { toggleParticlesBtn.innerHTML = '<i class="fas fa-fw fa-eye-slash"></i>'; toggleParticlesBtn.setAttribute('aria-pressed', 'true'); toggleParticlesBtn.setAttribute('title', 'Enable Particles'); } }; updateToggleButton(); if (!particlesEnabled) { particlesContainer.style.display = 'none'; body.classList.add('reduce-motion'); destroyParticles(); } toggleParticlesBtn.addEventListener('click', () => { particlesEnabled = !particlesEnabled; if (particlesEnabled) { particlesContainer.style.display = ''; body.classList.remove('reduce-motion'); initParticles(); } else { destroyParticles(); particlesContainer.style.display = 'none'; body.classList.add('reduce-motion'); } updateToggleButton(); }); }
 
-        toggleParticlesBtn.addEventListener('click', () => {
-            particlesEnabled = !particlesEnabled;
-            if (particlesEnabled) {
-                particlesContainer.style.display = '';
-                document.body.classList.remove('reduce-motion');
-                initParticles();
-            } else {
-                destroyParticles();
-                particlesContainer.style.display = 'none';
-                document.body.classList.add('reduce-motion');
-            }
-            updateToggleButton();
-        });
-        updateToggleButton();
-        if (!particlesEnabled) {
-             particlesContainer.style.display = 'none';
-             document.body.classList.add('reduce-motion');
-        }
-    }
 
-    // --- Smooth Scrolling for Nav Links ---
-    document.querySelectorAll('nav ul li a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            try {
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    const navHeight = document.querySelector('nav')?.offsetHeight || 70;
-                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight - 15;
-
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-
-                    if (navUl && navUl.classList.contains('show')) {
-                        navUl.classList.remove('show');
-                        if(hamburger) {
-                            hamburger.setAttribute('aria-expanded', 'false');
-                            hamburger.innerHTML = '<i class="fas fa-bars"></i>';
-                        }
-                    }
-                }
-            } catch (error) {
-                console.error("Error finding element for smooth scroll:", targetId, error);
-            }
-        });
-    });
+    // --- Smooth Scrolling for Nav Links (Desktop and Mobile FAB) ---
+    // (Keep smooth scroll logic same as previous version - uses allNavLinks)
+    allNavLinks.forEach(anchor => { anchor.addEventListener('click', function (e) { const href = this.getAttribute('href'); if (href && href.startsWith('#')) { e.preventDefault(); try { const targetElement = document.querySelector(href); if (targetElement) { const navElement = document.querySelector('nav'); const navHeight = navElement ? navElement.offsetHeight : 70; const buffer = 20; const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight - buffer; window.scrollTo({ top: targetPosition, behavior: 'smooth' }); closeFabMenu(); } } catch (error) { console.error("Error finding element for smooth scroll:", href, error); } } }); });
 
 
     // --- Active Nav Link Highlighting on Scroll ---
-    function highlightNavLink() {
-        let currentSectionId = '';
-        const navHeight = document.querySelector('nav')?.offsetHeight || 70;
-        const scrollThreshold = window.pageYOffset + navHeight + window.innerHeight * 0.4;
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-             if (sectionTop <= scrollThreshold && (sectionTop + sectionHeight) > (window.pageYOffset + navHeight + 50)) {
-                  currentSectionId = section.getAttribute('id');
-             }
-        });
-
-         if (window.pageYOffset < window.innerHeight * 0.5) {
-             currentSectionId = 'hero';
-         }
-
-         if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 20) {
-             if (sections.length > 0) {
-                 currentSectionId = sections[sections.length - 1].id;
-             }
-         }
-
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            const linkHref = link.getAttribute('href');
-            if (linkHref === `#${currentSectionId}`) {
-                link.classList.add('active');
-            }
-        });
-    }
+    // (Keep highlightNavLink logic same as previous version - uses allNavLinks)
     let scrollTimeout;
-    window.addEventListener('scroll', () => {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(highlightNavLink, 50);
-    });
+    function highlightNavLink() { let currentSectionId = ''; const navElement = document.querySelector('nav'); const navHeight = navElement ? navElement.offsetHeight : 70; const scrollThreshold = window.pageYOffset + navHeight + 50; sections.forEach(section => { const sectionTop = section.offsetTop; const sectionHeight = section.offsetHeight; if (scrollThreshold >= sectionTop && scrollThreshold < (sectionTop + sectionHeight)) { currentSectionId = section.getAttribute('id'); } }); if (window.pageYOffset < window.innerHeight * 0.4 && sections.length > 0 && sections[0].id === 'hero') { currentSectionId = 'hero'; } else if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 40 && sections.length > 0) { currentSectionId = sections[sections.length - 1].id; } allNavLinks.forEach(link => { link.classList.remove('active'); const linkHref = link.getAttribute('href'); if (linkHref === `#${currentSectionId}`) { link.classList.add('active'); } }); }
+    window.addEventListener('scroll', () => { clearTimeout(scrollTimeout); scrollTimeout = setTimeout(highlightNavLink, 50); });
     highlightNavLink();
 
 
     // --- Typewriter Effect ---
-    const phrases = ["AI Specialist", "Web Developer", "Computer Science Student", "Tech Innovator", "Graphic Designer"];
-    let phraseIndex = 0, letterIndex = 0, currentPhrase = '', isDeleting = false;
-
-    function typeWriter() {
-        if (!typewriterElement) return;
-
-        const phrase = phrases[phraseIndex];
-        let typeSpeed = isDeleting ? 60 : 130;
-
-        if (isDeleting) {
-            currentPhrase = phrase.substring(0, letterIndex--);
-        } else {
-            currentPhrase = phrase.substring(0, letterIndex++);
-        }
-
-        typewriterElement.textContent = currentPhrase;
-
-        if (!isDeleting && letterIndex > phrase.length) {
-            typeSpeed = 2200;
-            isDeleting = true;
-            letterIndex = phrase.length;
-        } else if (isDeleting && letterIndex < 0) {
-            isDeleting = false;
-            phraseIndex = (phraseIndex + 1) % phrases.length;
-            typeSpeed = 500;
-            letterIndex = 0;
-        }
-
-        setTimeout(typeWriter, typeSpeed);
-    }
-
-    if (typewriterElement) {
-        setTimeout(typeWriter, 1200);
-    }
+    // (Keep typewriter logic same as previous version)
+    const phrases = ["AI Specialist", "Web Developer", "Computer Science Student", "Tech Innovator", "Graphic Designer"]; let phraseIndex = 0; let letterIndex = 0; let currentPhrase = ''; let isDeleting = false; let typeTimeout;
+    function typeWriter() { if (!typewriterElement) return; clearTimeout(typeTimeout); const phrase = phrases[phraseIndex]; let typeSpeed = isDeleting ? 60 : 130; if (isDeleting) { currentPhrase = phrase.substring(0, letterIndex--); } else { currentPhrase = phrase.substring(0, letterIndex++); } typewriterElement.textContent = currentPhrase; if (currentPhrase === '') { typewriterElement.innerHTML = ' '; } if (!isDeleting && letterIndex > phrase.length) { typeSpeed = 2200; isDeleting = true; letterIndex = phrase.length; } else if (isDeleting && letterIndex < 0) { isDeleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; typeSpeed = 500; letterIndex = 0; } typeTimeout = setTimeout(typeWriter, typeSpeed); }
+    if (typewriterElement) { setTimeout(typeWriter, 1200); }
 
 
      // --- Resize Debouncer ---
+     // (Keep resize logic same as previous version)
      let resizeTimeout;
-     window.addEventListener('resize', () => {
-         clearTimeout(resizeTimeout);
-         resizeTimeout = setTimeout(() => {
-             highlightNavLink();
-             document.querySelectorAll('.accordion-item.open .accordion-content').forEach(content => {
-                 if (content.offsetParent !== null) {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                 }
-             });
-         }, 250);
-     });
+     window.addEventListener('resize', () => { clearTimeout(resizeTimeout); resizeTimeout = setTimeout(() => { highlightNavLink(); document.querySelectorAll('.accordion-item.open .accordion-content').forEach(content => { if (content.offsetParent !== null) { content.style.maxHeight = content.scrollHeight + 40 + "px"; } }); if (window.innerWidth > 768) { closeFabMenu(); } }, 250); });
 
-     // --- AOS Initialization (if uncommented in HTML) ---
-     // Make sure the AOS library script is included in the HTML first
-     // Example: AOS.init({ once: false }); // 'once: false' is CRUCIAL for the add/remove behavior
+     // Note: AOS library is NOT initialized via JS here.
+     // The Intersection Observer 'animationObserver' handles elements with 'data-aos'.
 
-}); // End DOMContentLoaded
+}); // End DOMContentLoaded wrapper
