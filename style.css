@@ -38,8 +38,29 @@ body.light-mode {
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 80px; /* Adjust based on FINAL nav height */ }
-body { font-family: 'Roboto', sans-serif; background: var(--primary-bg); color: var(--text-color); line-height: 1.6; font-size: 16px; transition: background-color 0.3s, color 0.3s; }
+
+html, body {
+    overflow-x: hidden; /* Prevent horizontal scrolling / zooming out */
+}
+
+html {
+    scroll-behavior: smooth;
+    /* Adjust based on FINAL nav height + buffer */
+    /* Example: 90px nav height + 10px buffer */
+    scroll-padding-top: 100px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: var(--primary-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s;
+    position: relative; /* Needed if overflow-x causes issues with fixed elements */
+    min-width: 320px; /* Prevent extreme shrinking */
+}
+
 a { color: var(--accent-color); text-decoration: none; transition: color 0.3s; }
 a:hover { color: var(--accent-color-darker); }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
@@ -65,28 +86,13 @@ nav .container {
   justify-content: space-between;
   align-items: center;
   /* Adjust padding/min-height to fit the large logo */
-  /* START EXAMPLE ADJUSTMENT - MODIFY AS NEEDED */
-  padding: 10px 20px; /* Reduced top/bottom padding */
-  min-height: 90px; /* Increased min-height */
-  /* END EXAMPLE ADJUSTMENT */
+  padding: 5px 20px; /* Example: Reduced top/bottom padding */
+  min-height: 90px; /* Example: Increased min-height for 5rem logo */
 }
 
 /* Logo Container Styles */
-.brand-container.logo-only {
-  display: flex;
-  align-items: center;
-}
-
-.nav-logo {
-  display: block;
-  /* --- SIZING --- */
-  /* 5rem (likely 80px) is VERY TALL. Ensure nav height accommodates it */
-  height: 5rem;
-  width: auto;
-  flex-shrink: 0;
-}
-
-/* --- Theme Logo Visibility Control --- */
+.brand-container.logo-only { display: flex; align-items: center; }
+.nav-logo { display: block; height: 5rem; /* Adjust NAV PADDING/HEIGHT to fit */ width: auto; flex-shrink: 0; }
 .nav-logo.logo-light { display: none; }
 .nav-logo.logo-dark { display: block; }
 body.light-mode .nav-logo.logo-light { display: block; }
@@ -100,7 +106,7 @@ nav ul.desktop-nav li a::after { content: ''; position: absolute; bottom: 0; lef
 nav ul.desktop-nav li a:hover::after, nav ul.desktop-nav li a.active::after { width: 100%; }
 nav ul.desktop-nav li a:hover, nav ul.desktop-nav li a.active { color: var(--accent-color); }
 
-/* Hamburger - Hidden on mobile via media query */
+/* Hamburger - Hidden */
 .hamburger { display: none; background: none; border: none; font-size: 24px; color: var(--text-color); cursor: pointer; padding: 5px; z-index: 1002; }
 .hamburger i { pointer-events: none; }
 
@@ -115,7 +121,7 @@ nav ul.desktop-nav li a:hover, nav ul.desktop-nav li a.active { color: var(--acc
 /* ========================================= */
 #particle-settings {
   position: fixed;
-  top: 70px; /* Adjust if nav height changed significantly */
+  top: 70px; /* Adjust if nav height changed */
   right: 20px;
   background: var(--card-bg);
   border: 1px solid var(--border-color);
@@ -124,7 +130,7 @@ nav ul.desktop-nav li a:hover, nav ul.desktop-nav li a.active { color: var(--acc
   z-index: 1001;
   width: 320px;
   max-width: calc(100% - 40px);
-  max-height: calc(100vh - 90px); /* Max height constraint */
+  max-height: calc(100vh - 100px); /* Max height: Viewport - Nav - Small buffer */
   transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s, border-color 0.3s;
   opacity: 0;
   transform: translateY(-5px) scale(0.95);
@@ -173,7 +179,6 @@ body.reduce-motion #particles-js { display: none; }
 section { padding: 80px 0; }
 section h2 { font-family: 'Montserrat', sans-serif; font-size: 2.5rem; margin-bottom: 50px; text-align: center; position: relative; display: inline-block; left: 50%; transform: translateX(-50%); padding-bottom: 15px; background: var(--heading-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: var(--accent-color); transition: color 0.3s; }
 section h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 4px; background-color: var(--accent-color); border-radius: 2px; transition: background-color 0.3s; }
-/* Accordion, Timeline, Skills, Projects, Recognition, Interests, Contact, Footer */
 .accordion-item { margin-bottom: 20px; position: relative; }
 .accordion-header { background-color: var(--card-bg); color: var(--text-color); padding: 18px 20px; border-radius: 8px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color); transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; box-shadow: var(--shadow); position: relative; z-index: 2; }
 .accordion-header:hover { background-color: color-mix(in srgb, var(--card-bg) 85%, var(--accent-color) 15%); border-color: var(--accent-color); box-shadow: var(--shadow), 0 0 8px color-mix(in srgb, var(--accent-color) 30%, transparent); }
@@ -261,13 +266,43 @@ footer { background: var(--card-bg); color: var(--gray-text); text-align: center
 /* ========================================= */
 /* MOBILE FAB MENU (Panel Added)             */
 /* ========================================= */
-#mobile-fab-menu { position: fixed; bottom: 25px; right: 25px; z-index: 1010; display: none; }
-#fab-toggle { width: 56px; height: 56px; border-radius: 50%; background-color: var(--fab-bg); color: var(--fab-text); border: none; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.3s ease, background-color 0.3s ease; z-index: 1011; position: relative; }
+#mobile-fab-menu {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 1050; /* High z-index */
+    display: none; /* Hidden by default */
+}
+#fab-toggle {
+    width: 56px; height: 56px; border-radius: 50%; background-color: var(--fab-bg);
+    color: var(--fab-text); border: none; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease; z-index: 1051; /* Above items */
+    position: relative;
+}
 #fab-toggle:hover { transform: scale(1.05); background-color: var(--accent-color-darker); }
 #fab-toggle i { font-size: 20px; transition: transform 0.3s ease; }
-#fab-menu-items { position: absolute; bottom: 70px; right: 0; display: flex; flex-direction: column; align-items: flex-end; opacity: 0; transform: translateY(15px) scale(0.95); transform-origin: bottom right; transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s, box-shadow 0.3s; pointer-events: none; background-color: var(--fab-panel-bg); padding: 15px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* backdrop-filter: blur(5px); */ /* -webkit-backdrop-filter: blur(5px); */ }
+#fab-menu-items {
+    position: absolute; bottom: 70px; right: 0; display: flex; flex-direction: column;
+    align-items: flex-end; opacity: 0; transform: translateY(15px) scale(0.95);
+    transform-origin: bottom right;
+    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s, box-shadow 0.3s;
+    pointer-events: none; background-color: var(--fab-panel-bg); padding: 15px;
+    border-radius: 12px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    max-width: calc(100vw - 50px); /* Prevent overflow */
+    width: max-content; /* Adjust width based on content */
+    backdrop-filter: blur(3px); /* Optional blur */
+    -webkit-backdrop-filter: blur(3px);
+}
 body.light-mode #fab-menu-items { box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
-#fab-menu-items a { background-color: var(--fab-item-bg); color: var(--text-color); padding: 10px 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: var(--shadow); display: flex; align-items: center; justify-content: flex-end; text-decoration: none; font-size: 0.95rem; font-weight: bold; white-space: nowrap; transform: translateX(10px); opacity: 0; transition: background-color 0.3s, color 0.3s, transform 0.3s ease, opacity 0.3s ease; width: 100%; }
+#fab-menu-items a {
+    background-color: var(--fab-item-bg); color: var(--text-color); padding: 10px 15px;
+    margin-bottom: 10px; border-radius: 8px; box-shadow: var(--shadow); display: flex;
+    align-items: center; justify-content: flex-end; text-decoration: none;
+    font-size: 0.95rem; font-weight: bold; white-space: nowrap; transform: translateX(10px);
+    opacity: 0; transition: background-color 0.3s, color 0.3s, transform 0.3s ease, opacity 0.3s ease;
+    width: 100%;
+}
 #fab-menu-items a:last-child { margin-bottom: 0; }
 #fab-menu-items a i { margin-right: 10px; font-size: 1.1em; color: var(--accent-color); transition: color 0.3s; }
 #fab-menu-items a span { display: inline-block; }
@@ -276,6 +311,7 @@ body.light-mode #fab-menu-items { box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
 #mobile-fab-menu.active #fab-toggle { transform: rotate(45deg); }
 #mobile-fab-menu.active #fab-menu-items { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
 #mobile-fab-menu.active #fab-menu-items a { transform: translateX(0); opacity: 1; }
+/* Staggered animation */
 #mobile-fab-menu.active #fab-menu-items a:nth-child(1) { transition-delay: 0.3s; }
 #mobile-fab-menu.active #fab-menu-items a:nth-child(2) { transition-delay: 0.27s; }
 #mobile-fab-menu.active #fab-menu-items a:nth-child(3) { transition-delay: 0.24s; }
@@ -284,6 +320,7 @@ body.light-mode #fab-menu-items { box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
 #mobile-fab-menu.active #fab-menu-items a:nth-child(6) { transition-delay: 0.15s; }
 #mobile-fab-menu.active #fab-menu-items a:nth-child(7) { transition-delay: 0.12s; }
 #mobile-fab-menu.active #fab-menu-items a:nth-child(8) { transition-delay: 0.09s; }
+
 
 /* ========================================= */
 /* MEDIA QUERIES (RESPONSIVENESS)            */
@@ -298,7 +335,7 @@ body.light-mode #fab-menu-items { box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
 }
 
 @media (max-width: 768px) { /* Small Screens */
-  html { scroll-padding-top: 75px; } /* Adjust based on FINAL mobile nav height */
+  html { scroll-padding-top: 90px; } /* Adjust based on mobile nav height if it differs */
   nav ul.desktop-nav { display: none; }
   .hamburger { display: none !important; }
   .desktop-only { display: none; }
@@ -308,7 +345,7 @@ body.light-mode #fab-menu-items { box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
   section { padding: 60px 0; }
   section h2 { font-size: 2rem; margin-bottom: 40px; padding-bottom: 10px; }
   section h2::after { width: 50px; height: 3px; }
-  #hero { padding-top: 100px; /* Adjust if nav height changed */ min-height: 90vh; }
+  #hero { padding-top: 100px; min-height: 90vh; }
   #hero h1 { font-size: 2.2rem; }
   #hero #typewriter { font-size: 1.1rem; min-height: 1.4em; }
   #hero p:not(#typewriter) { font-size: 1rem; max-width: 90%; }
@@ -343,12 +380,13 @@ body.light-mode #fab-menu-items { box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
   .apply-button-container { padding: 15px; }
   footer { margin-bottom: 80px; } /* Space for FAB */
   .nav-logo { height: 4rem; } /* Adjust mobile logo size */
+  nav .container { min-height: 70px; padding: 5px 15px; } /* Adjust mobile nav height/padding */
 }
 
 @media (max-width: 480px) { /* Very Small Screens */
-  html { font-size: 15px; }
+  html { font-size: 15px; scroll-padding-top: 80px; }
   .nav-logo { height: 3.5rem; } /* Adjust mobile logo size */
-  nav .container { min-height: 70px; /* Adjust nav height if needed for smaller logo */ }
+  nav .container { min-height: 60px; } /* Adjust nav height */
   #hero h1 { font-size: 1.9rem; }
   #hero #typewriter { font-size: 1rem; min-height: 1.3em; }
   #hero p:not(#typewriter) { font-size: 0.9rem; }
@@ -365,4 +403,5 @@ body.light-mode #fab-menu-items { box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
   #fab-toggle { width: 50px; height: 50px; }
   #fab-menu-items { bottom: 60px; padding: 10px; border-radius: 10px;}
   #fab-menu-items a { padding: 8px 12px; font-size: 0.9rem; margin-bottom: 8px;}
+  footer { margin-bottom: 70px; } /* Slightly less margin for smaller FAB */
 }

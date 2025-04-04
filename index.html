@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Updated Viewport Meta Tag -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <meta name="description" content="Ayaan Minhas - Computer Science student specializing in AI at APU, focusing on web development, AI agents, and innovative tech solutions." />
   <title>Ayaan Minhas - Portfolio Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-  <!-- Link AOS CSS for base styles (even though JS handles animation triggering) -->
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <link rel="stylesheet" href="style.css">
 </head>
@@ -18,12 +18,10 @@
   <!-- Desktop Navigation -->
   <nav>
     <div class="container">
-      <div class="brand-container logo-only">
-        <!-- Light theme logo - Shown only when body has .light-mode -->
-        <img src="logo.png" alt="Site Logo" class="nav-logo logo-light">
-        <!-- Dark theme logo - Shown by default (when body does NOT have .light-mode) -->
-        <img src="logo1.png" alt="Site Logo" class="nav-logo logo-dark">
-    </div>
+       <div class="brand-container logo-only">
+          <img src="logo.png" alt="Site Logo" class="nav-logo logo-light">
+          <img src="logo1.png" alt="Site Logo" class="nav-logo logo-dark">
+      </div>
       <button class="hamburger" aria-label="Toggle menu" aria-expanded="false"><i class="fas fa-bars"></i></button>
       <ul class="desktop-nav">
         <li><a href="#hero">Home</a></li>
@@ -61,179 +59,34 @@
   </div>
   <!-- End Mobile FAB Menu -->
 
-  <!-- Particle Settings Panel (Restructured for Scroll/Button Visibility) -->
+  <!-- Particle Settings Panel (Restructured) -->
   <div id="particle-settings">
     <button id="close-particle-settings" aria-label="Close particle settings"><i class="fas fa-times"></i></button>
-
-    <!-- Scrollable Content Area -->
     <div class="settings-scroll-content">
-        <div class="setting-group">
-          <label for="particle-count">Particle Count: <span>(60)</span></label>
-          <input type="range" id="particle-count" min="10" max="300" value="60">
-        </div>
-        <div class="setting-group">
-          <label for="particle-speed">Particle Speed: <span>(1.5)</span></label>
-          <input type="range" id="particle-speed" min="0" max="20" step="0.5" value="1.5">
-        </div>
-        <div class="setting-group">
-          <label for="particle-size">Particle Size: <span>(5)</span></label>
-          <input type="range" id="particle-size" min="1" max="10" value="5">
-        </div>
-        <div class="setting-group">
-          <label for="line-thickness">Line Thickness: <span>(0.8)</span></label>
-          <input type="range" id="line-thickness" min="0.1" max="4" step="0.2" value="0.8">
-        </div>
-        <div class="setting-group">
-          <label for="line-distance">Line Distance: <span>(150)</span></label>
-          <input type="range" id="line-distance" min="50" max="300" step="10" value="150">
-        </div>
-        <div class="setting-group">
-          <label for="particles-per-click">Particles per Click: <span>(3)</span></label>
-          <input type="range" id="particles-per-click" min="1" max="20" value="3">
-        </div>
-        <div class="setting-group checkbox-container">
-          <label for="line-visibility" class="checkbox-label">Line Visibility:</label>
-          <input type="checkbox" id="line-visibility" checked>
-        </div>
-        <div class="setting-group">
-          <label for="particle-color">Particle Color:</label>
-          <select id="particle-color">
-            <option value="#0EA5E9,#1D4ED8,#6D28D9" selected>Default</option>
-            <option value="#ff0000,#00ff00,#0000ff">Red/Green/Blue</option>
-            <option value="#ffffff">White</option>
-            <option value="#000000">Black</option>
-          </select>
-        </div>
-        <div class="setting-group" style="display:none;">
-          <label for="attraction-points">Attraction Points:</label>
-          <select id="attraction-points">
-            <option value="3x3" selected>3x3</option>
-            <option value="4x4">4x4</option>
-            <option value="5x5">5x5</option>
-          </select>
-        </div>
-        <div class="setting-group">
-          <label for="line-color">Line Color:</label>
-          <select id="line-color">
-            <option value="theme-default" selected>Theme Default</option>
-            <option value="#ffffff">White</option>
-            <option value="#000000">Black</option>
-            <option value="#0EA5E9">Blue</option>
-          </select>
-        </div>
-    </div> <!-- End Scrollable Content -->
-
-    <!-- Apply Button Container (Outside Scroll Area) -->
-    <div class="apply-button-container">
-      <button type="button" id="apply-particle-settings">Apply Changes</button>
+        <div class="setting-group"> <label for="particle-count">Particle Count: <span>(60)</span></label> <input type="range" id="particle-count" min="10" max="300" value="60"> </div>
+        <div class="setting-group"> <label for="particle-speed">Particle Speed: <span>(1.5)</span></label> <input type="range" id="particle-speed" min="0" max="20" step="0.5" value="1.5"> </div>
+        <div class="setting-group"> <label for="particle-size">Particle Size: <span>(5)</span></label> <input type="range" id="particle-size" min="1" max="10" value="5"> </div>
+        <div class="setting-group"> <label for="line-thickness">Line Thickness: <span>(0.8)</span></label> <input type="range" id="line-thickness" min="0.1" max="4" step="0.2" value="0.8"> </div>
+        <div class="setting-group"> <label for="line-distance">Line Distance: <span>(150)</span></label> <input type="range" id="line-distance" min="50" max="300" step="10" value="150"> </div>
+        <div class="setting-group"> <label for="particles-per-click">Particles per Click: <span>(3)</span></label> <input type="range" id="particles-per-click" min="1" max="20" value="3"> </div>
+        <div class="setting-group checkbox-container"> <label for="line-visibility" class="checkbox-label">Line Visibility:</label> <input type="checkbox" id="line-visibility" checked> </div>
+        <div class="setting-group"> <label for="particle-color">Particle Color:</label> <select id="particle-color"> <option value="#0EA5E9,#1D4ED8,#6D28D9" selected>Default</option> <option value="#ff0000,#00ff00,#0000ff">Red/Green/Blue</option> <option value="#ffffff">White</option> <option value="#000000">Black</option> </select> </div>
+        <div class="setting-group" style="display:none;"> <label for="attraction-points">Attraction Points:</label> <select id="attraction-points"> <option value="3x3" selected>3x3</option> <option value="4x4">4x4</option> <option value="5x5">5x5</option> </select> </div>
+        <div class="setting-group"> <label for="line-color">Line Color:</label> <select id="line-color"> <option value="theme-default" selected>Theme Default</option> <option value="#ffffff">White</option> <option value="#000000">Black</option> <option value="#0EA5E9">Blue</option> </select> </div>
     </div>
+    <div class="apply-button-container"> <button type="button" id="apply-particle-settings">Apply Changes</button> </div>
   </div>
   <!-- End Particle Settings Panel -->
 
-  <!-- Sections (Hero, Experience, etc.) remain unchanged -->
-  <section id="hero">
-    <div class="container">
-      <img src="Me.png" alt="Ayaan Minhas Profile Picture" class="profile-img" data-aos="zoom-in" />
-      <h1 data-aos="fade-up">Ayaan Minhas</h1>
-      <p id="typewriter" data-aos="fade-up" data-aos-delay="100"></p>
-      <p data-aos="fade-up" data-aos-delay="200">
-        Computer Science student at APU specializing in Artificial Intelligence. Passionate about web development, leveraging AI, and creating innovative solutions. Based in Kuala Lumpur, Malaysia.
-      </p>
-      <a href="Ayaan Minhas - Resume.pdf" class="btn" download="Ayaan-Minhas-Resume.pdf">Download Resume</a>
-      <div class="social-links" data-aos="fade-up" data-aos-delay="400">
-        <a href="https://linkedin.com/in/ayaan-minhas" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
-        <a href="https://github.com/mrmystery8" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
-        <a href="mailto:ayaanminhas1@gmail.com" aria-label="Send Email"><i class="fas fa-envelope"></i></a>
-        <a href="tel:+60106501072" aria-label="Call Phone"><i class="fas fa-phone"></i></a>
-      </div>
-    </div>
-  </section>
-
-  <section id="experience">
-    <div class="container">
-      <h2>Work Experience</h2>
-      <div class="timeline">
-        <div class="timeline-item" data-aos="fade-right"> <div class="accordion-item"> <div class="accordion-header"> <i class="fas fa-cogs"></i> <h3>Research & Development Assistant (Part-Time)</h3> <span class="company">CTI at APU, Kuala Lumpur</span> <div class="icon-wrapper"> <i class="fas fa-chevron-down"></i> </div> </div> <div class="accordion-content"> <p><strong>Duration:</strong> November 2024 - Present</p> <p><strong>Location:</strong> Kuala Lumpur, Malaysia</p> <ul> <li>Develop, test, and implement front-end web applications (HTML, CSS, JavaScript), ensuring responsiveness and cross-browser compatibility.</li> <li>Collaborate on innovative web solutions and proof-of-concept prototypes.</li> <li>Maintain applications, troubleshoot bugs, perform code reviews, and optimize performance.</li> <li>Utilize Joget 8 DX for integrated development aspects.</li> </ul> </div> </div> </div>
-        <div class="timeline-item" data-aos="fade-left"> <div class="accordion-item"> <div class="accordion-header"> <i class="fas fa-user-tie"></i> <h3>Chief Information Officer</h3> <span class="company">Nixor Creative Studios (NCS)</span> <div class="icon-wrapper"> <i class="fas fa-chevron-down"></i> </div> </div> <div class="accordion-content"> <p><strong>Duration:</strong> February 2022 - February 2023 (1 year 1 month)</p> <p><strong>Location:</strong> Karachi, Sindh, Pakistan</p> <ul> <li>Led the IT department, managed website updates, and trained 50+ volunteers.</li> <li>Spearheaded the relaunch of the Sharkpress online journalism website.</li> <li>Nominated for CIO of the Year.</li> <li>Previously volunteered (Jun 2021 - Feb 2022): Event media coverage, design, and website assistance.</li> </ul> </div> </div> </div>
-        <div class="timeline-item" data-aos="fade-right"> <div class="accordion-item"> <div class="accordion-header"> <i class="fas fa-chalkboard-teacher"></i> <h3>Senior Teacher's Assistant - Physics</h3> <span class="company">Nixor College TA Program</span> <div class="icon-wrapper"> <i class="fas fa-chevron-down"></i> </div> </div> <div class="accordion-content"> <p><strong>Duration:</strong> September 2022 - March 2023 (7 months)</p> <p><strong>Location:</strong> Karachi, Sindh, Pakistan</p> <ul> <li>Managed junior Physics TAs and coordinated with the Student Academics Team.</li> <li>Provided advanced academic support and addressed student queries in Physics.</li> </ul> </div> </div> </div>
-        <div class="timeline-item" data-aos="fade-left"> <div class="accordion-item"> <div class="accordion-header"> <i class="fas fa-book-reader"></i> <h3>Teacher's Assistant - Physics</h3> <span class="company">Nixor College TA Program</span> <div class="icon-wrapper"> <i class="fas fa-chevron-down"></i> </div> </div> <div class="accordion-content"> <p><strong>Duration:</strong> October 2021 - September 2022 (1 year)</p> <p><strong>Location:</strong> Karachi, Sindh, Pakistan</p> <ul> <li>Provided part-time academic support in Physics.</li> <li>Answered student queries and maintained TA lounge presence (4+ hrs/week).</li> </ul> </div> </div> </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="education">
-    <div class="container">
-      <h2>Education</h2>
-      <div class="timeline">
-         <div class="timeline-item" data-aos="fade-right"> <div class="accordion-item"> <div class="accordion-header"> <i class="fas fa-university"></i> <h3>Bachelor of Computer Science (Hons) (Artificial Intelligence)</h3> <span class="company">Asia Pacific University (APU/APIIT)</span> <div class="icon-wrapper"> <i class="fas fa-chevron-down"></i> </div> </div> <div class="accordion-content"> <p><strong>Duration:</strong> 2023 - Present (Expected 2026)</p> <p><strong>Location:</strong> Kuala Lumpur, Malaysia</p> <p><strong>Achievements:</strong></p> <ul> <li>Consistently High GPA: Y1S1: 3.94 | Y1S2: 4.00 | Y2S1: 3.96</li> <li>APU – De Montfort University (UK) Dual Degree</li> <li>Awarded 30% Academic Scholarship (Maximum based on Excellence)</li> </ul> </div> </div> </div>
-        <div class="timeline-item" data-aos="fade-left"> <div class="accordion-item"> <div class="accordion-header"> <i class="fas fa-school"></i> <h3>GCE A Levels</h3> <span class="company">Nixor College</span> <div class="icon-wrapper"> <i class="fas fa-chevron-down"></i> </div> </div> <div class="accordion-content"> <p><strong>Duration:</strong> 2021 - 2023</p> <p><strong>Location:</strong> Karachi, Pakistan</p> <p><strong>Subjects & Grades:</strong></p> <ul> <li>Further Mathematics (A), Mathematics (A*), Computer Science (A*), Physics (A*), Chemistry (A*)</li> </ul> <p><strong>Achievements:</strong> Awarded 25% Academic Scholarship</p> </div> </div> </div>
-        <div class="timeline-item" data-aos="fade-right"> <div class="accordion-item"> <div class="accordion-header"> <i class="fas fa-graduation-cap"></i> <h3>GCE O Levels</h3> <span class="company">Alpha High School</span> <div class="icon-wrapper"> <i class="fas fa-chevron-down"></i> </div> </div> <div class="accordion-content"> <p><strong>Duration:</strong> 2018 - 2021</p> <p><strong>Location:</strong> Karachi, Pakistan</p> <p><strong>Grades:</strong> 9 A*, 1 A (10 Subjects Total)</p> <p><strong>Key Subjects:</strong> Mathematics, Add. Maths, Statistics, English, Computer Science, Physics, Chemistry</p> </div> </div> </div>
-         <div class="timeline-item" data-aos="fade-left"> <div class="accordion-item"> <div class="accordion-header"> <i class="fas fa-pencil-alt"></i> <h3>SAT Examination</h3> <span class="company">College Board</span> <div class="icon-wrapper"> <i class="fas fa-chevron-down"></i> </div> </div> <div class="accordion-content"> <p><strong>Year:</strong> 2022</p> <p><strong>Score: 1500 / 1600</strong></p> <ul> <li>English: 700/800 | Math: 800/800</li> </ul> </div> </div> </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="skills">
-    <div class="container">
-      <h2>Skills</h2>
-      <div class="skills-grid">
-         <div class="skill-category" data-aos="fade-up" data-aos-delay="0"> <h3><i class="fas fa-code"></i> Programming & Web</h3> <div class="skills-list"> <div class="skill"> <svg class="circle-chart" viewBox="0 0 33.83 33.83" width="80" height="80"> <circle class="circle-chart-background" stroke="#E5E7EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" /> <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="0, 100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" data-percentage="90" /> </svg> <p>HTML</p> </div> <div class="skill"> <svg class="circle-chart" viewBox="0 0 33.83 33.83" width="80" height="80"> <circle class="circle-chart-background" stroke="#E5E7EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" /> <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="0, 100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" data-percentage="85" /> </svg> <p>CSS</p> </div> <div class="skill"> <svg class="circle-chart" viewBox="0 0 33.83 33.83" width="80" height="80"> <circle class="circle-chart-background" stroke="#E5E7EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" /> <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="0, 100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" data-percentage="80" /> </svg> <p>JavaScript</p> </div> </div> <ul class="skill-list-text"> <li>Python</li> <li>Java</li> <li>C#</li> <li>SQL</li> <li>Web Development</li> <li>R Studio</li> </ul> </div>
-        <div class="skill-category" data-aos="fade-up" data-aos-delay="100"> <h3><i class="fas fa-brain"></i> AI, Tools & Other</h3> <div class="skills-list"> <div class="skill"> <svg class="circle-chart" viewBox="0 0 33.83 33.83" width="80" height="80"> <circle class="circle-chart-background" stroke="#E5E7EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" /> <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="0, 100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" data-percentage="75" /> </svg> <p>AI Agents Dev</p> </div> <div class="skill"> <svg class="circle-chart" viewBox="0 0 33.83 33.83" width="80" height="80"> <circle class="circle-chart-background" stroke="#E5E7EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" /> <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="0, 100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" data-percentage="80" /> </svg> <p>GenAI Tools</p> </div> <div class="skill"> <svg class="circle-chart" viewBox="0 0 33.83 33.83" width="80" height="80"> <circle class="circle-chart-background" stroke="#E5E7EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" /> <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="0, 100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" data-percentage="70" /> </svg> <p>Joget 8 DX</p> </div> </div> <ul class="skill-list-text"> <li>Leveraging LLMs Locally</li> <li>AI-Graphics Generation</li> <li>Graphic Designing</li> <li>Microsoft Office Suite</li> <li>Leadership</li> <li>Collaboration</li> <li>Carbon-Literacy</li> </ul> </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="projects">
-  <div class="container">
-    <h2>Featured Projects</h2>
-    <div class="content-grid">
-      <div class="achievement-card" data-aos="fade-up" data-aos-delay="0"> <i class="fab fa-instagram achievement-icon"></i> <h3 class="achievement-title">AI Art Creator</h3> <div class="achievement-project"> <h4>@ai.illusions</h4> <p>Founded and actively manage an Instagram page showcasing AI-generated artwork and graphics. Organically grew the community to <strong>17,000+ followers</strong>.</p> <a href="https://www.instagram.com/ai.illusions/" target="_blank" rel="noopener noreferrer" class="achievement-link"> <i class="fab fa-instagram"></i> View on Instagram <i class="fas fa-external-link-alt"></i> </a> </div> </div>
-      <div class="achievement-card" data-aos="fade-up" data-aos-delay="100"> <i class="fas fa-gamepad achievement-icon"></i> <h3 class="achievement-title">3D Game Development</h3> <div class="achievement-project"> <h4>Area-51 Survival Game</h4> <p>Developed a 3D alien survival game prototype using <strong>Three.js</strong> and custom 3D assets, showcasing skills in 3D graphics programming and game logic.</p> <a href="https://github.com/MrMystery8/area-51" target="_blank" rel="noopener noreferrer" class="achievement-link"> <i class="fab fa-github"></i> View on GitHub <i class="fas fa-external-link-alt"></i> </a> </div> </div>
-    </div>
-  </div>
-</section>
-
-<section id="recognition">
-  <div class="container">
-    <h2>Recognition & Awards</h2>
-    <div class="content-grid">
-      <div class="achievement-card" data-aos="fade-up" data-aos-delay="0"> <i class="fas fa-certificate achievement-icon"></i> <h3 class="achievement-title">Certifications & Programs</h3> <ul class="achievement-list"> <li><strong>AI Agents Fundamentals Certified</strong> (Hugging Face, 03/2025).</li> <li><strong>Carbon Literacy Training Certified</strong> (DMU UK, 06/2024).</li> <li><strong>Google Labs Trusted Tester</strong> (Early access to pre-release GenAI tools like Imagen 2, Whisk-Veo 2).</li> </ul> </div>
-      <div class="achievement-card" data-aos="fade-up" data-aos-delay="100"> <i class="fas fa-award achievement-icon"></i> <h3 class="achievement-title">Competitions & Awards</h3> <ul class="achievement-list"> <li><strong>Scinnova V:</strong> Grand Runners Up overall; Won Robotics module.</li> <li><strong>CEMC University of Waterloo Euclid Contest:</strong> Certificate of Distinction (Top 25% internationally).</li> <li><strong>Rubik’s 5.0:</strong> Won 'Kaleidoscope' and 'A Fraction Ahead' (Math) modules.</li> <li><strong>Spark!Lab Ambassador:</strong> Selected as International Ambassador (2016).</li> </ul> </div>
-    </div>
-  </div>
-</section>
-
-  <section id="interests">
-    <div class="container">
-      <h2>Interests</h2>
-      <div class="interests-grid">
-         <div class="interest-item" data-aos="zoom-in" data-aos-delay="0"> <i class="fas fa-laptop-code"></i> <p>AI & Technology</p> </div>
-         <div class="interest-item" data-aos="zoom-in" data-aos-delay="100"> <i class="fas fa-palette"></i> <p>AI Art & Design</p> </div>
-        <div class="interest-item" data-aos="zoom-in" data-aos-delay="200"> <i class="fas fa-code"></i> <p>Web Development</p> </div>
-        <div class="interest-item" data-aos="zoom-in" data-aos-delay="300"> <i class="fas fa-futbol"></i> <p>Football/Futsal</p> </div>
-         <div class="interest-item" data-aos="zoom-in" data-aos-delay="400"> <i class="fas fa-robot"></i> <p>Robotics</p> </div>
-         <div class="interest-item" data-aos="zoom-in" data-aos-delay="500"> <i class="fas fa-camera-retro"></i> <p>Photography</p> </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="container">
-      <h2>Contact Me</h2>
-      <form action="https://formspree.io/f/myzepllj" method="POST">
-        <input type="text" name="name" placeholder="Your Name" required />
-        <input type="email" name="email" placeholder="Your Email" required />
-        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-        <button type="submit">Send Message</button>
-      </form>
-      <div class="social-links social-links-footer">
-        <a href="mailto:ayaanminhas1@gmail.com" aria-label="Send Email"><i class="fas fa-envelope"></i></a>
-        <a href="https://linkedin.com/in/ayaan-minhas" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
-        <a href="https://github.com/mrmystery8" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
-         <a href="tel:+60106501072" aria-label="Call Phone"><i class="fas fa-phone"></i></a>
-      </div>
-    </div>
-  </section>
+  <!-- Sections (Hero, Experience, etc. - No changes from previous) -->
+  <section id="hero"> <div class="container"> <img src="Me.png" alt="Ayaan Minhas Profile Picture" class="profile-img" data-aos="zoom-in" /> <h1 data-aos="fade-up">Ayaan Minhas</h1> <p id="typewriter" data-aos="fade-up" data-aos-delay="100"></p> <p data-aos="fade-up" data-aos-delay="200"> Computer Science student at APU specializing in Artificial Intelligence. Passionate about web development, leveraging AI, and creating innovative solutions. Based in Kuala Lumpur, Malaysia. </p> <a href="Ayaan Minhas - Resume.pdf" class="btn" download="Ayaan-Minhas-Resume.pdf">Download Resume</a> <div class="social-links" data-aos="fade-up" data-aos-delay="400"> <a href="https://linkedin.com/in/ayaan-minhas" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a> <a href="https://github.com/mrmystery8" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a> <a href="mailto:ayaanminhas1@gmail.com" aria-label="Send Email"><i class="fas fa-envelope"></i></a> <a href="tel:+60106501072" aria-label="Call Phone"><i class="fas fa-phone"></i></a> </div> </div> </section>
+  <section id="experience"> <div class="container"> <h2>Work Experience</h2> <div class="timeline"> <div class="timeline-item" data-aos="fade-right"> <div class="accordion-item"> <div class="accordion-header"> <i class="fas fa-cogs"></i> <h3>Research & Development Assistant (Part-Time)</h3> <span class="company">CTI at APU, Kuala Lumpur</span> <div class="icon-wrapper"> <i class="fas fa-chevron-down"></i> </div> </div> <div class="accordion-content"> <p><strong>Duration:</strong> November 2024 - Present</p> <p><strong>Location:</strong> Kuala Lumpur, Malaysia</p> <ul> <li>Develop, test, and implement front-end web applications (HTML, CSS, JavaScript), ensuring responsiveness and cross-browser compatibility.</li> <li>Collaborate on innovative web solutions and proof-of-concept prototypes.</li> <li>Maintain applications, troubleshoot bugs, perform code reviews, and optimize performance.</li> <li>Utilize Joget 8 DX for integrated development aspects.</li> </ul> </div> </div> </div> <div class="timeline-item" data-aos="fade-left"> <div class="accordion-item"> <div class="accordion-header"> <i class="fas fa-user-tie"></i> <h3>Chief Information Officer</h3> <span class="company">Nixor Creative Studios (NCS)</span> <div class="icon-wrapper"> <i class="fas fa-chevron-down"></i> </div> </div> <div class="accordion-content"> <p><strong>Duration:</strong> February 2022 - February 2023 (1 year 1 month)</p> <p><strong>Location:</strong> Karachi, Sindh, Pakistan</p> <ul> <li>Led the IT department, managed website updates, and trained 50+ volunteers.</li> <li>Spearheaded the relaunch of the Sharkpress online journalism website.</li> <li>Nominated for CIO of the Year.</li> <li>Previously volunteered (Jun 2021 - Feb 2022): Event media coverage, design, and website assistance.</li> </ul> </div> </div> </div> <div class="timeline-item" data-aos="fade-right"> <div class="accordion-item"> <div class="accordion-header"> <i class="fas fa-chalkboard-teacher"></i> <h3>Senior Teacher's Assistant - Physics</h3> <span class="company">Nixor College TA Program</span> <div class="icon-wrapper"> <i class="fas fa-chevron-down"></i> </div> </div> <div class="accordion-content"> <p><strong>Duration:</strong> September 2022 - March 2023 (7 months)</p> <p><strong>Location:</strong> Karachi, Sindh, Pakistan</p> <ul> <li>Managed junior Physics TAs and coordinated with the Student Academics Team.</li> <li>Provided advanced academic support and addressed student queries in Physics.</li> </ul> </div> </div> </div> <div class="timeline-item" data-aos="fade-left"> <div class="accordion-item"> <div class="accordion-header"> <i class="fas fa-book-reader"></i> <h3>Teacher's Assistant - Physics</h3> <span class="company">Nixor College TA Program</span> <div class="icon-wrapper"> <i class="fas fa-chevron-down"></i> </div> </div> <div class="accordion-content"> <p><strong>Duration:</strong> October 2021 - September 2022 (1 year)</p> <p><strong>Location:</strong> Karachi, Sindh, Pakistan</p> <ul> <li>Provided part-time academic support in Physics.</li> <li>Answered student queries and maintained TA lounge presence (4+ hrs/week).</li> </ul> </div> </div> </div> </div> </div> </section>
+  <section id="education"> <div class="container"> <h2>Education</h2> <div class="timeline"> <div class="timeline-item" data-aos="fade-right"> <div class="accordion-item"> <div class="accordion-header"> <i class="fas fa-university"></i> <h3>Bachelor of Computer Science (Hons) (Artificial Intelligence)</h3> <span class="company">Asia Pacific University (APU/APIIT)</span> <div class="icon-wrapper"> <i class="fas fa-chevron-down"></i> </div> </div> <div class="accordion-content"> <p><strong>Duration:</strong> 2023 - Present (Expected 2026)</p> <p><strong>Location:</strong> Kuala Lumpur, Malaysia</p> <p><strong>Achievements:</strong></p> <ul> <li>Consistently High GPA: Y1S1: 3.94 | Y1S2: 4.00 | Y2S1: 3.96</li> <li>APU – De Montfort University (UK) Dual Degree</li> <li>Awarded 30% Academic Scholarship (Maximum based on Excellence)</li> </ul> </div> </div> </div> <div class="timeline-item" data-aos="fade-left"> <div class="accordion-item"> <div class="accordion-header"> <i class="fas fa-school"></i> <h3>GCE A Levels</h3> <span class="company">Nixor College</span> <div class="icon-wrapper"> <i class="fas fa-chevron-down"></i> </div> </div> <div class="accordion-content"> <p><strong>Duration:</strong> 2021 - 2023</p> <p><strong>Location:</strong> Karachi, Pakistan</p> <p><strong>Subjects & Grades:</strong></p> <ul> <li>Further Mathematics (A), Mathematics (A*), Computer Science (A*), Physics (A*), Chemistry (A*)</li> </ul> <p><strong>Achievements:</strong> Awarded 25% Academic Scholarship</p> </div> </div> </div> <div class="timeline-item" data-aos="fade-right"> <div class="accordion-item"> <div class="accordion-header"> <i class="fas fa-graduation-cap"></i> <h3>GCE O Levels</h3> <span class="company">Alpha High School</span> <div class="icon-wrapper"> <i class="fas fa-chevron-down"></i> </div> </div> <div class="accordion-content"> <p><strong>Duration:</strong> 2018 - 2021</p> <p><strong>Location:</strong> Karachi, Pakistan</p> <p><strong>Grades:</strong> 9 A*, 1 A (10 Subjects Total)</p> <p><strong>Key Subjects:</strong> Mathematics, Add. Maths, Statistics, English, Computer Science, Physics, Chemistry</p> </div> </div> </div> <div class="timeline-item" data-aos="fade-left"> <div class="accordion-item"> <div class="accordion-header"> <i class="fas fa-pencil-alt"></i> <h3>SAT Examination</h3> <span class="company">College Board</span> <div class="icon-wrapper"> <i class="fas fa-chevron-down"></i> </div> </div> <div class="accordion-content"> <p><strong>Year:</strong> 2022</p> <p><strong>Score: 1500 / 1600</strong></p> <ul> <li>English: 700/800 | Math: 800/800</li> </ul> </div> </div> </div> </div> </div> </section>
+  <section id="skills"> <div class="container"> <h2>Skills</h2> <div class="skills-grid"> <div class="skill-category" data-aos="fade-up" data-aos-delay="0"> <h3><i class="fas fa-code"></i> Programming & Web</h3> <div class="skills-list"> <div class="skill"> <svg class="circle-chart" viewBox="0 0 33.83 33.83" width="80" height="80"> <circle class="circle-chart-background" stroke="#E5E7EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" /> <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="0, 100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" data-percentage="90" /> </svg> <p>HTML</p> </div> <div class="skill"> <svg class="circle-chart" viewBox="0 0 33.83 33.83" width="80" height="80"> <circle class="circle-chart-background" stroke="#E5E7EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" /> <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="0, 100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" data-percentage="85" /> </svg> <p>CSS</p> </div> <div class="skill"> <svg class="circle-chart" viewBox="0 0 33.83 33.83" width="80" height="80"> <circle class="circle-chart-background" stroke="#E5E7EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" /> <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="0, 100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" data-percentage="80" /> </svg> <p>JavaScript</p> </div> </div> <ul class="skill-list-text"> <li>Python</li> <li>Java</li> <li>C#</li> <li>SQL</li> <li>Web Development</li> <li>R Studio</li> </ul> </div> <div class="skill-category" data-aos="fade-up" data-aos-delay="100"> <h3><i class="fas fa-brain"></i> AI, Tools & Other</h3> <div class="skills-list"> <div class="skill"> <svg class="circle-chart" viewBox="0 0 33.83 33.83" width="80" height="80"> <circle class="circle-chart-background" stroke="#E5E7EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" /> <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="0, 100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" data-percentage="75" /> </svg> <p>AI Agents Dev</p> </div> <div class="skill"> <svg class="circle-chart" viewBox="0 0 33.83 33.83" width="80" height="80"> <circle class="circle-chart-background" stroke="#E5E7EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" /> <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="0, 100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" data-percentage="80" /> </svg> <p>GenAI Tools</p> </div> <div class="skill"> <svg class="circle-chart" viewBox="0 0 33.83 33.83" width="80" height="80"> <circle class="circle-chart-background" stroke="#E5E7EB" stroke-width="2" fill="none" cx="16.92" cy="16.92" r="15.92" /> <circle class="circle-chart-circle" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="0, 100" stroke-linecap="round" fill="none" cx="16.92" cy="16.92" r="15.92" data-percentage="70" /> </svg> <p>Joget 8 DX</p> </div> </div> <ul class="skill-list-text"> <li>Leveraging LLMs Locally</li> <li>AI-Graphics Generation</li> <li>Graphic Designing</li> <li>Microsoft Office Suite</li> <li>Leadership</li> <li>Collaboration</li> <li>Carbon-Literacy</li> </ul> </div> </div> </div> </section>
+  <section id="projects"> <div class="container"> <h2>Featured Projects</h2> <div class="content-grid"> <div class="achievement-card" data-aos="fade-up" data-aos-delay="0"> <i class="fab fa-instagram achievement-icon"></i> <h3 class="achievement-title">AI Art Creator</h3> <div class="achievement-project"> <h4>@ai.illusions</h4> <p>Founded and actively manage an Instagram page showcasing AI-generated artwork and graphics. Organically grew the community to <strong>17,000+ followers</strong>.</p> <a href="https://www.instagram.com/ai.illusions/" target="_blank" rel="noopener noreferrer" class="achievement-link"> <i class="fab fa-instagram"></i> View on Instagram <i class="fas fa-external-link-alt"></i> </a> </div> </div> <div class="achievement-card" data-aos="fade-up" data-aos-delay="100"> <i class="fas fa-gamepad achievement-icon"></i> <h3 class="achievement-title">3D Game Development</h3> <div class="achievement-project"> <h4>Area-51 Survival Game</h4> <p>Developed a 3D alien survival game prototype using <strong>Three.js</strong> and custom 3D assets, showcasing skills in 3D graphics programming and game logic.</p> <a href="https://github.com/MrMystery8/area-51" target="_blank" rel="noopener noreferrer" class="achievement-link"> <i class="fab fa-github"></i> View on GitHub <i class="fas fa-external-link-alt"></i> </a> </div> </div> </div> </div> </section>
+  <section id="recognition"> <div class="container"> <h2>Recognition & Awards</h2> <div class="content-grid"> <div class="achievement-card" data-aos="fade-up" data-aos-delay="0"> <i class="fas fa-certificate achievement-icon"></i> <h3 class="achievement-title">Certifications & Programs</h3> <ul class="achievement-list"> <li><strong>AI Agents Fundamentals Certified</strong> (Hugging Face, 03/2025).</li> <li><strong>Carbon Literacy Training Certified</strong> (DMU UK, 06/2024).</li> <li><strong>Google Labs Trusted Tester</strong> (Early access to pre-release GenAI tools like Imagen 2, Whisk-Veo 2).</li> </ul> </div> <div class="achievement-card" data-aos="fade-up" data-aos-delay="100"> <i class="fas fa-award achievement-icon"></i> <h3 class="achievement-title">Competitions & Awards</h3> <ul class="achievement-list"> <li><strong>Scinnova V:</strong> Grand Runners Up overall; Won Robotics module.</li> <li><strong>CEMC University of Waterloo Euclid Contest:</strong> Certificate of Distinction (Top 25% internationally).</li> <li><strong>Rubik’s 5.0:</strong> Won 'Kaleidoscope' and 'A Fraction Ahead' (Math) modules.</li> <li><strong>Spark!Lab Ambassador:</strong> Selected as International Ambassador (2016).</li> </ul> </div> </div> </div> </section>
+  <section id="interests"> <div class="container"> <h2>Interests</h2> <div class="interests-grid"> <div class="interest-item" data-aos="zoom-in" data-aos-delay="0"> <i class="fas fa-laptop-code"></i> <p>AI & Technology</p> </div> <div class="interest-item" data-aos="zoom-in" data-aos-delay="100"> <i class="fas fa-palette"></i> <p>AI Art & Design</p> </div> <div class="interest-item" data-aos="zoom-in" data-aos-delay="200"> <i class="fas fa-code"></i> <p>Web Development</p> </div> <div class="interest-item" data-aos="zoom-in" data-aos-delay="300"> <i class="fas fa-futbol"></i> <p>Football/Futsal</p> </div> <div class="interest-item" data-aos="zoom-in" data-aos-delay="400"> <i class="fas fa-robot"></i> <p>Robotics</p> </div> <div class="interest-item" data-aos="zoom-in" data-aos-delay="500"> <i class="fas fa-camera-retro"></i> <p>Photography</p> </div> </div> </div> </section>
+  <section id="contact"> <div class="container"> <h2>Contact Me</h2> <form action="https://formspree.io/f/myzepllj" method="POST"> <input type="text" name="name" placeholder="Your Name" required /> <input type="email" name="email" placeholder="Your Email" required /> <textarea name="message" placeholder="Your Message" rows="5" required></textarea> <button type="submit">Send Message</button> </form> <div class="social-links social-links-footer"> <a href="mailto:ayaanminhas1@gmail.com" aria-label="Send Email"><i class="fas fa-envelope"></i></a> <a href="https://linkedin.com/in/ayaan-minhas" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a> <a href="https://github.com/mrmystery8" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a> <a href="tel:+60106501072" aria-label="Call Phone"><i class="fas fa-phone"></i></a> </div> </div> </section>
 
   <!-- Footer -->
   <footer>
@@ -248,7 +101,6 @@
   <script>
     // Set current year in footer dynamically
     document.getElementById('current-year').textContent = new Date().getFullYear();
-    // NOTE: AOS.init() is NOT called here anymore. JS handles animations.
   </script>
   <script src="script.js"></script>
 
