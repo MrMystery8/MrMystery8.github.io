@@ -58,11 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // (Keep accordion logic same as previous version)
     accordionHeaders.forEach(header => { header.addEventListener('click', () => { const accordionItem = header.closest('.accordion-item'); const accordionContent = header.nextElementSibling; if (!accordionItem || !accordionContent || !accordionContent.classList.contains('accordion-content')) { console.warn('Accordion structure issue near:', header); return; } const currentlyOpen = accordionItem.classList.contains('open'); if (!currentlyOpen) { accordionItem.classList.add('open'); accordionContent.style.maxHeight = accordionContent.scrollHeight + 40 + "px"; accordionContent.style.paddingTop = '20px'; accordionContent.style.paddingBottom = '20px'; accordionContent.style.opacity = 1; } else { accordionItem.classList.remove('open'); accordionContent.style.maxHeight = null; accordionContent.style.paddingTop = '0'; accordionContent.style.paddingBottom = '0'; accordionContent.style.opacity = 0; } }); });
 
-    // =======================================================================
-    // --- Intersection Observer for Animations & Skill Bars (Original Logic) ---
-    // This observer handles both general fade/slide animations based on 'data-aos'
-    // attribute AND the specific skill bar circle animations.
-    // It manually adds/removes the 'aos-animate' class.
+        // =======================================================================
+    // --- Intersection Observer for Animations & Skill Bars (UPDATED Logic) ---
+    // Handles general animations AND skill bar circle/text animations.
     // =======================================================================
     const observerOptions = {
         root: null, // viewport
@@ -82,18 +80,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 // --- Handle Skill Bar Animation (Animate In) ---
+                // Check if the target itself or its parent is the skills section
                 const skillSection = target.id === 'skills' ? target : target.closest('#skills');
                 if (skillSection) {
-                     requestAnimationFrame(() => {
+                     requestAnimationFrame(() => { // Use rAF for smoother animation start
                         skillSection.querySelectorAll('.circle-chart-circle').forEach(circle => {
                             const percentage = circle.getAttribute('data-percentage');
+                            // Find the corresponding text element within the same SVG
+                            const textElement = circle.parentElement.querySelector('.circle-chart-text');
+
                             if (percentage) {
-                                // Force restart animation trick
+                                // Force restart animation trick for the circle
                                 circle.style.transition = 'none';
                                 circle.style.strokeDasharray = '0, 100';
                                 void circle.offsetWidth; // Force reflow
                                 circle.style.transition = ''; // Re-enable CSS transition
+                                // Animate the circle
                                 circle.style.strokeDasharray = `${percentage}, 100`;
+
+                                // Update the text content
+                                if (textElement) {
+                                    // Optional: Animate the text number count up (more complex)
+                                    // Simple way: just set the text
+                                     textElement.textContent = `${percentage}%`;
+                                }
                             }
                         });
                      });
@@ -105,13 +115,25 @@ document.addEventListener('DOMContentLoaded', () => {
                  }
 
                 // --- Reset Skill Bars (Animate Out/Reset) ---
+                 // Check if the target itself or its parent is the skills section
                  const skillSection = target.id === 'skills' ? target : target.closest('#skills');
                  if (skillSection) {
                       requestAnimationFrame(() => {
                         skillSection.querySelectorAll('.circle-chart-circle').forEach(circle => {
-                             circle.style.transition = 'none'; // Disable transition for reset
+                             // Find the corresponding text element
+                             const textElement = circle.parentElement.querySelector('.circle-chart-text');
+
+                             // Reset circle animation
+                             circle.style.transition = 'stroke-dasharray 0.3s ease-out'; // Smoother reset
                              circle.style.strokeDasharray = '0, 100';
-                             setTimeout(() => { circle.style.transition = ''; }, 50); // Re-enable later
+
+                             // Reset text content
+                             if (textElement) {
+                                 textElement.textContent = '0%'; // Reset text
+                             }
+
+                             // Optional: re-enable full animation transition after reset completes
+                             // setTimeout(() => { circle.style.transition = ''; }, 350);
                         });
                       });
                  }
@@ -122,10 +144,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Observe elements with 'data-aos' attribute AND the #skills section itself
     document.querySelectorAll('[data-aos], section#skills').forEach(element => {
         if (element) {
-            animationObserver.observe(element);
+            // Ensure skills section is observed only once if it also has data-aos
+             if (element.id === 'skills' || !element.closest('#skills[data-aos]')) {
+                animationObserver.observe(element);
+            }
         }
     });
-    // --- END Intersection Observer ---
+    // --- END Intersection Observer Update ---
 
     // --- Particle Settings Panel Logic ---
     // (Keep particle settings panel logic same as previous version)
