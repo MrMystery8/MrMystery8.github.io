@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Typewriter Effect ---
     // (Keep typewriter logic same as previous version)
-    const phrases = ["AI Specialist", "Web Developer", "Computer Science Student", "Tech Innovator", "Graphic Designer"]; let phraseIndex = 0; let letterIndex = 0; let currentPhrase = ''; let isDeleting = false; let typeTimeout;
+    const phrases = ["AI Systems Builder", "RAG Engineer", "Computer Science Undergraduate", "Full-Stack Prototyper", "Agentic Workflow Developer"]; let phraseIndex = 0; let letterIndex = 0; let currentPhrase = ''; let isDeleting = false; let typeTimeout;
     function typeWriter() { if (!typewriterElement) return; clearTimeout(typeTimeout); const phrase = phrases[phraseIndex]; let typeSpeed = isDeleting ? 60 : 130; if (isDeleting) { currentPhrase = phrase.substring(0, letterIndex--); } else { currentPhrase = phrase.substring(0, letterIndex++); } typewriterElement.textContent = currentPhrase; if (currentPhrase === '') { typewriterElement.innerHTML = ' '; } if (!isDeleting && letterIndex > phrase.length) { typeSpeed = 2200; isDeleting = true; letterIndex = phrase.length; } else if (isDeleting && letterIndex < 0) { isDeleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; typeSpeed = 500; letterIndex = 0; } typeTimeout = setTimeout(typeWriter, typeSpeed); }
     if (typewriterElement) { setTimeout(typeWriter, 1200); }
 

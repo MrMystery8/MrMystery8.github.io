@@ -140,9 +140,14 @@ body.reduce-motion #particles-js { display: none; }
 #hero h1 { font-family: 'Montserrat', sans-serif; font-size: 2.8rem; margin-bottom: 10px; color: var(--text-color); transition: color 0.3s; }
 #hero #typewriter { font-size: 1.3rem; color: var(--gray-text); margin-bottom: 15px; min-height: 1.6em; font-weight: bold; transition: color 0.3s; }
 #hero p:not(#typewriter) { font-size: 1.1rem; color: var(--gray-text); max-width: 600px; margin: 0 auto 25px; transition: color 0.3s; }
-#hero .btn { background: var(--accent-color); color: white; padding: 12px 28px; border-radius: 8px; font-weight: 700; transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; display: inline-block; margin-top: 1.5rem; box-shadow: var(--shadow); font-size: 1.1rem; border: none; }
+#hero .btn { background: var(--accent-color); color: white; padding: 12px 28px; border-radius: 8px; font-weight: 700; transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; display: inline-block; margin-top: 1.5rem; box-shadow: var(--shadow); font-size: 1.1rem; border: none; }
 #hero .btn:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 6px 12px rgba(14, 165, 233, 0.5); background: var(--accent-color-darker); }
 #hero .btn:active { transform: translateY(0) scale(1); }
+.hero-actions { display: flex; gap: 14px; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 1.5rem; }
+#hero .hero-actions .btn { margin-top: 0; }
+#hero .btn.btn-secondary { background: transparent; color: var(--accent-color); border: 1px solid color-mix(in srgb, var(--accent-color) 45%, transparent); box-shadow: none; }
+#hero .btn.btn-secondary:hover { background: color-mix(in srgb, var(--accent-color) 12%, transparent); color: var(--accent-color-darker); border-color: color-mix(in srgb, var(--accent-color) 70%, transparent); }
+.hero-doc-note { margin-top: 0.85rem; color: var(--gray-text); font-size: 0.95rem; }
 .social-links { margin-top: 30px; }
 .social-links a { font-size: 24px; margin: 0 12px; color: var(--gray-text); transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease; display: inline-block; }
 .social-links a:hover { transform: scale(1.2) translateY(-2px); color: var(--accent-color); text-shadow: 0 0 6px color-mix(in srgb, var(--accent-color) 60%, transparent); }
@@ -453,6 +458,7 @@ body.light-mode #fab-menu-items { box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
   #hero p:not(#typewriter) { font-size: 1rem; max-width: 90%; }
   #hero .profile-img { width: 130px; height: 130px; }
   #hero .btn { padding: 10px 24px; font-size: 1rem; }
+  .hero-actions { gap: 10px; }
   .social-links a { font-size: 22px; margin: 0 10px; }
   .skills-grid, .content-grid { grid-template-columns: 1fr; gap: 25px; }
   .interests-grid { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; }
